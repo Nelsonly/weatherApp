@@ -1,2 +1,3 @@
+include ':mvplibrary'
 include ':app'
 rootProject.name = "app_nelson_android"
