@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.gson.Gson;
 import com.nelson.weather.R;
 import com.nelson.weather.bean.WarningResponse;
 import com.nelson.weather.utils.DateUtils;
 import com.nelson.weather.utils.StatusBarUtil;
 import com.nelson.weather.utils.WeatherUtil;
 import com.nelson.mvplibrary.base.BaseActivity;
+import com.google.gson.Gson;
 
 import java.util.List;
 

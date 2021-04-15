@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.AriQualityFragment">
+    <!-- TODO: Update blank fragment layout -->
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsv_scroll_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- 顶部圆环部分-->
+                <include
+                    android:id="@+id/include_title"
+                    layout="@layout/module_include_air_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!--空气微粒及含量-->
+                <include
+                    android:id="@+id/include_quality"
+                    layout="@layout/module_include_air_quality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"/>
+
+                <!-- native小广告-->
+                <include
+                    layout="@layout/module_include_ad_rabbit"/>
+
+                <!-- 建议卡片-->
+                <include
+                    layout="@layout/module_include_air_advice"/>
+
+                <!-- 5天空气质量-->
+                <include
+                    layout="@layout/module_include_air_daily"/>
+
+                <!-- native大广告-->
+                <include
+                    layout="@layout/module_include_ad_sheep"/>
+
+                <!-- 监测站点-->
+                <include
+                    android:id="@+id/include_monitor"
+                    android:visibility="gone"
+                    layout="@layout/module_include_air_monitor"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

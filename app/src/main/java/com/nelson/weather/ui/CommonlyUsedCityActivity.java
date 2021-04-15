@@ -110,6 +110,7 @@ public class CommonlyUsedCityActivity extends MvpActivity<SearchCityContract.Sea
         if (residentCity.save()) {//保存成功
             //然后使用之前在搜索城市天气中写好的代码
             SPUtils.putString(Constant.LOCATION, mList.get(position).getName(), context);
+            SPUtils.putString("AllLocation",mList.get(position).getAdm2()+mList.get(position).getName(),context);
             //发送消息
             EventBus.getDefault().post(new SearchCityEvent(mList.get(position).getName(),
                     mList.get(position).getAdm2()));
@@ -170,7 +171,6 @@ public class CommonlyUsedCityActivity extends MvpActivity<SearchCityContract.Sea
     private void initCityList() {
         //查询ResidentCity表中所有数据
         cityList = LitePal.findAll(ResidentCity.class);
-
         if (cityList.size() > 0 && cityList != null) {
             mAdapter = new CommonlyCityAdapter(R.layout.item_commonly_city_list, cityList);
 
@@ -182,6 +182,7 @@ public class CommonlyUsedCityActivity extends MvpActivity<SearchCityContract.Sea
                     switch (view.getId()) {
                         case R.id.tv_city_name:
                             SPUtils.putString(Constant.LOCATION, cityList.get(position).getLocation(), context);
+                            SPUtils.putString("AllLocation",cityList.get(position).getParent_city()+cityList.get(position).getLocation(),context);
                             //发送消息
                             EventBus.getDefault().post(new SearchCityEvent(cityList.get(position).getLocation(),
                                     cityList.get(position).getParent_city()));

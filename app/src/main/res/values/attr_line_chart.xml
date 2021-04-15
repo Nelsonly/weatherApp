@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LineChartView">
+        <!--
+        private int XScale = 55;     //X的刻度长度，默认值，后面会改写。
+        private int YScale = 40;     //Y的刻度长度，默认值，后面会改写。
+        private int XLength = 300;        //X轴的默认长度
+        private int YLength = 100;        //Y轴的默认长度
+        private List<String> YLabel=new ArrayList<>();    //Y的刻度
+        private List<String> Data=new ArrayList<>();      //数据
+        private int lineColor;     //折线的颜色
+        private int lineWidth = 0;     //折线线宽
+        private int radius = 0;     //圆点的半径
+        -->
+        <attr name="XScale" format="integer"/>
+        <attr name="YScale" format="integer"/>
+        <attr name="XLength" format="integer"/>
+        <attr name="YLength" format="integer"/>
+        <attr name="YLabelSize" format="integer"/>
+        <attr name="DataSize" format="integer"/>
+        <attr name="linecilor" format="integer"/>
+        <attr name="lineWidth" format="integer"/>
+        <!--<attr name="radius" format="integer"/>-->
+    </declare-styleable>
+</resources>

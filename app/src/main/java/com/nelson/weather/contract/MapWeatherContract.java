@@ -1,5 +1,6 @@
 package com.nelson.weather.contract;
 
+
 import com.nelson.weather.api.ApiService;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.DailyResponse;

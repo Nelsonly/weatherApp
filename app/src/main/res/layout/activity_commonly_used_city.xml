@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@mipmap/icon_return"
+        app:navigationIcon="@drawable/icon_return"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <!--输入框布局-->
@@ -40,7 +40,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_16"
                 android:layout_height="@dimen/dp_16"
-                android:src="@mipmap/icon_search" />
+                android:src="@drawable/icon_search" />
             <!--输入框-->
             <EditText
                 android:id="@+id/edit_query"
@@ -61,7 +61,7 @@
                 android:id="@+id/iv_clear_search"
                 android:layout_width="@dimen/dp_16"
                 android:layout_height="@dimen/dp_16"
-                android:src="@mipmap/icon_delete"
+                android:src="@drawable/icon_delete"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -76,7 +76,7 @@
         <ImageView
             android:layout_width="@dimen/dp_160"
             android:layout_height="@dimen/dp_160"
-            android:src="@mipmap/icon_normal"/>
+            android:src="@drawable/icon_normal"/>
 
         <TextView
             android:textSize="@dimen/sp_16"

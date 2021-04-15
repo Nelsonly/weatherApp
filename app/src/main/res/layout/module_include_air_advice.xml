@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
+    android:layout_marginTop="@dimen/card_margin_tb"
+    android:layout_marginBottom="@dimen/card_margin_tb"
+    android:layout_marginLeft="@dimen/card_margin_lr"
+    android:layout_marginRight="@dimen/card_margin_lr">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/air_advice_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="19dp"/>
+
+</androidx.cardview.widget.CardView>

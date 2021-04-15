@@ -7,9 +7,9 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.nelson.weather.R;
 import com.nelson.weather.bean.WallPaperResponse;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 

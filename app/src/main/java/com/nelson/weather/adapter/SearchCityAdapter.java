@@ -10,9 +10,9 @@ import com.nelson.weather.bean.NewSearchCityResponse;
 import java.util.List;
 
 /**
- * 搜索城市结果列表适配器
+ * 搜索城市结果列表适配器  V7
  *
- * @author nelson
+ * @author llw
  */
 public class SearchCityAdapter extends BaseQuickAdapter<NewSearchCityResponse.LocationBean, BaseViewHolder> {
     public SearchCityAdapter(int layoutResId, @Nullable List<NewSearchCityResponse.LocationBean> data) {

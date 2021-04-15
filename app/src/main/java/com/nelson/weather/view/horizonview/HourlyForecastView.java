@@ -17,6 +17,7 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -24,11 +25,13 @@ import androidx.annotation.RequiresApi;
 import com.nelson.weather.R;
 import com.nelson.weather.bean.HourlyResponse;
 import com.nelson.weather.utils.DisplayUtil;
-import com.nelson.weather.utils.IconUtils;
+import com.nelson.weather.utils.WeatherUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+//import com.nelson.weather.utils.IconUtils;
 
 
 /**
@@ -357,11 +360,14 @@ public class HourlyForecastView extends View implements ScrollWatcher {
             String code = hourlyWeatherList.get(dashLineList.get(i)).getIcon();
             BitmapDrawable bd;
 
+            ImageView iv = new ImageView(mContext);
 
             if (code.contains("d")) {
-                bd = (BitmapDrawable) mContext.getResources().getDrawable(IconUtils.getDayIconDark(code.replace("d", "")));
+                WeatherUtil.changeIcon(iv, Integer.parseInt(code.replace("d", "")));
+                bd = (BitmapDrawable) iv.getBackground();
             } else {
-                bd = (BitmapDrawable) mContext.getResources().getDrawable(IconUtils.getNightIconDark(code.replace("n", "")));
+                WeatherUtil.changeIcon(iv, Integer.parseInt(code.replace("n", "")));
+                bd = (BitmapDrawable) iv.getBackground();
             }
 
             assert bd != null;

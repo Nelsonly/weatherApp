@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nelson.weather.R;
 import com.nelson.weather.adapter.MoreDailyAdapter;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.MoreAirFiveResponse;
 import com.nelson.weather.contract.MoreDailyContract;
 import com.nelson.weather.utils.CodeToStringUtils;
 import com.nelson.weather.utils.Constant;
@@ -72,7 +73,7 @@ public class MoreDailyActivity extends MvpActivity<MoreDailyContract.MoreDailyPr
         snapHelper.attachToRecyclerView(rv);
         rv.setAdapter(mAdapter);
         tvTitle.setText(getIntent().getStringExtra("cityName"));
-        mPresent.dailyWeather(getIntent().getStringExtra("locationId"));
+        mPresent.worldCity(getIntent().getStringExtra("locationId"));
     }
 
     @Override
@@ -118,6 +119,12 @@ public class MoreDailyActivity extends MvpActivity<MoreDailyContract.MoreDailyPr
             ToastUtils.showShortToast(context, CodeToStringUtils.WeatherCode(response.body().getCode()));
         }
     }
+
+    @Override
+    public void getMoreAirFiveResult(Response<MoreAirFiveResponse> response) {
+
+    }
+
 
     /**
      * 其他异常返回

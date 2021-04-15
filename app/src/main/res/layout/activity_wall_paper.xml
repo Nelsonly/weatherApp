@@ -23,7 +23,7 @@
             app:contentInsetLeft="@dimen/dp_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@mipmap/icon_return"
+            app:navigationIcon="@drawable/icon_return"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <!--标题-->
@@ -55,7 +55,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/dp_20"
         android:clickable="true"
-        android:src="@mipmap/icon_setting"
+        android:src="@drawable/icon_setting"
         app:backgroundTint="@color/white"
         app:backgroundTintMode="screen"
         app:borderWidth="@dimen/dp_0"

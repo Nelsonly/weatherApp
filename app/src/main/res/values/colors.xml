@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#FFa7a7a7</color>
+    <color name="brown_grey">#FF7e7e7e</color>
+    <color name="suntext">#FFa7a7a7</color>
+    <color name="Dailty_BackgroundColor">#2492EA</color>
+
+    <color name="unselect">#b0f1ffff</color>
+    <color name="black_ff_bg">#b01a1a1a</color>
+    <color name="daily_text">#FFFFFF</color>
+    <color name="wechat">#323232</color>
+    <color name="page_gray_cccc">#15000000</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="dark_text_color">#B9C0CA</color>
+    <color name="red">#ffF500d5</color>
+    <color name="back_white">#f7f8fa</color>
+    <color name="attention_text_light">#E9EAEF</color>
+    <color name="black_4">#141414</color><!--黑色4-->
+    <!--普通颜色-->
+    <color name="huise2">#EAECF0</color>
+    <color name="about_bg_color">#50A0FF</color>
+    <color name="green">#85d6a9</color>
+    <color name="line_blue">#4287ed</color>
+    <!-- 空气质量等级颜色值-->
+    <color name="air_bg_1">#6bdd88</color>
+    <color name="air_bg_2">#ffc300</color>
+    <color name="air_bg_3">#ff9900</color>
+    <color name="air_bg_4">#ed5a58</color>
+    <color name="air_bg_5">#a053b0</color>
+    <color name="air_bg_6">#a11d6e</color>
+
+    <!--白色透明-->
+    <color name="white_2">#22FFFFFF</color><!--白色透明度22%-->
+    <color name="white_4">#44FFFFFF</color><!--白色透明度44%-->
+    <color name="white_6">#66FFFFFF</color><!--白色透明度66%-->
+    <color name="white_8">#88FFFFFF</color><!--白色透明度88%-->
+    <!--黑色透明-->
+    <color name="transparent_bg_0">#000000</color>
+    <color name="transparent_bg_2">#bff3d2</color><!--黑色半透明 二-->
+    <color name="transparent_bg_3">#66000000</color><!--黑色半透明 三-->
+    <color name="transparent_bg_4">#62df94</color><!--黑色半透明 四-->
+    <color name="transparent_bg_5">#88000000</color><!--黑色半透明 五-->
+
+    <color name="sun_light_circle">#33F2BE55</color>
+    <color name="sun_dark_circle">#33AD9442</color>
+    <color name="color_a4a4a4">#A4A4A4</color>
+    <color name="sunccolor">#292828</color>
+    <color name="nocolor">#00FFFFFF</color>
+
+    <color name="white_primary">#FFFFFFFF</color>
+    <color name="blue_button_color">#2980ec</color>
+
+    <color name="privacy_black">#222222</color>
+
+    <color name="progress_bar_color">#22beeb</color>
+
+    <color name="common_green">#14b464</color>
+    <color name="black_10_transparent">#1A000000</color>
+    <color name="black_12_transparent">#1f000000</color>
+    <color name="black_20_transparent">#32000000</color>
+    <color name="black_24_transparent">#3D000000</color>
+    <color name="black_27_transparent">#45000000</color>
+    <color name="black_30_transparent">#4D000000</color>
+    <color name="black_40_transparent">#66000000</color>
+    <color name="black_50_transparent">#80000000</color>
+    <color name="black_54_transparent">#8A000000</color>
+    <color name="black_60_transparent">#99000000</color>
+    <color name="black_70_transparent">#B3000000</color>
+    <color name="black_72_transparent">#B8000000</color>
+    <color name="black_80_transparent">#CC000000</color>
+    <color name="black_86_transparent">#db000000</color>
+    <color name="black_87_transparent">#DF000000</color>
+    <color name="black_90_transparent">#E6000000</color>
+    <color name="black_100_transparent">#FF000000</color>
+
+    <color name="primary_red">#FFF44336</color>
+    <color name="primary_yellow">#FFFFBE00</color>
+    <color name="primary_blue">#FF4285F4</color>
+    <color name="separator_light">#E5E5E5</color>
+
+    <color name="charging_screen_alert_negative_action">#999999</color>
+    <color name="charging_screen_alert_positive_action">#336bf3</color>
 </resources>

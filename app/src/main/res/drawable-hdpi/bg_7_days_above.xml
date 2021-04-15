@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg_7_days"
+    android:src="@drawable/bg_7_days_content_above"
+    android:tileMode="disabled" android:gravity="top|fill">
+</bitmap>

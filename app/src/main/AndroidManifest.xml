@@ -10,21 +10,52 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 读取扩展存储 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <!--    <uses-sdk android:minSdkVersion="8"></uses-sdk>-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 获取用户设备的IMEI，通过IMEI对用户进行唯一标识，以便提供统计分析服务 -->
 
     <application
+        android:name=".WeatherApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon_xml"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/app_icon_xml"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WeatherApp">
+        android:theme="@style/AppTheme">
         <activity android:name="com.nelson.weather.WeatherMainActivity">
+        </activity>
+        <activity android:name=".ui.CommonlyUsedCityActivity" />
+        <activity android:name=".ui.SearchCityActivity" />
+        <activity android:name=".ui.ImageActivity" />
+        <activity android:name=".ui.WallPaperActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity android:name=".ui.MapWeatherActivity" />
+        <activity android:name=".ui.MoreDailyActivity" />
+        <activity android:name=".ui.WarnActivity" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FdnmeYZQRGZKXsGpUjDFSXQQ9MxU9epT" />
+
     </application>
 
 </manifest>

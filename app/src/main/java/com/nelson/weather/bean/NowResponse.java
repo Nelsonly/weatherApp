@@ -1,5 +1,7 @@
 package com.nelson.weather.bean;
 
+import com.nelson.mvplibrary.base.BaseBean;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,9 @@ import java.util.List;
  *
  * @author llw
  */
-public class NowResponse {
+
+public class NowResponse extends BaseBean {
+
 
     /**
      * code : 200
@@ -85,18 +89,18 @@ public class NowResponse {
         private String obsTime;
         private String temp;
         private String feelsLike;
-        private String icon;
-        private String text;
+        private String icon = "100";
+        private String text = "晴";
         private String wind360;
-        private String windDir;
-        private String windScale;
-        private String windSpeed;
-        private String humidity;
-        private String precip;
-        private String pressure;
+        private String windDir = "西南风";
+        private String windScale = "0";
+        private String windSpeed = "0";
+        private String humidity = "0";
+        private String precip = "0";
+        private String pressure = "0";
         private String vis;
-        private String cloud;
-        private String dew;
+        private String cloud = "0";
+        private String dew = "0";
 
         public String getObsTime() {
             return obsTime;

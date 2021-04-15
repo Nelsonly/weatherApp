@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="card_margin_lr">14dp</dimen>
+    <dimen name="card_margin_tb">7dp</dimen>
+
     <!--尺寸-->
     <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_0_1">0.1dp</dimen>
@@ -416,4 +419,11 @@
     <dimen name="sp_40">40sp</dimen>
     <dimen name="sp_42">42sp</dimen>
     <dimen name="sp_48">48sp</dimen>
+
+    <dimen name="charging_screen_unlock_distance_per_second">1866dp</dimen>
+    <dimen name="progress_bar_height">2dp</dimen>
+    <dimen name="charging_feeds_popmenu_margin_right">64dp</dimen>
+    <dimen name="charging_screen_menu_to_top_height">32dp</dimen>
+    <dimen name="charging_popmenu_margin_right">60dp</dimen>
+
 </resources>

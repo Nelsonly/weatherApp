@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#00000000</item>
         <item name="colorPrimaryDark">#00000000</item>
@@ -9,23 +9,27 @@
 
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item><!--透明背景-->
-    </style>
-
-    <style name="WallPaperTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:configChanges">orientation|keyboardHidden|screenSize</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item><!--透明背景-->
+    <!--弹窗样式-->
+    <style name="AnimationRightFade"><!--右侧-->
+<!--        <item name="android:windowEnterAnimation">@anim/in_right_to_left</item>  &lt;!&ndash;打开动画&ndash;&gt;-->
+<!--        <item name="android:windowExitAnimation">@anim/out_left_to_right</item>  &lt;!&ndash;关闭动画&ndash;&gt;-->
     </style>
 
+    <style name="AnimationBottomFade"><!--底部-->
+<!--        <item name="android:windowEnterAnimation">@anim/in_bottom_to_top</item>-->
+<!--        <item name="android:windowExitAnimation">@anim/out_top_to_bottom</item>-->
+    </style>
+
+    <style name="AnimationCenterFade"><!--中间-->
+        <item name="android:windowEnterAnimation">@anim/window_show_anim</item>
+        <item name="android:windowExitAnimation">@anim/window_hidden_anim</item>
+    </style>
     <declare-styleable name="SunAnimationView">
         <attr name="sun_circle_color" format="color"/>
         <attr name="sun_font_color" format="color"/>
@@ -34,6 +38,20 @@
         <attr name="type" format="boolean"/>
     </declare-styleable>
 
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
 
+    <style name="charging_screen_transparent_background" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:listDivider">@drawable/charging_screen_divider</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
 </resources>

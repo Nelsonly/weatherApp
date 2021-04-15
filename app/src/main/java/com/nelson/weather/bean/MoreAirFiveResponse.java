@@ -94,9 +94,9 @@ public class MoreAirFiveResponse {
          */
 
         private String fxDate;
-        private String aqi;
+        private String aqi = "0";
         private String level;
-        private String category;
+        private String category = "-";
         private String primary;
 
         public String getFxDate() {

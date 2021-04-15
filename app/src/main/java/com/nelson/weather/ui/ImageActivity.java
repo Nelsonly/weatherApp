@@ -18,7 +18,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.google.android.material.button.MaterialButton;
 import com.nelson.weather.R;
 import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.SPUtils;
@@ -26,6 +25,7 @@ import com.nelson.weather.utils.StatusBarUtil;
 import com.nelson.weather.utils.ToastUtils;
 import com.nelson.mvplibrary.base.BaseActivity;
 import com.nelson.mvplibrary.bean.WallPaper;
+import com.google.android.material.button.MaterialButton;
 
 import org.litepal.LitePal;
 
@@ -63,7 +63,6 @@ public class ImageActivity extends BaseActivity {
 
     private int position;
     private Bitmap bitmap;
-
 
     @Override
     public void initData(Bundle savedInstanceState) {

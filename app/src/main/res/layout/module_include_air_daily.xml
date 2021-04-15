@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
+    android:layout_marginTop="@dimen/card_margin_tb"
+    android:layout_marginBottom="@dimen/card_margin_tb"
+    android:layout_marginLeft="@dimen/card_margin_lr"
+    android:layout_marginRight="@dimen/card_margin_lr">
+
+    <RelativeLayout
+        android:id="@+id/airquality_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:paddingTop="19dp"
+        android:paddingLeft="16.5dp">
+        <TextView
+            android:id="@+id/fiveDays_airQuality_title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:fontFamily="@font/inter"
+            android:includeFontPadding="false"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="19sp"
+            android:text="5天空气质量"/>
+
+        <!--<include
+            layout="@layout/ad_native_title"
+            android:layout_width="163dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"/>-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="11dp"
+            android:id="@+id/ad_air_container"
+            android:background="@drawable/circular_rectangle_white">
+            <FrameLayout
+                android:id="@+id/ad_title_container"
+                android:layout_width="163dp"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/ad_title_btn_close"
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:src="@drawable/btn_close_3"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/airquality_fivedays_toptime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fiveDays_airQuality_title"/>
+
+        <com.nelson.weather.view.LineChartView
+            android:id="@+id/lineChartView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="17dp"
+            android:layout_below="@id/airquality_fivedays_toptime"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/airquality_fivedays_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lineChartView"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

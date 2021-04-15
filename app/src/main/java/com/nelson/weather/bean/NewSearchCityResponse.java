@@ -2,20 +2,12 @@ package com.nelson.weather.bean;
 
 import java.util.List;
 
-/**
- * 搜索城市天气实体  V7
- *
- * @author llw
- */
 public class NewSearchCityResponse {
-
-
     /**
      * code : 200
      * location : [{"name":"福田","id":"101280603","lat":"22.54100","lon":"114.05095","adm2":"深圳","adm1":"广东","country":"中国","tz":"Asia/Shanghai","utcOffset":"+08:00","isDst":"0","type":"city","rank":"25","fxLink":"http://hfx.link/1u0y1"}]
      * refer : {"sources":["heweather.com"],"license":["commercial license"]}
      */
-
     private String code;
     private ReferBean refer;
     private List<LocationBean> location;

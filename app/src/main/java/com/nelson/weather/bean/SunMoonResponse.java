@@ -26,8 +26,8 @@ public class SunMoonResponse {
     private String code;
     private String updateTime;
     private String fxLink;
-    private String sunrise;
-    private String sunset;
+    private String sunrise="2020-09-02T00:00+08:00";
+    private String sunset="2020-09-02T00:00+08:00";
     private String moonrise;
     private String moonset;
     private ReferBean refer;

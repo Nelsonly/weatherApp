@@ -101,20 +101,20 @@ public class HourlyResponse {
          * dew : 19
          */
 
-        private String fxTime;
-        private String temp;
-        private String icon;
-        private String text;
-        private String wind360;
-        private String windDir;
-        private String windScale;
-        private String windSpeed;
-        private String humidity;
-        private String pop;
-        private String precip;
-        private String pressure;
-        private String cloud;
-        private String dew;
+        private String fxTime = "2020-07-15T10:00+08:00";
+        private String temp = "28";
+        private String icon = "100";
+        private String text = "晴";
+        private String wind360 = "0";
+        private String windDir = "西南风";
+        private String windScale = "0";
+        private String windSpeed = "10";
+        private String humidity = "0";
+        private String pop = "0";
+        private String precip = "0.0";
+        private String pressure="0";
+        private String cloud = "0";
+        private String dew = "0";
 
         public String getFxTime() {
             return fxTime;

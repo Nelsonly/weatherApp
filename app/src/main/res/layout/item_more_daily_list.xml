@@ -137,7 +137,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:src="@mipmap/icon_wind_360" />
+                                android:src="@drawable/icon_wind_360" />
 
                             <TextView
                                 android:id="@+id/tv_wind_360_d"
@@ -159,7 +159,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:src="@mipmap/icon_wind_dir" />
+                                android:src="@drawable/icon_wind_dir" />
 
                             <TextView
                                 android:id="@+id/tv_wind_dir_d"
@@ -188,7 +188,7 @@
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
                                 android:padding="@dimen/dp_2"
-                                android:src="@mipmap/icon_wind_scale" />
+                                android:src="@drawable/icon_wind_scale" />
 
                             <TextView
                                 android:id="@+id/tv_wind_scale_d"
@@ -210,7 +210,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:src="@mipmap/icon_wind_speed" />
+                                android:src="@drawable/icon_wind_speed" />
 
                             <TextView
                                 android:id="@+id/tv_wind_speed_d"
@@ -286,7 +286,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:src="@mipmap/icon_wind_360" />
+                                android:src="@drawable/icon_wind_360" />
 
                             <TextView
                                 android:id="@+id/tv_wind_360_n"
@@ -308,7 +308,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:src="@mipmap/icon_wind_dir" />
+                                android:src="@drawable/icon_wind_dir" />
 
                             <TextView
                                 android:id="@+id/tv_wind_dir_n"
@@ -337,7 +337,7 @@
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
                                 android:padding="@dimen/dp_2"
-                                android:src="@mipmap/icon_wind_scale" />
+                                android:src="@drawable/icon_wind_scale" />
 
                             <TextView
                                 android:id="@+id/tv_wind_scale_n"
@@ -359,7 +359,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_24"
                                 android:layout_height="@dimen/dp_24"
-                                android:src="@mipmap/icon_wind_speed" />
+                                android:src="@drawable/icon_wind_speed" />
 
                             <TextView
                                 android:id="@+id/tv_wind_speed_n"
@@ -400,7 +400,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@mipmap/icon_cloud" />
+                        android:src="@drawable/icon_cloud" />
 
                     <TextView
                         android:id="@+id/tv_cloud"
@@ -427,7 +427,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@mipmap/icon_uv_index" />
+                        android:src="@drawable/icon_uv_index" />
 
                     <TextView
                         android:id="@+id/tv_uvIndex"
@@ -454,7 +454,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@mipmap/icon_vis" />
+                        android:src="@drawable/icon_vis" />
 
                     <TextView
                         android:id="@+id/tv_vis"
@@ -481,7 +481,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@mipmap/icon_precip" />
+                        android:src="@drawable/icon_precip" />
 
                     <TextView
                         android:id="@+id/tv_precip"
@@ -508,7 +508,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@mipmap/icon_humidity" />
+                        android:src="@drawable/icon_humidity" />
 
                     <TextView
                         android:id="@+id/tv_humidity"
@@ -535,7 +535,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
-                        android:src="@mipmap/icon_pressure" />
+                        android:src="@drawable/icon_pressure" />
 
                     <TextView
                         android:id="@+id/tv_pressure"

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="23.5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="22.5dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp">
+            <ImageView
+                android:id="@+id/pop_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/movement"
+                android:layout_marginRight="13.5dp"/>
+            <TextView
+                android:id="@+id/pop_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/pop_img"
+                android:text="洗车：较适宜"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/pop_img_locate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/air_locate_icon"
+                android:layout_toRightOf="@id/pop_img"
+                android:layout_below="@id/pop_title"/>
+            <TextView
+                android:id="@+id/pop_tv_locate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/pop_img_locate"
+                android:layout_below="@id/pop_title"
+                android:text="海淀区 清华大学"
+                android:textSize="12sp"
+                android:textColor="#a7a7a7"
+                android:textStyle="normal"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:textColor="#222222"
+            android:textSize="14sp"
+            android:text="生活建议："
+            android:layout_marginBottom="11dp"/>
+        <TextView
+            android:id="@+id/pop_tv_advice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="天气较冷，空气干燥，用滋润保湿型化妆品，少扑粉，使用润唇膏。"
+            android:textSize="14sp"
+            android:textColor="#a7a7a7"
+            android:textStyle="normal"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

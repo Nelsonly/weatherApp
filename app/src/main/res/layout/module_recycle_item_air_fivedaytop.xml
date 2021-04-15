@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_marginBottom="28dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/airQuality_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="21sp"
+        android:text="昨天"/>
+    <TextView
+        android:id="@+id/airQuality_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="23sp"
+        android:text="12/03"/>
+    <TextView
+        android:id="@+id/airQuality_aqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_medium"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="21sp"
+        android:text="41"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

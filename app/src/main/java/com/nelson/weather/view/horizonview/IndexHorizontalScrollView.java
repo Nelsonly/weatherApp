@@ -7,6 +7,7 @@ import android.widget.HorizontalScrollView;
 
 import com.nelson.weather.utils.DisplayUtil;
 
+
 /**
  * 横向滑动条
  * @author hefeng

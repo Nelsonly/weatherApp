@@ -15,77 +15,93 @@
         android:fitsSystemWindows="true" />
 
     <!--浮动按钮-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_auto_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_32"
-        android:clickable="true"
-        android:src="@mipmap/icon_auto_location"
-        app:backgroundTint="@color/white"
-        app:backgroundTintMode="screen"
-        app:borderWidth="@dimen/dp_0"
-        app:fabSize="mini"
-        app:hoveredFocusedTranslationZ="@dimen/dp_18"
-        app:pressedTranslationZ="@dimen/dp_18"
-        app:rippleColor="@color/blue_one" />
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/btn_auto_location"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="@dimen/dp_12"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        android:clickable="true"-->
+<!--        android:src="@drawable/icon_auto_location"-->
+<!--        app:backgroundTint="@color/white"-->
+<!--        app:backgroundTintMode="screen"-->
+<!--        app:borderWidth="@dimen/dp_0"-->
+<!--        app:fabSize="mini"-->
+<!--        app:hoveredFocusedTranslationZ="@dimen/dp_18"-->
+<!--        app:pressedTranslationZ="@dimen/dp_18"-->
+<!--        app:rippleColor="@color/blue_one" />-->
 
     <!--顶部搜索布局-->
     <LinearLayout
+        android:id="@+id/ll_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingLeft="@dimen/dp_12"
-        android:paddingTop="@dimen/dp_28"
-        android:paddingRight="@dimen/dp_12">
+        android:layout_marginTop="29.5dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
 
-        <RelativeLayout
-            android:id="@+id/lay_search"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="right"
-            android:background="@drawable/shape_search_bg">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/iv_iconsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10.5dp"
+                android:layout_marginRight="11.5dp"
+                android:src="@drawable/icon_search"/>
 
-                <ImageView
-                    android:id="@+id/iv_search"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:padding="6dp"
-                    android:src="@mipmap/icon_search" />
+            <EditText
+                android:id="@+id/ed_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                style="@style/textstyle"
+                android:background="@null"
+                android:ems="8"
+                android:hint="输入城市名"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textColor="@color/brown_grey"
+                android:textCursorDrawable="@drawable/cursor_style"
+                android:textSize="15dp" />
+        </LinearLayout>
 
-                <EditText
-                    android:id="@+id/ed_search"
-                    android:layout_width="@dimen/dp_0"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:ems="8"
-                    android:hint="输入城市名"
-                    android:imeOptions="actionSearch"
-                    android:padding="@dimen/dp_4"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@drawable/cursor_style"
-                    android:textSize="@dimen/sp_14"
-                    android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/iv_close"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:padding="8dp"
-                    android:src="@mipmap/icon_close"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="11.5dp"
+            style="@style/textstyle"
+            android:fontFamily="@font/inter_medium"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="返回" />
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/btn_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="450dp"
+        android:layout_marginRight="14dp"
+        android:src="@drawable/btn_location" />
+
 
     <!--天气数据渲染布局-->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -114,8 +130,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_80"
-                android:overScrollMode="never">
+                android:layout_marginTop="@dimen/dp_80">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,10 +184,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_12"
                             android:layout_marginBottom="@dimen/dp_12"
-                            android:overScrollMode="never"
                             android:paddingLeft="@dimen/dp_12"
-                            android:paddingRight="@dimen/dp_12"
-                            android:scrollbars="none" />
+                            android:paddingRight="@dimen/dp_12" />
                         <!--点分割线-->
                         <View
                             android:layout_width="match_parent"
@@ -266,7 +279,7 @@
                             android:id="@+id/tv_more_daily"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableRight="@mipmap/icon_more_gray"
+                            android:drawableRight="@drawable/icon_more_gray"
                             android:gravity="center"
                             android:padding="@dimen/dp_12"
                             android:text="15日预报详情"
@@ -312,7 +325,7 @@
                             android:orientation="horizontal">
 
                             <!--太阳视图-->
-                            <com.nelson.weather.view.skyview.SunView
+                            <com.nelson.weather.view.SunView
                                 android:id="@+id/sun_view"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/dp_240"
@@ -322,7 +335,7 @@
                                 app:sun_font_color="@color/color_a4a4a4"
                                 app:sun_font_size="12px" />
                             <!--月亮视图-->
-                            <com.nelson.weather.view.skyview.SunView
+                            <com.nelson.weather.view.SunView
                                 android:id="@+id/moon_view"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/dp_240"
@@ -348,26 +361,14 @@
                 android:background="@drawable/shape_blue_8"
                 android:orientation="vertical"
                 android:padding="@dimen/dp_12">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <!--城市-->
-                    <TextView
-                        android:id="@+id/tv_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="城市"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/sp_16" />
-
-                    <ImageView
-                        android:id="@+id/voice_search"
-                        android:layout_width="@dimen/dp_40"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:src="@mipmap/icon_voice_search_white" />
-                </RelativeLayout>
+                <!--城市-->
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="城市"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_16" />
 
                 <!--主要天气数据-->
                 <LinearLayout

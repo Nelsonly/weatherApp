@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:rowCount="2"
+    android:columnCount="4"
+    android:orientation="horizontal">
+
+    <!--穿衣-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/dress" />
+
+        <TextView
+            android:id="@+id/tv_clothes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="寒冷"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="穿衣"
+            />
+    </LinearLayout>
+
+    <!--防晒-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/spf" />
+
+        <TextView
+            android:id="@+id/tv_sunburn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="中等"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="防晒"
+            />
+    </LinearLayout>
+
+    <!--化妆-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/makeup" />
+
+        <TextView
+            android:id="@+id/tv_makeup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="保湿防晒"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="化妆"
+            />
+    </LinearLayout>
+
+    <!--感冒-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/catch_a_cold" />
+
+        <TextView
+            android:id="@+id/tv_flu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="较易发"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="感冒"
+            />
+    </LinearLayout>
+
+
+    <!--运动-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/movement" />
+
+        <TextView
+            android:id="@+id/tv_sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="不太适宜"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="运动"
+            />
+    </LinearLayout>
+
+    <!--交通-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/traffic" />
+
+        <TextView
+            android:id="@+id/tv_traffic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="良好"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="交通"
+            />
+    </LinearLayout>
+
+    <!--太阳镜-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sunglasses" />
+
+        <TextView
+            android:id="@+id/tv_glass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="不太适宜"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="太阳镜"
+            />
+    </LinearLayout>
+
+    <!--洗车-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_columnWeight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/wash_the_car" />
+
+        <TextView
+            android:id="@+id/tv_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="21sp"
+            android:text="不太适宜"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/inter"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="23sp"
+            android:text="洗车"
+            />
+    </LinearLayout>
+</GridLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ad_native_title"
+    android:layout_width="163dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/circular_rectangle_white">
+
+
+    <LinearLayout
+        android:layout_width="163dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/ad_view">
+        <net.appcloudbox.ads.base.ContainerView.AcbNativeAdIconView
+            android:id="@+id/ad_title_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/ad_title_body"
+            android:layout_marginLeft="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="#a7a7a7"
+            android:lineSpacingExtra="10sp"
+            android:text="广告体部分······"
+            android:ellipsize="end"
+            android:maxEms="7"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+</FrameLayout>

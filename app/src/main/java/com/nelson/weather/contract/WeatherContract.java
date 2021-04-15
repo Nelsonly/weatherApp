@@ -1,12 +1,15 @@
 package com.nelson.weather.contract;
 
+
+import android.util.Log;
+
 import com.nelson.weather.api.ApiService;
-import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.HistoryAirResponse;
+import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
 import com.nelson.weather.bean.LifestyleResponse;
-import com.nelson.weather.bean.MinutePrecResponse;
-import com.nelson.weather.bean.NewSearchCityResponse;
+import com.nelson.weather.bean.MoreAirFiveResponse;
 import com.nelson.weather.bean.NowResponse;
 import com.nelson.weather.bean.WarningResponse;
 import com.nelson.mvplibrary.base.BasePresenter;
@@ -25,32 +28,6 @@ import retrofit2.Response;
 public class WeatherContract {
 
     public static class WeatherPresenter extends BasePresenter<IWeatherView> {
-
-        /***************** 以下为使用V7版本而新增的接口方法，后期将都会使用这些方法，请注意 ****************/
-
-        /**
-         * 搜索城市  V7版本中  需要把定位城市的id查询出来，然后通过这个id来查询详细的数据
-         *
-         * @param location 城市名
-         */
-        public void newSearchCity(String location) {//注意这里的4表示新的搜索城市地址接口
-            ApiService service = ServiceGenerator.createService(ApiService.class, 4);//指明访问的地址
-            service.newSearchCity(location, "exact").enqueue(new NetCallBack<NewSearchCityResponse>() {
-                @Override
-                public void onSuccess(Call<NewSearchCityResponse> call, Response<NewSearchCityResponse> response) {
-                    if (getView() != null) {
-                        getView().getNewSearchCityResult(response);
-                    }
-                }
-
-                @Override
-                public void onFailed() {
-                    if (getView() != null) {
-                        getView().getDataFailed();
-                    }
-                }
-            });
-        }
 
 
         /**
@@ -77,6 +54,7 @@ public class WeatherContract {
             });
         }
 
+
         /**
          * 天气预报  V7版本   7d 表示天气的数据 为了和之前看上去差别小一些，这里先用七天的
          *
@@ -84,7 +62,7 @@ public class WeatherContract {
          */
         public void dailyWeather(String location) {//这个3 表示使用新的V7API访问地址
             ApiService service = ServiceGenerator.createService(ApiService.class, 3);
-            service.dailyWeather("7d", location).enqueue(new NetCallBack<DailyResponse>() {
+            service.dailyWeather("15d", location).enqueue(new NetCallBack<DailyResponse>() {
                 @Override
                 public void onSuccess(Call<DailyResponse> call, Response<DailyResponse> response) {
                     if (getView() != null) {
@@ -100,6 +78,7 @@ public class WeatherContract {
                 }
             });
         }
+
 
         /**
          * 逐小时预报（未来24小时）
@@ -126,17 +105,17 @@ public class WeatherContract {
         }
 
         /**
-         * 当天空气质量
+         * 五天空气质量数据  V7
          *
-         * @param location 城市名
+         * @param location 城市id
          */
-        public void airNowWeather(String location) {
+        public void airFive(String location) {
             ApiService service = ServiceGenerator.createService(ApiService.class, 3);
-            service.airNowWeather(location).enqueue(new NetCallBack<AirNowResponse>() {
+            service.airFiveWeather(location).enqueue(new NetCallBack<MoreAirFiveResponse>() {
                 @Override
-                public void onSuccess(Call<AirNowResponse> call, Response<AirNowResponse> response) {
+                public void onSuccess(Call<MoreAirFiveResponse> call, Response<MoreAirFiveResponse> response) {
                     if (getView() != null) {
-                        getView().getAirNowResult(response);
+                        getView().getMoreAirFiveResult(response);
                     }
                 }
 
@@ -149,6 +128,7 @@ public class WeatherContract {
             });
         }
 
+
         /**
          * 生活指数
          *
@@ -156,10 +136,11 @@ public class WeatherContract {
          */
         public void lifestyle(String location) {
             ApiService service = ServiceGenerator.createService(ApiService.class, 3);
-            service.lifestyle("1,2,3,5,6,8,9,10", location).enqueue(new NetCallBack<LifestyleResponse>() {
+            service.lifestyle("0", location).enqueue(new NetCallBack<LifestyleResponse>() {
                 @Override
                 public void onSuccess(Call<LifestyleResponse> call, Response<LifestyleResponse> response) {
                     if (getView() != null) {
+                        Log.e("11133", "onSuccess: ");
                         getView().getLifestyleResult(response);
                     }
                 }
@@ -172,6 +153,7 @@ public class WeatherContract {
                 }
             });
         }
+
 
         /**
          * 城市灾害预警
@@ -197,18 +179,32 @@ public class WeatherContract {
             });
         }
 
-        /**
-         * 分钟级降水
-         *
-         * @param location 经纬度拼接字符串，使用英文逗号分隔,经度在前纬度在后
-         */
-        public void getMinutePrec(String location) {
+
+        public void HistoryRes(String location,String date) {
             ApiService service = ServiceGenerator.createService(ApiService.class, 3);
-            service.getMinutePrec(location).enqueue(new NetCallBack<MinutePrecResponse>() {
+            service.historyWeather(location,date).enqueue(new NetCallBack<HistoryResponse>() {
                 @Override
-                public void onSuccess(Call<MinutePrecResponse> call, Response<MinutePrecResponse> response) {
+                public void onSuccess(Call<HistoryResponse> call, Response<HistoryResponse> response) {
                     if (getView() != null) {
-                        getView().getMinutePrecResult(response);
+                        getView().getHistoryResult(response);
+                    }
+                }
+
+                @Override
+                public void onFailed() {
+                    if (getView() != null) {
+                        getView().getWeatherDataFailed();
+                    }
+                }
+            });
+        }
+        public void HistoryAirRes(String location,String date) {
+            ApiService service = ServiceGenerator.createService(ApiService.class, 3);
+            service.historyAirData(location,date).enqueue(new NetCallBack<HistoryAirResponse>() {
+                @Override
+                public void onSuccess(Call<HistoryAirResponse> call, Response<HistoryAirResponse> response) {
+                    if (getView() != null) {
+                        getView().getHistoryAirResult(response);
                     }
                 }
 
@@ -221,19 +217,11 @@ public class WeatherContract {
             });
         }
 
-
     }
 
     public interface IWeatherView extends BaseView {
-
         //天气数据获取错误返回
         void getWeatherDataFailed();
-
-
-        /*                以下为V7版本新增               */
-
-        //搜索城市返回城市id  通过id才能查下面的数据,否则会提示400  V7
-        void getNewSearchCityResult(Response<NewSearchCityResponse> response);
 
         //实况天气
         void getNowResult(Response<NowResponse> response);
@@ -245,7 +233,7 @@ public class WeatherContract {
         void getHourlyResult(Response<HourlyResponse> response);
 
         //空气质量
-        void getAirNowResult(Response<AirNowResponse> response);
+        void getMoreAirFiveResult(Response<MoreAirFiveResponse> response);
 
         //生活指数
         void getLifestyleResult(Response<LifestyleResponse> response);
@@ -253,12 +241,9 @@ public class WeatherContract {
         //灾害预警
         void getNowWarnResult(Response<WarningResponse> response);
 
-        //分钟级降水
-        void getMinutePrecResult(Response<MinutePrecResponse> response);
 
-        //错误返回
-        void getDataFailed();
+        void getHistoryResult(Response<HistoryResponse> response);
 
-
+        void getHistoryAirResult(Response<HistoryAirResponse> response);
     }
 }

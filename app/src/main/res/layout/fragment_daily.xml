@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.DailyFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_7_days_content_above" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_location"
+                    style="@style/textstyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="38.5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:text="北京市海淀区"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+
+                <com.zhengsr.tablib.view.flow.TabFlowLayout
+                    android:id="@+id/rectflow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    app:tab_color="@color/white"
+                    app:tab_height="3dp"
+                    app:tab_item_autoScale="true"
+                    app:tab_scale_factor="1.1"
+                    app:tab_type="rect"
+                    app:tab_width="20dp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!--<com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_dailyweather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">-->
+
+            <!--<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/refresh_sungif"
+                    app:layout_srlSpinnerStyle="Scale"
+                    app:layout_srlBackgroundColor="@color/transparent"/>
+            </LinearLayout>-->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/daily_nestedScorll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </androidx.core.widget.NestedScrollView>
+        <!--</com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
+
+    </LinearLayout>
+</FrameLayout>

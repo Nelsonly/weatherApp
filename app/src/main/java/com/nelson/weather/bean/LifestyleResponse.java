@@ -1,5 +1,6 @@
 package com.nelson.weather.bean;
 
+
 import java.util.List;
 
 /**
@@ -95,11 +96,11 @@ public class LifestyleResponse {
          */
 
         private String date;
-        private String type;
-        private String name;
-        private String level;
-        private String category;
-        private String text;
+        private String type = "4";
+        private String name = "钓鱼指数";
+        private String level = "0";
+        private String category = "不太适宜";
+        private String text =" ";
 
         public String getDate() {
             return date;

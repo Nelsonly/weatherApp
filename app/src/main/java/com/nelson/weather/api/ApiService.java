@@ -4,6 +4,8 @@ package com.nelson.weather.api;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.HistoryAirResponse;
+import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
 import com.nelson.weather.bean.LifestyleResponse;
 import com.nelson.weather.bean.MoreAirFiveResponse;
@@ -12,8 +14,6 @@ import com.nelson.weather.bean.NowResponse;
 import com.nelson.weather.bean.SunMoonResponse;
 import com.nelson.weather.bean.WallPaperResponse;
 import com.nelson.weather.bean.WarningResponse;
-import com.nelson.weather.bean.WorldCityResponse;
-import com.nelson.mvplibrary.bean.AppVersion;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,13 +21,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import static com.nelson.weather.utils.Constant.API_KEY;
-import static com.nelson.weather.utils.Constant.UPDATE_API_TOKEN;
-import static com.nelson.weather.utils.Constant.UPDATE_USER_ID;
 
 /**
  * API服务接口
  *
- * @author nelson
+ * @author llw
  */
 public interface ApiService {
     /**
@@ -85,6 +83,7 @@ public interface ApiService {
      * @param location 城市id
      * @return 返回当天空气质量数据 MoreAirFiveResponse
      */
+
     @GET("/v7/air/now?key=" + API_KEY)
     Call<AirNowResponse> airNowWeather(@Query("location") String location);
 
@@ -111,13 +110,15 @@ public interface ApiService {
     Call<LifestyleResponse> lifestyle(@Query("type") String type,
                                       @Query("location") String location);
 
+
     /**
      * 搜索城市  V7版本  模糊搜索，国内范围 返回10条数据
      *
      * @param location 城市名
      * @param mode     exact 精准搜索  fuzzy 模糊搜索
      * @return NewSearchCityResponse 搜索城市数据返回
-     */
+     **/
+
     @GET("/v2/city/lookup?key=" + API_KEY + "&range=cn")
     Call<NewSearchCityResponse> newSearchCity(@Query("location") String location,
                                               @Query("mode") String mode);
@@ -128,8 +129,8 @@ public interface ApiService {
      * @param range cn表示国内  world 表示全世界
      * @return WorldCityResponse 世界城市数据返回
      */
-    @GET("/v2/city/top?key=" + API_KEY + "&number=20")
-    Call<WorldCityResponse> worldCity(@Query("range") String range);
+//    @GET("/v2/city/top?key=" + API_KEY + "&number=20")
+//    Call<WorldCityResponse> worldCity(@Query("range") String range);
 
     /**
      * 当前城市灾害预警
@@ -145,8 +146,8 @@ public interface ApiService {
      *
      * @return AppVersion 版本信息返回
      */
-    @GET("/apps/latest/" + UPDATE_USER_ID + "?api_token=" + UPDATE_API_TOKEN)
-    Call<AppVersion> getAppInfo();
+//    @GET("/apps/latest/" + UPDATE_USER_ID + "?api_token=" + UPDATE_API_TOKEN)
+//    Call<AppVersion> getAppInfo();
 
     /**
      * 太阳和月亮  日出日落、月升月落
@@ -166,5 +167,16 @@ public interface ApiService {
     @GET("/v1/vertical/vertical?limit=30&skip=180&adult=false&first=0&order=hot")
     Call<WallPaperResponse> getWallPaper();
 
+    /**
+     * 历史天气数据
+     * */
+    @GET("/v7/historical/air?key="+API_KEY)
+    Call<HistoryAirResponse> historyAirData(@Query("location")String location, @Query("date")String date);
+
+    /**
+     * 历史天气数据
+     */
+    @GET("/v7/historical/weather?key="+API_KEY)
+    Call<HistoryResponse> historyWeather(@Query("location")String location, @Query("date")String date);
 
 }

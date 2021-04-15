@@ -15,9 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.gson.Gson;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.nelson.weather.R;
 import com.nelson.weather.adapter.WallPaperAdapter;
 import com.nelson.weather.bean.BiYingImgResponse;
@@ -31,6 +29,9 @@ import com.nelson.weather.utils.ToastUtils;
 import com.nelson.mvplibrary.bean.WallPaper;
 import com.nelson.mvplibrary.mvp.MvpActivity;
 import com.nelson.mvplibrary.view.dialog.AlertDialog;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 import org.litepal.LitePal;
 
@@ -106,7 +107,6 @@ public class WallPaperActivity extends MvpActivity<WallPaperContract.WallPaperPr
      */
     AlertDialog bottomSettingDialog = null;
 
-
     @Override
     public void initData(Bundle savedInstanceState) {
         //加载弹窗
@@ -143,16 +143,19 @@ public class WallPaperActivity extends MvpActivity<WallPaperContract.WallPaperPr
         //获取必应壁纸
         mPresent.biying();
 
-        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            //这里的列表数据实际上有32条，有两条假数据，就是首尾这两条，所以点击的时候要做判断处理
-            if (position == 0 || position == mList.size() - 1) {//是否为第一条或者最后一条
-                startActivity(new Intent(context,AboutUsActivity.class));
-            } else {
-                Intent intent = new Intent(context, com.nelson.weather.ui.ImageActivity.class);
-                intent.putExtra("position", position - 1);
-                startActivity(intent);
-            }
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //这里的列表数据实际上有32条，有两条假数据，就是首尾这两条，所以点击的时候要做判断处理
+                if (position == 0 || position == mList.size() - 1) {//是否为第一条或者最后一条
+                    //TODO don't know
+                } else {
+                    Intent intent = new Intent(context, com.nelson.weather.ui.ImageActivity.class);
+                    intent.putExtra("position", position - 1);
+                    startActivity(intent);
+                }
 
+            }
         });
 
         //滑动监听
@@ -281,7 +284,7 @@ public class WallPaperActivity extends MvpActivity<WallPaperContract.WallPaperPr
                 //壁纸列表
                 .setOnClickListener(R.id.lay_wallpaper_list, v -> {
 
-                    Intent intent = new Intent(context, com.nelson.weather.ui.ImageActivity.class);
+                    Intent intent = new Intent(context, ImageActivity.class);
                     intent.putExtra("position", 0);
                     startActivity(intent);
 

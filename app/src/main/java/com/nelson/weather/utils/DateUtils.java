@@ -36,14 +36,6 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date());
     }
-    /**
-     * 获取当前日期
-     * @return 日期
-     */
-    public static String getNowDateStr() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd号");
-        return sdf.format(new Date());
-    }
 
     /**
      * 获取当前日期  没有分隔符
@@ -59,7 +51,17 @@ public class DateUtils {
      * @param date
      * @return
      */
-    public static String getYesterday(Date date) {
+    public static String getYesterday_1(Date date) {
+        String tomorrow = "";
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, -1);
+        date = calendar.getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        tomorrow = formatter.format(date);
+        return tomorrow;
+    }
+    public static String getYesterday_2(Date date) {
         String tomorrow = "";
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
@@ -106,6 +108,7 @@ public class DateUtils {
 
     /**
      * 根据传入的时间，先转换再截取，得到更新时间  传入  "2020-07-16T09:39+08:00"
+     * 返回 "09:39"
      * @param dateTime
      * @return
      */
@@ -121,7 +124,54 @@ public class DateUtils {
         }
         return result;
     }
-
+    /**
+     * 根据传入的时间，先转换再截取，得到更新时间  传入  "2020-07-16T09:39+08:00"
+     * 返回 "20200716"
+     * @param dateTime
+     * @return
+     */
+    public static String updateTime_month(String dateTime){
+        String result = null;
+        Log.d("dateTime-->",dateTime+"");
+        if (dateTime == null) {
+            result = getYesterday_1(new Date());
+        } else {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+                Date date = simpleDateFormat.parse(dateTime.substring(0, 10));
+                result = getYesterday_1(date);
+                Log.d("dateTime-->", result);
+            }
+            catch (ParseException e){
+                result = getYesterday_1(new Date());
+            }
+        }
+        return result;
+    }
+    /**
+     * 根据传入的时间，先转换再截取，得到更新时间  传入  "2020-07-16T09:39+08:00"
+     * 返回 "20200716"
+     * @param dateTime
+     * @return
+     */
+    public static String updateTime_month_2(String dateTime){
+        String result = null;
+        Log.d("dateTime-->",dateTime+"");
+        if (dateTime == null) {
+            result = getYesterday_2(new Date());
+        } else {
+            try {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");//注意月份是MM
+                Date date = simpleDateFormat.parse(dateTime.substring(0, 10));
+                result = getYesterday_2(date);
+                Log.d("dateTime-->", result);
+            }
+            catch (ParseException e){
+                result = getYesterday_2(new Date());
+            }
+        }
+        return result;
+    }
     /**
      * 获取今天是星期几
      * @param date
@@ -174,7 +224,7 @@ public class DateUtils {
         String yesterday = "";
         String today = "";
         String tomorrow = "";
-        yesterday = getYesterday(new Date());
+        yesterday = getYesterday_2(new Date());
         today = getNowDate();
         tomorrow = getTomorrow(new Date());
 
@@ -187,25 +237,25 @@ public class DateUtils {
         } else {
             switch (getDayOfWeek(dateTime)) {
                 case 1:
-                    week = "星期日";
+                    week = "周日";
                     break;
                 case 2:
-                    week = "星期一";
+                    week = "周一";
                     break;
                 case 3:
-                    week = "星期二";
+                    week = "周二";
                     break;
                 case 4:
-                    week = "星期三";
+                    week = "周三";
                     break;
                 case 5:
-                    week = "星期四";
+                    week = "周四";
                     break;
                 case 6:
-                    week = "星期五";
+                    week = "周五";
                     break;
                 case 7:
-                    week = "星期六";
+                    week = "周六";
                     break;
             }
 
@@ -274,6 +324,29 @@ public class DateUtils {
             e.printStackTrace();
         }
         return timestamp;
+    }
+
+    public static Date getNowTimeDate() {
+        return new Date();
+    }
+    public static Date getTDate(Date date){
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, +1);
+        return calendar.getTime();
+    }
+
+    /**
+     * @param time  时间 "2020-07-16T09:39+08:00"
+     * @return  true = 早 ; false = 晚
+     */
+    public static boolean dayOrNight(String time) {
+        int hour = Integer.parseInt(updateTime(time).substring(0, 2));
+        if (hour > 7 && hour < 18) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="3dp"
+    android:layout_marginTop="@dimen/card_margin_tb"
+    android:layout_marginBottom="@dimen/card_margin_tb"
+    android:layout_marginLeft="@dimen/card_margin_lr"
+    android:layout_marginRight="@dimen/card_margin_lr">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:paddingTop="19dp"
+       android:paddingLeft="16.5dp">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="11dp"
+           android:fontFamily="@font/inter"
+           android:includeFontPadding="false"
+           android:textStyle="bold"
+           android:textSize="16sp"
+           android:textColor="#222222"
+           android:lineSpacingExtra="19sp"
+           android:text="各监测站点实时数据"/>
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/monitor_station_data"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"/>
+   </LinearLayout>
+
+</androidx.cardview.widget.CardView>

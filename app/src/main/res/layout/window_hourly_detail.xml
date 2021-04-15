@@ -1,240 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/shape_white_5"
-    android:padding="@dimen/dp_12"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="400dp">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp">
 
-    <TextView
-        android:gravity="center_vertical"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sp_16"
-        android:textStyle="bold"
-        android:id="@+id/tv_time"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"/>
-
-    <!--温度-->
     <LinearLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_marginTop="24.5dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="24dp"
+        android:orientation="vertical"
+        >
         <TextView
-            android:text="温度"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_tem"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/inter"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#222222"
+            android:lineSpacingExtra="19sp"
+            android:text="晚上19:00"
+            />
+
+        <!--温度-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="温度" />
+
+            <TextView
+                android:id="@+id/tv_tem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="0°C" />
+        </LinearLayout>
+
+        <!--天气状况-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="天气状况" />
+
+            <TextView
+                android:id="@+id/tv_cond_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="多云" />
+        </LinearLayout>
+
+        <!--风向360角度-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="风向360角度" />
+
+            <TextView
+                android:id="@+id/tv_wind_deg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="253°" />
+        </LinearLayout>
+
+        <!--风向-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="风向" />
+
+            <TextView
+                android:id="@+id/tv_wind_dir"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="西南风" />
+        </LinearLayout>
+
+        <!--风力-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="风力" />
+
+            <TextView
+                android:id="@+id/tv_wind_sc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="3-4级" />
+        </LinearLayout>
+
+        <!--风速-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="风速" />
+
+            <TextView
+                android:id="@+id/tv_wind_spd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="1公里/小时" />
+        </LinearLayout>
+
+        <!--相对湿度-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="相对湿度" />
+
+            <TextView
+                android:id="@+id/tv_hum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="60%" />
+        </LinearLayout>
+
+        <!--大气压强-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="大气压强" />
+
+            <TextView
+                android:id="@+id/tv_pres"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="1000hPa" />
+        </LinearLayout>
+
+        <!--降水概率-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="降水概率" />
+
+            <TextView
+                android:id="@+id/tv_pop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="0%" />
+        </LinearLayout>
+
+        <!--露点温度-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="露点温度" />
+
+            <TextView
+                android:id="@+id/tv_dew"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="5°C" />
+        </LinearLayout>
+
+        <!--云量-->
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:includeFontPadding="false"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="云量" />
+
+            <TextView
+                android:id="@+id/tv_cloud"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="60%" />
+        </LinearLayout>
     </LinearLayout>
-
-    <!--天气状况-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="天气状况"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_cond_txt"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--风向360角度-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="风向360角度"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_wind_deg"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--风向-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="风向"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_wind_dir"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--风力-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="风力"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_wind_sc"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--风速-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="风速"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_wind_spd"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--相对湿度-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="相对湿度"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_hum"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--大气压强-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="大气压强"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_pres"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--降水概率-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="降水概率"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_pop"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--露点温度-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="露点温度"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_dew"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!--云量-->
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <TextView
-            android:text="云量"
-            android:textColor="@color/black"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/black"
-            android:id="@+id/tv_cloud"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

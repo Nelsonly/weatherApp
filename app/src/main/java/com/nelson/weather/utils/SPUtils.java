@@ -57,5 +57,17 @@ public class SPUtils {
                 Context.MODE_PRIVATE);
         sp.edit().remove(key).commit();
     }
+    public static void putLong(String key, long value, Context ctx) {
+        SharedPreferences sp = ctx.getSharedPreferences(NAME,
+                Context.MODE_PRIVATE);
+        sp.edit().putLong(key, value).commit();
+    }
+
+
+    public static long getLong(String key, long defValue, Context ctx) {
+        SharedPreferences sp = ctx.getSharedPreferences(NAME,
+                Context.MODE_PRIVATE);
+        return sp.getLong(key, defValue);
+    }
 
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/monitor_locate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="21sp"
+        android:layout_alignParentTop="true"
+        android:text="怀柔镇"/>
+
+    <ImageView
+        android:id="@+id/monitior_locate_icon"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_toRightOf="@id/monitor_locate"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="6dp"/>
+    <!--<TextView
+        android:id="@+id/monitor_distence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/monitor_locate"
+        android:layout_marginLeft="14dp"
+        android:textSize="14sp"
+        android:textColor="#222222"
+        android:lineSpacingExtra="21sp"
+        android:text="43.5km"/>-->
+    <TextView
+        android:id="@+id/monitor_aqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:lineSpacingExtra="21sp"
+        android:text="15"
+        android:gravity="center"
+        android:layout_marginRight="14dp"
+        android:layout_toLeftOf="@id/monitor_score"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:id="@+id/monitor_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="14dp"
+        android:includeFontPadding="false"
+        android:fontFamily="@font/inter_medium"
+        android:textStyle="bold"
+        android:textSize="11sp"
+        android:textColor="#ffffff"
+        android:lineSpacingExtra="24sp"
+        android:text="优"
+        android:background="@drawable/air_bg_1"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

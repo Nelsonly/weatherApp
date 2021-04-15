@@ -1,5 +1,6 @@
 package com.nelson.weather.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -84,7 +85,7 @@ public class DailyResponse {
         }
     }
 
-    public static class DailyBean {
+    public static class DailyBean implements Serializable {
         /**
          * fxDate : 2020-07-15
          * sunrise : 04:59
@@ -114,32 +115,32 @@ public class DailyResponse {
          * uvIndex : 11
          */
 
-        private String fxDate;
-        private String sunrise;
-        private String sunset;
+        private String fxDate = "2021-01-01";
+        private String sunrise="05:00";
+        private String sunset="19:00";
         private String moonrise;
         private String moonset;
         private String moonPhase;
-        private String tempMax;
-        private String tempMin;
-        private String iconDay;
-        private String textDay;
+        private String tempMax = "4";
+        private String tempMin = "-4";
+        private String iconDay = "100";
+        private String textDay = "晴";
         private String iconNight;
         private String textNight;
         private String wind360Day;
-        private String windDirDay;
-        private String windScaleDay;
+        private String windDirDay = "西北风";
+        private String windScaleDay = "0";
         private String windSpeedDay;
         private String wind360Night;
         private String windDirNight;
         private String windScaleNight;
         private String windSpeedNight;
-        private String humidity;
+        private String humidity = "-";
         private String precip;
         private String pressure;
         private String vis;
         private String cloud;
-        private String uvIndex;
+        private String uvIndex = "0";
 
         public String getFxDate() {
             return fxDate;

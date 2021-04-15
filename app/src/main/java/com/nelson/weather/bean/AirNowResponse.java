@@ -3,12 +3,9 @@ package com.nelson.weather.bean;
 import java.util.List;
 
 /**
- * 当天空气质量数据实体 V7
- *
- * @author llw
+ * @author yating
  */
 public class AirNowResponse {
-
     /**
      * code : 200
      * updateTime : 2020-07-15T09:34+08:00

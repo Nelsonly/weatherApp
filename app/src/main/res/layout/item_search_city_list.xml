@@ -13,8 +13,8 @@
         android:textColor="@color/black"
         android:id="@+id/tv_city_name"
         android:foreground="@drawable/bg_white"
-        android:drawableRight="@mipmap/icon_open"
-        android:drawableLeft="@mipmap/icon_item_city"
+        android:drawableRight="@drawable/icon_open"
+        android:drawableLeft="@drawable/icon_item_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <View
