@@ -3,7 +3,7 @@ package com.nelson.weather.eventbus;
 /**
  * 搜索城市消息事件
  *
- * @author llw
+ * @author nelson
  */
 public class SearchCityEvent {
 

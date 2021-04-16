@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.PuzzleImgActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_share"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/tv_back"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:scaleType="centerCrop"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/puzzle_btn_tab_return"
+                android:layout_marginStart="10dp"
+               />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="#FF2F2F2F"
+                android:text="@string/puzzle" />
+            <TextView
+                android:id="@+id/tv_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="#FF2F2F2F"
+                android:layout_marginEnd="16dp"
+                android:text="@string/photo_save"
+                />
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/m_root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/easy_photos_bg_primary"
+        android:fitsSystemWindows="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/m_bottom_layout"
+            android:layout_alignParentTop="true"
+            android:background="#F5F5F5"
+            android:layout_marginTop="0dp">
+
+            <com.huantansheng.easyphotos.models.puzzle.PuzzleView
+                android:id="@+id/puzzle_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                app:layout_constraintDimensionRatio="h,3:4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <com.huantansheng.easyphotos.models.puzzle.NumberSeekBar
+                android:id="@+id/my_number_seek_bar"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="116dp"
+                android:maxHeight="1dp"
+                android:layout_marginBottom="14dp"
+                android:visibility="gone"
+                android:progressDrawable="@drawable/ic_puzzle_seekbar_line_style"
+                android:thumb="@drawable/ic_puzzle_seek_slider_style"
+                app:progressColor="@color/seekbar_progress_line_color"
+                app:centerCircleColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/puzzle_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:id="@+id/m_bottom_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/easy_photos_bar_primary_translation">
+                <LinearLayout
+                    android:id="@+id/ll_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="fill_vertical"
+                    android:layout_marginTop="9dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iv_replace"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/puzzle_btn_choose_img" />
+                    <ImageView
+                        android:id="@+id/iv_rotate"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/puzzle_btn_choose_rotating_unsel" />
+
+                    <ImageView
+                        android:id="@+id/iv_mirror"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/puzzle_btn_choose_horizontal" />
+
+                    <ImageView
+                        android:id="@+id/iv_flip"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/puzzle_btn_choose_vertical" />
+                    <ImageView
+                        android:id="@+id/iv_corner"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/puzzle_btn_choose_rounded_unsel" />
+
+                    <ImageView
+                        android:id="@+id/iv_padding"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/puzzle_btn_choose_spacing_unsel" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_puzzle_template"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_menu"
+                    android:paddingBottom="15dp"
+                    android:layout_marginStart="8dp"
+                    android:paddingTop="15dp" />
+
+            </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

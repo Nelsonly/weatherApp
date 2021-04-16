@@ -51,11 +51,19 @@
         <activity android:name=".ui.MapWeatherActivity" />
         <activity android:name=".ui.MoreDailyActivity" />
         <activity android:name=".ui.WarnActivity" />
-
+        <activity android:name=".ui.PuzzleImgActivity"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="FdnmeYZQRGZKXsGpUjDFSXQQ9MxU9epT" />
-
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="{applicationId}.photosave.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths_public" />
+        </provider>
     </application>
 
 </manifest>

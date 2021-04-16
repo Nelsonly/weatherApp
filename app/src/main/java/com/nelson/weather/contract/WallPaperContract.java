@@ -14,7 +14,7 @@ import retrofit2.Response;
 /**
  * 壁纸订阅器
  *
- * @author llw
+ * @author nelson
  */
 public class WallPaperContract {
 

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="puzzle_models_unsel">
+        <item>@array/puzzle_two_model_unsel</item>
+        <item>@array/puzzle_three_model_unsel</item>
+        <item>@array/puzzle_four_model_unsel</item>
+        <item>@array/puzzle_five_model_unsel</item>
+        <item>@array/puzzle_six_model_unsel</item>
+        <item>@array/puzzle_seven_model_unsel</item>
+        <item>@array/puzzle_eight_model_unsel</item>
+        <item>@array/puzzle_nine_model_unsel</item>
+    </array>
+    <array name="puzzle_two_model_unsel">
+        <item>@drawable/unsel_2_1</item>
+        <item>@drawable/unsel_2_2</item>
+        <item>@drawable/unsel_2_3</item>
+        <item>@drawable/unsel_2_4</item>
+        <item>@drawable/unsel_2_5</item>
+        <item>@drawable/unsel_2_6</item>
+        <item>@drawable/unsel_2_7</item>
+        <item>@drawable/unsel_2_8</item>
+    </array>
+    <array name="puzzle_three_model_unsel">
+        <item>@drawable/unsel_3_1</item>
+        <item>@drawable/unsel_3_2</item>
+        <item>@drawable/unsel_3_3</item>
+        <item>@drawable/unsel_3_4</item>
+        <item>@drawable/unsel_3_5</item>
+        <item>@drawable/unsel_3_6</item>
+        <item>@drawable/unsel_3_7</item>
+        <item>@drawable/unsel_3_8</item>
+        <item>@drawable/unsel_3_9</item>
+        <item>@drawable/unsel_3_10</item>
+        <item>@drawable/unsel_3_11</item>
+        <item>@drawable/unsel_3_12</item>
+    </array>
+    <array name="puzzle_four_model_unsel">
+        <item>@drawable/unsel_4_1</item>
+        <item>@drawable/unsel_4_2</item>
+        <item>@drawable/unsel_4_3</item>
+        <item>@drawable/unsel_4_4</item>
+        <item>@drawable/unsel_4_5</item>
+        <item>@drawable/unsel_4_6</item>
+        <item>@drawable/unsel_4_7</item>
+    </array>
+    <array name="puzzle_five_model_unsel">
+        <item>@drawable/unsel_5_1</item>
+        <item>@drawable/unsel_5_2</item>
+        <item>@drawable/unsel_5_3</item>
+        <item>@drawable/unsel_5_4</item>
+        <item>@drawable/unsel_5_5</item>
+        <item>@drawable/unsel_5_6</item>
+        <item>@drawable/unsel_5_7</item>
+        <item>@drawable/unsel_5_8</item>
+        <item>@drawable/unsel_5_9</item>
+        <item>@drawable/unsel_5_10</item>
+        <item>@drawable/unsel_5_11</item>
+        <item>@drawable/unsel_5_12</item>
+        <item>@drawable/unsel_5_13</item>
+        <item>@drawable/unsel_5_14</item>
+        <item>@drawable/unsel_5_15</item>
+        <item>@drawable/unsel_5_16</item>
+    </array>
+    <array name="puzzle_six_model_unsel">
+        <item>@drawable/unsel_6_1</item>
+        <item>@drawable/unsel_6_2</item>
+        <item>@drawable/unsel_6_3</item>
+        <item>@drawable/unsel_6_4</item>
+        <item>@drawable/unsel_6_5</item>
+        <item>@drawable/unsel_6_6</item>
+        <item>@drawable/unsel_6_7</item>
+        <item>@drawable/unsel_6_8</item>
+        <item>@drawable/unsel_6_9</item>
+        <item>@drawable/unsel_6_10</item>
+        <item>@drawable/unsel_6_11</item>
+        <item>@drawable/unsel_6_12</item>
+    </array>
+    <array name="puzzle_seven_model_unsel">
+        <item>@drawable/unsel_7_1</item>
+        <item>@drawable/unsel_7_2</item>
+        <item>@drawable/unsel_7_3</item>
+        <item>@drawable/unsel_7_4</item>
+        <item>@drawable/unsel_7_5</item>
+        <item>@drawable/unsel_7_6</item>
+        <item>@drawable/unsel_7_7</item>
+        <item>@drawable/unsel_7_8</item>
+        <item>@drawable/unsel_7_9</item>
+    </array>
+    <array name="puzzle_eight_model_unsel">
+        <item>@drawable/unsel_8_1</item>
+        <item>@drawable/unsel_8_2</item>
+        <item>@drawable/unsel_8_3</item>
+        <item>@drawable/unsel_8_4</item>
+        <item>@drawable/unsel_8_5</item>
+        <item>@drawable/unsel_8_6</item>
+        <item>@drawable/unsel_8_7</item>
+        <item>@drawable/unsel_8_8</item>
+        <item>@drawable/unsel_8_9</item>
+        <item>@drawable/unsel_8_10</item>
+        <item>@drawable/unsel_8_11</item>
+
+    </array>
+    <array name="puzzle_nine_model_unsel">
+        <item>@drawable/unsel_9_1</item>
+        <item>@drawable/unsel_9_2</item>
+        <item>@drawable/unsel_9_3</item>
+        <item>@drawable/unsel_9_4</item>
+        <item>@drawable/unsel_9_5</item>
+        <item>@drawable/unsel_9_6</item>
+        <item>@drawable/unsel_9_7</item>
+        <item>@drawable/unsel_9_8</item>
+    </array>
+
+    <array name="puzzle_models_sel">
+        <item>@array/puzzle_two_model_sel</item>
+        <item>@array/puzzle_three_model_sel</item>
+        <item>@array/puzzle_four_model_sel</item>
+        <item>@array/puzzle_five_model_sel</item>
+        <item>@array/puzzle_six_model_sel</item>
+        <item>@array/puzzle_seven_model_sel</item>
+        <item>@array/puzzle_eight_model_sel</item>
+        <item>@array/puzzle_nine_model_sel</item>
+    </array>
+
+    <array name="puzzle_two_model_sel">
+        <item>@drawable/sel_2_1</item>
+        <item>@drawable/sel_2_2</item>
+        <item>@drawable/sel_2_3</item>
+        <item>@drawable/sel_2_4</item>
+        <item>@drawable/sel_2_5</item>
+        <item>@drawable/sel_2_6</item>
+        <item>@drawable/sel_2_7</item>
+        <item>@drawable/sel_2_8</item>
+    </array>
+    <array name="puzzle_three_model_sel">
+        <item>@drawable/sel_3_1</item>
+        <item>@drawable/sel_3_2</item>
+        <item>@drawable/sel_3_3</item>
+        <item>@drawable/sel_3_4</item>
+        <item>@drawable/sel_3_5</item>
+        <item>@drawable/sel_3_6</item>
+        <item>@drawable/sel_3_7</item>
+        <item>@drawable/sel_3_8</item>
+        <item>@drawable/sel_3_9</item>
+        <item>@drawable/sel_3_10</item>
+        <item>@drawable/sel_3_11</item>
+        <item>@drawable/sel_3_12</item>
+    </array>
+    <array name="puzzle_four_model_sel">
+        <item>@drawable/sel_4_1</item>
+        <item>@drawable/sel_4_2</item>
+        <item>@drawable/sel_4_3</item>
+        <item>@drawable/sel_4_4</item>
+        <item>@drawable/sel_4_5</item>
+        <item>@drawable/sel_4_6</item>
+        <item>@drawable/sel_4_7</item>
+    </array>
+    <array name="puzzle_five_model_sel">
+        <item>@drawable/sel_5_1</item>
+        <item>@drawable/sel_5_2</item>
+        <item>@drawable/sel_5_3</item>
+        <item>@drawable/sel_5_4</item>
+        <item>@drawable/sel_5_5</item>
+        <item>@drawable/sel_5_6</item>
+        <item>@drawable/sel_5_7</item>
+        <item>@drawable/sel_5_8</item>
+        <item>@drawable/sel_5_9</item>
+        <item>@drawable/sel_5_10</item>
+        <item>@drawable/sel_5_11</item>
+        <item>@drawable/sel_5_12</item>
+        <item>@drawable/sel_5_13</item>
+        <item>@drawable/sel_5_14</item>
+        <item>@drawable/sel_5_15</item>
+        <item>@drawable/sel_5_16</item>
+    </array>
+    <array name="puzzle_six_model_sel">
+        <item>@drawable/sel_6_1</item>
+        <item>@drawable/sel_6_2</item>
+        <item>@drawable/sel_6_3</item>
+        <item>@drawable/sel_6_4</item>
+        <item>@drawable/sel_6_5</item>
+        <item>@drawable/sel_6_6</item>
+        <item>@drawable/sel_6_7</item>
+        <item>@drawable/sel_6_8</item>
+        <item>@drawable/sel_6_9</item>
+        <item>@drawable/sel_6_10</item>
+        <item>@drawable/sel_6_11</item>
+        <item>@drawable/sel_6_12</item>
+    </array>
+    <array name="puzzle_seven_model_sel">
+        <item>@drawable/sel_7_1</item>
+        <item>@drawable/sel_7_2</item>
+        <item>@drawable/sel_7_3</item>
+        <item>@drawable/sel_7_4</item>
+        <item>@drawable/sel_7_5</item>
+        <item>@drawable/sel_7_6</item>
+        <item>@drawable/sel_7_7</item>
+        <item>@drawable/sel_7_8</item>
+        <item>@drawable/sel_7_9</item>
+    </array>
+    <array name="puzzle_eight_model_sel">
+        <item>@drawable/sel_8_1</item>
+        <item>@drawable/sel_8_2</item>
+        <item>@drawable/sel_8_3</item>
+        <item>@drawable/sel_8_4</item>
+        <item>@drawable/sel_8_5</item>
+        <item>@drawable/sel_8_6</item>
+        <item>@drawable/sel_8_7</item>
+        <item>@drawable/sel_8_8</item>
+        <item>@drawable/sel_8_9</item>
+        <item>@drawable/sel_8_10</item>
+        <item>@drawable/sel_8_11</item>
+
+    </array>
+    <array name="puzzle_nine_model_sel">
+        <item>@drawable/sel_9_1</item>
+        <item>@drawable/sel_9_2</item>
+        <item>@drawable/sel_9_3</item>
+        <item>@drawable/sel_9_4</item>
+        <item>@drawable/sel_9_5</item>
+        <item>@drawable/sel_9_6</item>
+        <item>@drawable/sel_9_7</item>
+        <item>@drawable/sel_9_8</item>
+    </array>
+</resources>

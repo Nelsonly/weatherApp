@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.ViewGroup;
 
@@ -28,7 +27,6 @@ import com.nelson.weather.bean.NowResponse;
 import com.nelson.weather.bean.WarningResponse;
 import com.nelson.weather.contract.SplashContract;
 import com.nelson.weather.utils.ActivityUtils;
-import com.nelson.weather.utils.AdPlacementName;
 import com.nelson.weather.utils.AppStartUpUtils;
 import com.nelson.weather.utils.CodeToStringUtils;
 import com.nelson.weather.utils.Constant;
@@ -49,7 +47,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import butterknife.ButterKnife;
 import retrofit2.Response;
 
 //import com.nelson.weather.utils.StatusBarUtil;

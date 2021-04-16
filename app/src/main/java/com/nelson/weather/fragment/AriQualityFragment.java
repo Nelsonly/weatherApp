@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +36,6 @@ import com.nelson.weather.bean.LifestyleResponse;
 import com.nelson.weather.bean.MoreAirFiveResponse;
 import com.nelson.weather.bean.NewSearchCityResponse;
 import com.nelson.weather.contract.AirQualityContract;
-import com.nelson.weather.utils.AdPlacementName;
 import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.DateUtils;
 import com.nelson.weather.utils.DisplayUtil;

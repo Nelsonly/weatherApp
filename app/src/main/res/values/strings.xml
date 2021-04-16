@@ -57,9 +57,8 @@
     <string name="index_tv_pres">%shPa"</string>
     <string name="index_tv_dew">%s℃</string>
     <string name="index_tv_hum">%s%</string>
-
-
-
+    <string name="puzzle">拼图</string>
+    <string name="photo_save">保存</string>
 
 
 </resources>

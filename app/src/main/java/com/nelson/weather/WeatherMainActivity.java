@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,6 +15,9 @@ import android.view.KeyEvent;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
+import com.huantansheng.easyphotos.constant.Code;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
+import com.huantansheng.easyphotos.setting.Setting;
 import com.nelson.weather.adapter.IndexAdapter;
 import com.nelson.weather.adapter.TabAdapter;
 import com.nelson.weather.bean.AirNowResponse;
@@ -33,6 +37,8 @@ import com.nelson.weather.fragment.CusFragment;
 import com.nelson.weather.fragment.DailyFragment;
 import com.nelson.weather.fragment.IndexFragment;
 import com.nelson.weather.fragment.AriQualityFragment;
+import com.nelson.weather.fragment.WallpaperFragment;
+import com.nelson.weather.ui.PuzzleImgActivity;
 import com.nelson.weather.utils.CodeToStringUtils;
 import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.DateUtils;
@@ -42,7 +48,7 @@ import com.nelson.weather.view.ShareView;
 import com.nelson.mvplibrary.mvp.MvpActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
+import com.huantansheng.easyphotos.ui.PuzzleSelectorActivitySecond;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -56,7 +62,7 @@ import retrofit2.Response;
 /**
  * @author nelson
  */
-public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPresenter> implements AllDataContract.IAllDataView, IndexAdapter.OnRecyclerViewItemClick, CusFragment.ToAirQuality,
+public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPresenter> implements PuzzleSelectorActivitySecond.OnSelectPhotosForPuzzleDoneListener, AllDataContract.IAllDataView, IndexAdapter.OnRecyclerViewItemClick, CusFragment.ToAirQuality,
         IndexFragment.GoToAirPage, IndexFragment.NewCitySearch {
 
     /**定位器*/
@@ -131,17 +137,20 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         titles.add("综合预报");
         titles.add("15日天气");
         titles.add("空气质量");
-//        titles.add("壁纸");
+        titles.add("壁纸");
         icons.add(R.drawable.choose_comprehensive);
         icons.add(R.drawable.choose_15_days);
+        icons.add(R.drawable.choose_air_quality);
         icons.add(R.drawable.choose_air_quality);
 
         iconsNotChoose.add(R.drawable.not_choose_comprehensive);
         iconsNotChoose.add(R.drawable.not_choose_15_days);
         iconsNotChoose.add(R.drawable.not_choose_air_quality);
+        iconsNotChoose.add(R.drawable.not_choose_air_quality);
 
         iconsStart.add(R.drawable.choose_comprehensive);
         iconsStart.add(R.drawable.not_choose_15_days);
+        iconsStart.add(R.drawable.not_choose_air_quality);
         iconsStart.add(R.drawable.not_choose_air_quality);
 
         DailyFragment dailyFragment = new DailyFragment();
@@ -151,8 +160,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         fragments.add(indexFragment);
         fragments.add(dailyFragment);
         fragments.add(ariQualityFragment);
-//        fragments.add(new Fragment());
-
+        fragments.add(new WallpaperFragment());
         //实例化适配器
         TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         //设置适配器
@@ -427,6 +435,10 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         return R.layout.activity_main;
     }
 
+    @Override
+    public void onSelectPhotosForPuzzleDoneListener(ArrayList<Photo> selectedPhotos) {
+        PuzzleImgActivity.startWithPhotos(WeatherMainActivity.this, selectedPhotos, Environment.getExternalStorageDirectory().getAbsoluteFile()+"/"+Environment.DIRECTORY_PICTURES+"/"+getString(R.string.app_name),"IMG", Code.REQUEST_PUZZLE_SELECTOR,false, Setting.imageEngine);
+    }
 
 
 }

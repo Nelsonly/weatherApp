@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_puzzle_btns"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/puzzle_btn_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        />
+    <TextView
+        android:id="@+id/puzzle_btn_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="11sp"
+        android:textColor="#FF2f2f2f"
+        android:text="@string/puzzle_filter"/>
+
+
+</LinearLayout>

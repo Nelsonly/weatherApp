@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+    <com.huantansheng.easyphotos.models.puzzle.SquarePuzzleView
+        android:id="@+id/puzzle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/puzzle_model_bg_unselect_color"
+        app:line_color="@color/puzzle_model_unselect_line_color"
+        android:visibility="gone"
+        />
+
+    <ImageView
+        android:id="@+id/m_selector"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
+
+</FrameLayout>
