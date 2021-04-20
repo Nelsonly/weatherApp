@@ -211,6 +211,7 @@ public class DailyView extends HorizontalScrollView {
                     pathDay.lineTo(x11, y11);
                     pathNight.lineTo(x22, y22);
                 }
+
                 canvas.drawPath(pathDay, dayPaint);
                 canvas.drawPath(pathNight, nightPaint);
             }

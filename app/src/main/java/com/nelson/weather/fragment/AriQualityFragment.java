@@ -125,30 +125,6 @@ import retrofit2.Response;
       @BindView(R.id.lineChartView)
       LineChartView myLineChart;
 
-      /**
-       * 小卡片广告
-       * */
-      @BindView(R.id.ad_banner_small)
-      FrameLayout ad_express_small;
-      @BindView(R.id.ad_express_card_s)
-      CardView ad_express_cardS;
-      /**
-       * 大卡片广告
-       * */
-      @BindView(R.id.ad_expressbig_container)
-      FrameLayout ad_express_big;
-      @BindView(R.id.ad_express_card_b)
-      CardView ad_express_cardB;
-      /**
-       * 标题广告
-       * */
-      @BindView(R.id.ad_title_container)
-      FrameLayout ad_title_container;
-      @BindView(R.id.ad_air_container)
-      LinearLayout ad_air_container;
-      @BindView(R.id.ad_title_btn_close)
-      ImageView ad_title_btn_close;
-
       /**弹窗部分设置*/
       private PopupWindow mPopupWindow;
       private AnimationUtil animUtil;

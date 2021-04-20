@@ -217,7 +217,7 @@ public class WallpaperFragment extends MvpFragment<WallPaperContract.WallPaperPr
                     mList.add(data.get(i));
                 }
                 //添加尾部
-                mList.add(bottomBean);
+//                mList.add(bottomBean);
                 Log.d("list-->", new Gson().toJson(mList));
 
                 //根据数据数量来刷新列表

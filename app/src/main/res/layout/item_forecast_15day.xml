@@ -39,37 +39,6 @@
                     android:text="15天预报"
                     />
 
-                <!-- 广告 by Zero2020.12.28-->
-                <!--<include
-                    layout="@layout/item_ad_native_title"
-                    android:layout_width="163dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"/>-->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="11dp"
-                    android:id="@+id/ad_daily_container"
-                    android:background="@drawable/circular_rectangle_white">
-                    <FrameLayout
-                        android:id="@+id/ad_title_container_daily"
-                        android:layout_width="163dp"
-                        android:layout_height="wrap_content" />
-                    <ImageView
-                        android:id="@+id/ad_titledaily15_btnclose"
-                        android:layout_width="9dp"
-                        android:layout_height="9dp"
-                        android:src="@drawable/btn_close_3"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_gravity="center_vertical"/>
-                </LinearLayout>
-
             </RelativeLayout>
 
             <com.nelson.weather.view.DailyView

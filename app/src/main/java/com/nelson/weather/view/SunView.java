@@ -192,8 +192,8 @@ public class SunView extends View {
 
         mRectF = new RectF(mWidth-mRadius, marginTop, mWidth+mRadius, 2*mRadius +marginTop );
         mLinePaint.setColor(getResources().getColor(R.color.transparent_bg_0));
-        RectF mfect = new RectF(0,marginTop,mWidth*2,mRadius);
-        canvas.drawRect(mfect,mLinePaint);
+//        RectF mfect = new RectF(0,marginTop,mWidth*2,mRadius);
+//        canvas.drawRect(mfect,mLinePaint);
         //canvas.drawRect(mRectF,mLinePaint);
 //        mRectF = new RectF(mWidth  - mRadius, marginTop, mWidth  + mRadius, mRadius +marginTop );
         mLinePaint.setStyle(Paint.Style.STROKE);

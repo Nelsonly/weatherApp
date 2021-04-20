@@ -32,10 +32,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="7dp"/>
 
-                <!-- native小广告-->
-                <include
-                    layout="@layout/module_include_ad_rabbit"/>
-
                 <!-- 建议卡片-->
                 <include
                     layout="@layout/module_include_air_advice"/>
@@ -43,10 +39,6 @@
                 <!-- 5天空气质量-->
                 <include
                     layout="@layout/module_include_air_daily"/>
-
-                <!-- native大广告-->
-                <include
-                    layout="@layout/module_include_ad_sheep"/>
 
                 <!-- 监测站点-->
                 <include

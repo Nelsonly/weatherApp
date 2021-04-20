@@ -1,8 +1,10 @@
 package com.nelson.weather.fragment;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -12,10 +14,12 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
@@ -34,7 +39,6 @@ import com.nelson.weather.R;
 import com.nelson.weather.WeatherMainActivity;
 import com.nelson.weather.adapter.AreaAdapter;
 import com.nelson.weather.adapter.CityAdapter;
-import com.nelson.weather.adapter.IndexAdapter;
 import com.nelson.weather.adapter.ProvinceAdapter;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
@@ -61,6 +65,7 @@ import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.DateUtils;
 import com.nelson.weather.utils.LiWindow;
 import com.nelson.weather.utils.SPUtils;
+import com.nelson.weather.utils.SizeUtils;
 import com.nelson.weather.utils.ToastUtils;
 import com.nelson.weather.utils.WeatherUtil;
 import com.nelson.mvplibrary.base.BaseBean;
@@ -68,6 +73,10 @@ import com.nelson.mvplibrary.mvp.MvpFragment;
 import com.nelson.mvplibrary.utils.AnimationUtil;
 import com.nelson.mvplibrary.view.AlwaysMarqueeTextView;
 import com.google.gson.Gson;
+import com.nelson.weather.view.DailyItemView;
+import com.nelson.weather.view.DailyView;
+import com.nelson.weather.view.HourlyItemView;
+import com.nelson.weather.view.HourlyView;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,6 +100,9 @@ import static com.nelson.mvplibrary.utils.RecyclerViewAnimation.runLayoutAnimati
 public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter> implements WeatherContract.IWeatherView {
 
     public static final String location = "101010100";
+    public static final int ITEM_HOURLY = 0;
+    public static final int ITEM_DAILY = 1;
+    public static final int ITEM_LIFE = 2;
 
     SmartRefreshLayout refreshLayout;
     ImageView ivIllu;
@@ -113,7 +125,6 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
 
     NewCitySearch newCitySearch;
 
-    IndexAdapter indexAdapter;
     TextView index_location;
     ImageView tv_addlocation;
     List<BaseBean> list;
@@ -123,13 +134,24 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     Toolbar toolbar;
     ImageView location_btn;
     LinearLayout index_nolocation;
+    HourlyView hourlyView;
+    TextView tvSunrise;
+    TextView tvSunset;
+    FrameLayout frameLayout;
+    DailyView dailyView;
+    ViewPager vp;
+    LinearLayout llLife;
 
+    FrameLayout adTitleContainer;
+    ImageView adTitleBtnClose;
+    LinearLayout adLayout;
     //定位器
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
     private boolean ifShowDialog;
     private String warnBodyString = null;//灾害预警数据字符串
     private int iconCode = 0;
+    private final GoToDaily goToDaily;
 
     //
     private boolean isScroll;
@@ -140,18 +162,21 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     private Runnable task;
     private Runnable task_2;
     private int delay = 10000;
+    public static final int LIFE_PAGE_NUM = 2;
 
     @Override
     protected WeatherContract.WeatherPresenter createPresent() {
         return new WeatherContract.WeatherPresenter();
     }
 
-    public IndexFragment() { }
+    public IndexFragment(GoToDaily goToDaily) {
+        this.goToDaily = goToDaily;
+    }
 
-    public IndexFragment(GoToAirPage goToAirPage, NewCitySearch newCitySearch){
+    public IndexFragment(GoToAirPage goToAirPage, NewCitySearch newCitySearch, GoToDaily goToDaily){
         this.goToAirPage = goToAirPage;
         this.newCitySearch = newCitySearch;
-
+        this.goToDaily = goToDaily;
     }
 
 
@@ -183,7 +208,17 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         toolbar = getActivity().findViewById(R.id.toolbar);
         location_btn = getActivity().findViewById(R.id.location_btn);
         index_nolocation = getActivity().findViewById(R.id.index_nolocation);
+        hourlyView = (HourlyView) getActivity().findViewById(R.id.hourly_view);
+        tvSunrise = (TextView) getActivity().findViewById(R.id.tv_sunrise);
+        tvSunset = (TextView) getActivity().findViewById(R.id.tv_sunset);
+        dailyView = (DailyView) getActivity().findViewById(R.id.daily_view);
+        frameLayout = (FrameLayout) getActivity().findViewById(R.id.item_15day);
 
+        adTitleContainer = (FrameLayout) getActivity().findViewById(R.id.ad_title_container_daily);
+        adTitleBtnClose = (ImageView) getActivity().findViewById(R.id.ad_titledaily15_btnclose);
+        adLayout = (LinearLayout) getActivity().findViewById(R.id.ad_daily_container);
+        vp = (ViewPager) getActivity().findViewById(R.id.vp_life);
+        llLife = (LinearLayout) getActivity().findViewById(R.id.ll_dots);
         tv_addlocation.post(new Runnable() {
             @Override
             public void run() {
@@ -212,15 +247,6 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         list.add(new DailyIndexBean());
         list.add(new LifeIndexBean());
 
-        indexAdapter = new IndexAdapter(getContext(), list, (WeatherMainActivity) getActivity());
-        rv = (RecyclerView) getView().findViewById(R.id.rv_index);
-        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-        rv.setAdapter(indexAdapter);
         iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,9 +346,9 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
 
         //实况天气中的现在
         HourlyResponse.HourlyBean hourlyBean = now2hourly(data);
-        HourlyIndexBean hourlyIndexBean = (HourlyIndexBean) list.get(IndexAdapter.ITEM_HOURLY);
+        HourlyIndexBean hourlyIndexBean = (HourlyIndexBean) list.get(ITEM_HOURLY);
         hourlyIndexBean.setNowBean(hourlyBean);
-        list.set(IndexAdapter.ITEM_HOURLY, hourlyIndexBean);
+        list.set(ITEM_HOURLY, hourlyIndexBean);
     }
 
     /**
@@ -345,9 +371,9 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     }
     private void DailyRefresh(DailyResponse dailyResponse){
         List<DailyResponse.DailyBean> dailyBeans = dailyResponse.getDaily();
-        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(IndexAdapter.ITEM_DAILY);
+        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(ITEM_DAILY);
         dailyIndexBean.setDailyBeans(dailyBeans);
-        list.set(IndexAdapter.ITEM_DAILY, dailyIndexBean);
+        list.set(ITEM_DAILY, dailyIndexBean);
 
 //                15天预报
         tv_temp_today.setText(dailyBeans.get(0).getTempMax() + "/" + dailyBeans.get(0).getTempMin() + "℃");
@@ -356,16 +382,16 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
 
 //                24小时预报中的日出日落
         HourlyIndexBean hourlyIndexBean;
-        hourlyIndexBean = (HourlyIndexBean) list.get(IndexAdapter.ITEM_HOURLY);
+        hourlyIndexBean = (HourlyIndexBean) list.get(ITEM_HOURLY);
         hourlyIndexBean.setSunrise(dailyBeans.get(0).getSunrise());
         hourlyIndexBean.setSunset(dailyBeans.get(0).getSunset());
-        hourlyIndexBean.setViewType(IndexAdapter.ITEM_HOURLY);
-        list.set(IndexAdapter.ITEM_HOURLY, hourlyIndexBean);
-        indexAdapter.notifyDataSetChanged();
+        hourlyIndexBean.setViewType(ITEM_HOURLY);
+        list.set(ITEM_HOURLY, hourlyIndexBean);
 
         SPUtils.putString(Constant.SUNRISE,dailyBeans.get(0).getSunrise(),context);
         SPUtils.putString(Constant.SUNSET,dailyBeans.get(0).getSunset(),context);
         WeatherUtil.changeIllustration(ivIllu, iconCode, DateUtils.getNowTime(), context);
+        initDaily(dailyIndexBean);
     }
 
     /**
@@ -385,10 +411,10 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
 
     private void  HourlyRefresh(HourlyResponse hourlyResponse){
         List<HourlyResponse.HourlyBean> hourlyBeans = hourlyResponse.getHourly();
-        HourlyIndexBean hourlyIndexBean = (HourlyIndexBean) list.get(IndexAdapter.ITEM_HOURLY);
+        HourlyIndexBean hourlyIndexBean = (HourlyIndexBean) list.get(ITEM_HOURLY);
         hourlyIndexBean.setHourlyBeans(hourlyBeans);
-        list.set(IndexAdapter.ITEM_HOURLY, hourlyIndexBean);
-        indexAdapter.notifyDataSetChanged();
+        list.set(ITEM_HOURLY, hourlyIndexBean);
+        initHourly(hourlyIndexBean);
     }
 
     /**
@@ -420,17 +446,15 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         iv_air_tomorrow.setImageResource(getAirBlock(data.get(1).getCategory()));
 
         //24小时预报中的空气质量
-        HourlyIndexBean hourlyIndexBean = (HourlyIndexBean) list.get(IndexAdapter.ITEM_HOURLY);
+        HourlyIndexBean hourlyIndexBean = (HourlyIndexBean) list.get(ITEM_HOURLY);
         hourlyIndexBean.setAir(data.get(0).getCategory());
-        hourlyIndexBean.setViewType(IndexAdapter.ITEM_HOURLY);
-        list.set(IndexAdapter.ITEM_HOURLY, hourlyIndexBean);
+        hourlyIndexBean.setViewType(ITEM_HOURLY);
+        list.set(ITEM_HOURLY, hourlyIndexBean);
 
         //15天预报中的空气质量
-        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(IndexAdapter.ITEM_DAILY);
+        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(ITEM_DAILY);
         dailyIndexBean.setAirBeans(moreAirFiveResponse.getDaily());
-        list.set(IndexAdapter.ITEM_DAILY, dailyIndexBean);
-
-        indexAdapter.notifyDataSetChanged();
+        list.set(ITEM_DAILY, dailyIndexBean);
     }
 
 
@@ -444,24 +468,24 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         }
     }
     private void LifestyleRefresh(LifestyleResponse data){
-        if(indexAdapter.getItemCount()==5){
-            LifeIndexBean lifeIndexBean = (LifeIndexBean) list.get(IndexAdapter.ITEM_LIFE);
-            lifeIndexBean.setViewType(IndexAdapter.ITEM_LIFE);
+        if(list.size()==5){
+            LifeIndexBean lifeIndexBean = (LifeIndexBean) list.get(ITEM_LIFE);
+            lifeIndexBean.setViewType(ITEM_LIFE);
             lifeIndexBean.setLifestyleResponse(data);
-            list.set(IndexAdapter.ITEM_LIFE, lifeIndexBean);
-            indexAdapter.notifyDataSetChanged();
-        }else if (indexAdapter.getItemCount()==4){
+            initLifeStyle(lifeIndexBean);
+            list.set(ITEM_LIFE, lifeIndexBean);
+        }else if (list.size()==4){
             LifeIndexBean lifeIndexBean = (LifeIndexBean) list.get(3);
             lifeIndexBean.setViewType(3);
             lifeIndexBean.setLifestyleResponse(data);
+            initLifeStyle(lifeIndexBean);
             list.set(3, lifeIndexBean);
-            indexAdapter.notifyDataSetChanged();
-        }else if(indexAdapter.getItemCount()==3){
+        }else if(list.size()==3){
             LifeIndexBean lifeIndexBean = (LifeIndexBean) list.get(2);
             lifeIndexBean.setViewType(2);
             lifeIndexBean.setLifestyleResponse(data);
+            initLifeStyle(lifeIndexBean);
             list.set(2, lifeIndexBean);
-            indexAdapter.notifyDataSetChanged();
         }
 
     }
@@ -506,20 +530,19 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         }
         DailyResponse.DailyBean dailyBean = history2daily(response);
 
-        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(IndexAdapter.ITEM_DAILY);
+        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(ITEM_DAILY);
         dailyIndexBean.setHisDailyBean(dailyBean);
 
-        if(indexAdapter.getItemCount()==5){
-            dailyIndexBean.setViewType(IndexAdapter.ITEM_DAILY);
-            list.set(IndexAdapter.ITEM_DAILY, dailyIndexBean);
-        }else if(indexAdapter.getItemCount()==4){
+        if(list.size()==5){
+            dailyIndexBean.setViewType(ITEM_DAILY);
+            list.set(ITEM_DAILY, dailyIndexBean);
+        }else if(list.size()==4){
             dailyIndexBean.setViewType(1);
             list.set(1, dailyIndexBean);
-        }else if(indexAdapter.getItemCount()==3){
+        }else if(list.size()==3){
             dailyIndexBean.setViewType(0);
             list.set(0, dailyIndexBean);
         }
-        indexAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -538,17 +561,16 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         }
         MoreAirFiveResponse.DailyBean airBean = history2air(response);
 
-        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(IndexAdapter.ITEM_DAILY);
+        DailyIndexBean dailyIndexBean = (DailyIndexBean) list.get(ITEM_DAILY);
         dailyIndexBean.setHisAirBean(airBean);
-        if(indexAdapter.getItemCount()==5){
+        if(list.size()==5){
 
-        }else if(indexAdapter.getItemCount()==4){
+        }else if(list.size()==4){
 
-        }else if(indexAdapter.getItemCount()==3){
+        }else if(list.size()==3){
 
         }
-        list.set(IndexAdapter.ITEM_DAILY, dailyIndexBean);
-        indexAdapter.notifyDataSetChanged();
+        list.set(ITEM_DAILY, dailyIndexBean);
     }
 
     private void airNowRefresh(AirNowResponse.NowBean nowBean){
@@ -738,21 +760,33 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         }
         if(AllDatas.getInstance().getLifestyleResponse()!=null) {
             LifestyleRefresh(AllDatas.getInstance().getLifestyleResponse());
+        }else {
+            mPresent.lifestyle(AllDatas.getInstance().getLocationId());
         }
         if(AllDatas.getInstance().getMoreAirFiveResponse()!=null) {
             MoreAirFiveRefresh(AllDatas.getInstance().getMoreAirFiveResponse());
+        }else {
+            mPresent.airFive(AllDatas.getInstance().getLocationId());
         }
         if(AllDatas.getInstance().getHourlyResponse()!=null) {
             HourlyRefresh(AllDatas.getInstance().getHourlyResponse());
+        }else {
+            mPresent.hourlyWeather(AllDatas.getInstance().getLocationId());
         }
         if(AllDatas.getInstance().getDailyResponse()!=null) {
             DailyRefresh(AllDatas.getInstance().getDailyResponse());
+        }else {
+            mPresent.dailyWeather(AllDatas.getInstance().getLocationId());
         }
         if(AllDatas.getInstance().getNowResponse()!=null) {
             NowRefresh(AllDatas.getInstance().getNowResponse());
+        }else {
+            mPresent.nowWeather(AllDatas.getInstance().getLocationId());
         }
         if(AllDatas.getInstance().getWarningResponse()!=null) {
             NowWarnRefresh(AllDatas.getInstance().getWarningResponse());
+        }else {
+            mPresent.nowWarn(AllDatas.getInstance().getLocationId());
         }
         if(AllDatas.getInstance().getHistoryAirResponse()!=null) {
             historyAirRefresh(AllDatas.getInstance().getHistoryAirResponse());
@@ -1137,6 +1171,221 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
                 //V7版本中需要先获取到城市ID ,在结果返回值中再进行下一步的数据查询
                 EventBus.getDefault().post(new SearchCityEvent(district,city));//Adm2 代表市
             }
+        }
+    }
+    private void initHourly(HourlyIndexBean hourlyIndexBean) {
+//        if (list.get(position).getViewType() != ITEM_HOURLY) return;
+        HourlyIndexBean bean = hourlyIndexBean;
+        if (bean.getHourlyBeans() != null && bean.getHourlyBeans().size() > 0) {
+            List<HourlyResponse.HourlyBean> hourlyBeans = new ArrayList<>();
+            if (bean.getNowBean() != null) {
+                hourlyBeans.add(bean.getNowBean());
+            }
+            hourlyBeans.addAll(bean.getHourlyBeans());
+
+            hourlyView.setLineColor(Color.parseColor("#4287ed"), Color.parseColor("#e4eefc"));
+            hourlyView.setLineWidth(8f);
+            hourlyView.setPointRadius(12);
+            hourlyView.setHollow(4);
+            hourlyView.setList(hourlyBeans);
+            //设置一屏幕显示几列(最少3列)
+            try {
+                hourlyView.setColumnNumber(5);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //点击某一列
+            hourlyView.setOnWeatherItemClickListener(new HourlyView.OnWeatherItemClickListener() {
+                @Override
+                public void onItemClick(HourlyItemView itemView, int position, HourlyResponse.HourlyBean bean) {
+                    HourlyResponse.HourlyBean clickData = hourlyBeans.get(position);
+                    showHourlyWindow(clickData);
+                }
+            });
+            hourlyView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            hourlyView.clearSelected();
+                            break;
+                        default:
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        if (bean.getSunrise() != null) {
+            tvSunrise.setText(bean.getSunrise());
+        }
+        if (bean.getSunset() != null) {
+            tvSunset.setText(bean.getSunset());
+        }
+
+        if (bean.getAir() != null) {
+            hourlyView.setAir(bean.getAir());
+        }
+    }
+    /**
+     * 显示小时详情天气信息弹窗
+     */
+    private void showHourlyWindow(HourlyResponse.HourlyBean data) {
+        liWindow = new LiWindow(context);
+        final View view = LayoutInflater.from(context).inflate(R.layout.window_hourly_detail, null);
+        TextView tvTime = view.findViewById(R.id.tv_time);
+        TextView tvTem = view.findViewById(R.id.tv_tem);
+        TextView tvCondTxt = view.findViewById(R.id.tv_cond_txt);
+        TextView tvWindDeg = view.findViewById(R.id.tv_wind_deg);
+        TextView tvWindDir = view.findViewById(R.id.tv_wind_dir);
+        TextView tvWindSc = view.findViewById(R.id.tv_wind_sc);
+        TextView tvWindSpd = view.findViewById(R.id.tv_wind_spd);
+        TextView tvHum = view.findViewById(R.id.tv_hum);
+        TextView tvPres = view.findViewById(R.id.tv_pres);
+        TextView tvPop = view.findViewById(R.id.tv_pop);
+        TextView tvDew = view.findViewById(R.id.tv_dew);
+        TextView tvCloud = view.findViewById(R.id.tv_cloud);
+
+        String time = DateUtils.updateTime(data.getFxTime());
+
+        tvTime.setText(String.format(getActivity().getResources().getString(R.string.index_tv_time), WeatherUtil.showTimeInfo(time), time));
+        tvTem.setText(String.format(getActivity().getResources().getString(R.string.index_tv_temp), data.getTemp()));
+        tvCondTxt.setText(data.getText());
+        tvWindDeg.setText(String.format(getActivity().getResources().getString(R.string.index_tv_wind_deg), data.getWind360()));
+        tvWindDir.setText(data.getWindDir());
+        tvWindSc.setText(String.format(getActivity().getResources().getString(R.string.index_tv_wind_sc), data.getWindScale()));
+        tvWindSpd.setText(String.format(getActivity().getResources().getString(R.string.index_tv_wind_spd), data.getWindSpeed()));
+        tvHum.setText(data.getHumidity() + "%");
+        tvPres.setText(String.format(getActivity().getResources().getString(R.string.index_tv_pres), data.getPressure()));
+        tvPop.setText(data.getPop() + "%");
+        tvDew.setText(String.format(getActivity().getResources().getString(R.string.index_tv_dew), data.getDew()));
+        tvCloud.setText(data.getCloud() + "%");
+        liWindow.showCenterPopupWindow(view, SizeUtils.dp2px(context, 300), SizeUtils.dp2px(context, 400), true);
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private void initDaily(DailyIndexBean dailyIndexBean) {
+        if (dailyIndexBean.getDailyBeans() != null && dailyIndexBean.getDailyBeans().size() > 0) {
+            List<DailyResponse.DailyBean> dailyBeans = new ArrayList<>();
+            if (dailyIndexBean.getHisDailyBean() != null) {
+                dailyBeans.add(dailyIndexBean.getHisDailyBean());
+            }
+            dailyBeans.addAll(dailyIndexBean.getDailyBeans());
+            setDailyView(dailyBeans);
+            //点击某一列
+            dailyView.setOnWeatherItemClickListener(new DailyView.OnWeatherItemClickListener() {
+                @Override
+                public void onItemClick(DailyItemView itemView, int position, DailyResponse.DailyBean bean) {
+                    goToDaily.onRvItemClick(position);
+                }
+            });
+            dailyView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            dailyView.clearSelected();
+                            break;
+                        default:
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        if (dailyIndexBean.getAirBeans() != null) {
+            List<MoreAirFiveResponse.DailyBean> airBeans = new ArrayList<>();
+            if (dailyIndexBean.getHisDailyBean() != null) {
+                airBeans.add(dailyIndexBean.getHisAirBean());
+            }
+            airBeans.addAll(dailyIndexBean.getAirBeans());
+            dailyView.setAir(airBeans);
+        }
+    }
+
+    /**
+     * 15日天气item的基本设置
+     */
+    private void setDailyView(List<DailyResponse.DailyBean> dailyBeans) {
+        //设置白天和晚上线条的颜色
+        dailyView.setDayAndNightLineColor(Color.parseColor("#E4AE47"), Color.parseColor("#4287ed"),
+                Color.parseColor("#fdf3ea"), Color.parseColor("#edf4fd"));
+
+        //设置线宽
+        dailyView.setLineWidth(8);
+        dailyView.setPointRadius(12);
+        dailyView.setHollow(4);
+        dailyView.setList(dailyBeans);
+        //设置一屏幕显示几列(最少3列)
+        try {
+            dailyView.setColumnNumber(6);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public interface GoToDaily {
+        void onRvItemClick(int item);
+    }
+    private void initLifeStyle(LifeIndexBean lifeIndexBean) {
+        for (BaseBean i : list){
+            if (i instanceof LifeIndexBean){
+                lifeIndexBean = (LifeIndexBean) i;
+            }
+        }
+        if (lifeIndexBean.getLifestyleResponse() != null) {
+            List<LifestyleResponse.DailyBean> data = lifeIndexBean.getLifestyleResponse().getDaily();
+            //下方圆点
+            ImageView[] dotArray = new ImageView[LIFE_PAGE_NUM];
+            if (llLife.getChildCount() == 0) {
+                for (int i = 0; i < LIFE_PAGE_NUM; i++) {
+                    dotArray[i] = new ImageView(context);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
+                    if (i != 0) {
+                        params.leftMargin = 20;
+                        dotArray[i].setImageResource(R.drawable.point_next);
+                    } else {
+                        dotArray[i].setImageResource(R.drawable.point_current);
+                    }
+                    dotArray[i].setLayoutParams(params);
+                    llLife.addView(dotArray[i]);
+                }
+            }
+
+            vp.setAdapter(new com.nelson.weather.adapter.LifeViewPagerAdapter(context, data));
+            vp.setCurrentItem(com.nelson.weather.adapter.LifeViewPagerAdapter.maxLoop / 2);
+            vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    for (int i = 0; i < LIFE_PAGE_NUM; i++) {
+                        ImageView dot = (ImageView) (llLife.getChildAt(i));
+                        if (position % 2 == i) {
+                            dot.setImageResource(R.drawable.point_next);
+                        } else {
+                            dot.setImageResource(R.drawable.point_current);
+                        }
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+
         }
     }
 }

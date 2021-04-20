@@ -63,7 +63,7 @@ import retrofit2.Response;
  * @author nelson
  */
 public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPresenter> implements PuzzleSelectorActivitySecond.OnSelectPhotosForPuzzleDoneListener, AllDataContract.IAllDataView, IndexAdapter.OnRecyclerViewItemClick, CusFragment.ToAirQuality,
-        IndexFragment.GoToAirPage, IndexFragment.NewCitySearch {
+        IndexFragment.GoToAirPage, IndexFragment.NewCitySearch,IndexFragment.GoToDaily {
 
     /**定位器*/
     public LocationClient mLocationClient = null;
@@ -154,7 +154,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         iconsStart.add(R.drawable.not_choose_air_quality);
 
         DailyFragment dailyFragment = new DailyFragment();
-        indexFragment = new IndexFragment(this, this);
+        indexFragment = new IndexFragment(this, this, this);
         AriQualityFragment ariQualityFragment = new AriQualityFragment();
 
         fragments.add(indexFragment);
@@ -224,44 +224,44 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     @Override
     public void getAirNowResult(Response<AirNowResponse> response) {
         AllDatas.getInstance().setAirNowResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
 
     }
 
     @Override
     public void getMoreDailyResult(Response<DailyResponse> response) {
         AllDatas.getInstance().setDailyResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override
     public void getMoreAirFiveResult(Response<MoreAirFiveResponse> response) {
         AllDatas.getInstance().setMoreAirFiveResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override
     public void getMoreLifestyleResult(Response<LifestyleResponse> response) {
         AllDatas.getInstance().setLifestyleResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override
     public void getHistoryResult(Response<HistoryResponse> response) {
         AllDatas.getInstance().setHistoryResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override
     public void getHistoryAirResult(Response<HistoryAirResponse> response) {
         AllDatas.getInstance().setHistoryAirResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override
     public void getHourlyResult(Response<HourlyResponse> response) {
         AllDatas.getInstance().setHourlyResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override
@@ -313,6 +313,14 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
      */
     @Override
     public void onItemClick(int item) {
+        SPUtils.putBoolean(Constant.isindexfragment, true, context);
+        SPUtils.putInt("select_item", item, context);
+        fragQueue.push(1);
+        viewPager2.setCurrentItem(1);
+
+    }
+    @Override
+    public void onRvItemClick(int item) {
         SPUtils.putBoolean(Constant.isindexfragment, true, context);
         SPUtils.putInt("select_item", item, context);
         fragQueue.push(1);

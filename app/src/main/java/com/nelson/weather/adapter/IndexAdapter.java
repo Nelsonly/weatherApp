@@ -347,21 +347,11 @@ public class IndexAdapter extends RecyclerView.Adapter {
         public ViewPager vp;
         public LinearLayout ll;
 
-        //标题广告
-        public FrameLayout adTitleContainer;
-        public ImageView adTitleBtnClose;
-        public LinearLayout adLayout;
-
         public LifeViewHolder(@NonNull View itemView) {
             super(itemView);
             this.vp = (ViewPager) itemView.findViewById(R.id.vp_life);
             this.ll = (LinearLayout) itemView.findViewById(R.id.ll_dots);
             frameLayout = (FrameLayout) itemView.findViewById(R.id.item_life);
-
-            adTitleContainer = itemView.findViewById(R.id.ad_title_container);
-            adTitleBtnClose = (ImageView) itemView.findViewById(R.id.ad_titledailylife_btnclose);
-            adLayout = (LinearLayout) itemView.findViewById(R.id.ad_life_container);
-
         }
     }
 
