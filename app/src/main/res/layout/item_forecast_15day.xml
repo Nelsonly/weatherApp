@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -30,7 +30,6 @@
                     android:layout_marginLeft="16.5dp"
                     android:layout_marginTop="19dp"
                     android:layout_marginBottom="7.5dp"
-                    android:fontFamily="@font/inter"
                     android:includeFontPadding="false"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -39,13 +38,16 @@
                     android:text="15天预报"
                     />
 
-            </RelativeLayout>
+
+            </LinearLayout>
 
             <com.nelson.weather.view.DailyView
                 android:id="@+id/daily_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="7.5dp"/>
+                android:layout_marginBottom="7.5dp"
+                />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>

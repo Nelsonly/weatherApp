@@ -142,16 +142,13 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     ViewPager vp;
     LinearLayout llLife;
 
-    FrameLayout adTitleContainer;
-    ImageView adTitleBtnClose;
-    LinearLayout adLayout;
     //定位器
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
     private boolean ifShowDialog;
     private String warnBodyString = null;//灾害预警数据字符串
     private int iconCode = 0;
-    private final GoToDaily goToDaily;
+    private GoToDaily goToDaily ;
 
     //
     private boolean isScroll;
@@ -168,6 +165,9 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     protected WeatherContract.WeatherPresenter createPresent() {
         return new WeatherContract.WeatherPresenter();
     }
+    public IndexFragment(){
+
+    }
 
     public IndexFragment(GoToDaily goToDaily) {
         this.goToDaily = goToDaily;
@@ -178,8 +178,6 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         this.newCitySearch = newCitySearch;
         this.goToDaily = goToDaily;
     }
-
-
 
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -214,9 +212,6 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         dailyView = (DailyView) getActivity().findViewById(R.id.daily_view);
         frameLayout = (FrameLayout) getActivity().findViewById(R.id.item_15day);
 
-        adTitleContainer = (FrameLayout) getActivity().findViewById(R.id.ad_title_container_daily);
-        adTitleBtnClose = (ImageView) getActivity().findViewById(R.id.ad_titledaily15_btnclose);
-        adLayout = (LinearLayout) getActivity().findViewById(R.id.ad_daily_container);
         vp = (ViewPager) getActivity().findViewById(R.id.vp_life);
         llLife = (LinearLayout) getActivity().findViewById(R.id.ll_dots);
         tv_addlocation.post(new Runnable() {

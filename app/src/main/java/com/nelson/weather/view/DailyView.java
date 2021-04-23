@@ -2,6 +2,7 @@ package com.nelson.weather.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -72,6 +73,7 @@ public class DailyView extends HorizontalScrollView {
         this(context, attrs);
     }
 
+
     private void init(Context context, AttributeSet attrs) {
         dayPaint = new Paint();
         dayPaint.setColor(dayLineColor);
@@ -123,7 +125,7 @@ public class DailyView extends HorizontalScrollView {
                 float curDy1 = 0f;
                 float intensity = 0.16f;
 
-                DailyItemView c = (DailyItemView) root.getChildAt(0);
+                DailyItemView c = (DailyItemView) root.getChildAt(0);;
                 int dX = c.getTempX();
                 int dY = c.getTempY();
                 int nX = c.getTempX();

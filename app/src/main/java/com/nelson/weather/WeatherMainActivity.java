@@ -267,7 +267,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     @Override
     public void getNowWarnResult(Response<WarningResponse> response) {
         AllDatas.getInstance().setWarningResponse(response.body());
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
         dismissLoadingDialog();
     }
 
@@ -278,7 +278,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
             mPresent.HistoryRes(locationId, DateUtils.updateTime_month(response.body().getUpdateTime()));
             mPresent.HistoryAirRes(locationId, DateUtils.updateTime_month(response.body().getUpdateTime()));
         }
-        indexFragment.Refresh();
+//        indexFragment.Refresh();
     }
 
     @Override

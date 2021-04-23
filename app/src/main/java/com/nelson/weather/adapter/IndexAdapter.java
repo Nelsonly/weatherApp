@@ -327,18 +327,18 @@ public class IndexAdapter extends RecyclerView.Adapter {
         public FrameLayout frameLayout;
         public DailyView dailyView;
 
-        public FrameLayout adTitleContainer;
-        public ImageView adTitleBtnClose;
-        public LinearLayout adLayout;
+//        public FrameLayout adTitleContainer;
+//        public ImageView adTitleBtnClose;
+//        public LinearLayout adLayout;
 
         public DailyViewHolder(@NonNull View itemView) {
             super(itemView);
             dailyView = (DailyView) itemView.findViewById(R.id.daily_view);
             frameLayout = (FrameLayout) itemView.findViewById(R.id.item_15day);
 
-            adTitleContainer = (FrameLayout) itemView.findViewById(R.id.ad_title_container_daily);
-            adTitleBtnClose = (ImageView) itemView.findViewById(R.id.ad_titledaily15_btnclose);
-            adLayout = (LinearLayout) itemView.findViewById(R.id.ad_daily_container);
+//            adTitleContainer = (FrameLayout) itemView.findViewById(R.id.ad_title_container_daily);
+//            adTitleBtnClose = (ImageView) itemView.findViewById(R.id.ad_titledaily15_btnclose);
+//            adLayout = (LinearLayout) itemView.findViewById(R.id.ad_daily_container);
         }
     }
 
