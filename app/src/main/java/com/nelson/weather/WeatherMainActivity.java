@@ -11,10 +11,12 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.ImageView;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
+import com.bumptech.glide.Glide;
 import com.huantansheng.easyphotos.constant.Code;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.huantansheng.easyphotos.setting.Setting;
@@ -57,6 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import butterknife.BindView;
 import retrofit2.Response;
 
 /**
@@ -84,16 +87,12 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     private ShareView shareView;
 
     private boolean isAnimatorEnd;
-    private final String[] tabEventIds = {
-            Constant.APP_HOMETAB_CLICK,
-            Constant.APP_7DAYSTAB_CLICK,
-            Constant.APP_AIRCONDTIONTAB_CLICK
-    };
 
     private final Handler handler = new Handler();
     private Runnable task;
     private final int delay = 2000;
-
+    @BindView(R.id.main_background)
+    ImageView mainBackground;
 
 
 
@@ -126,10 +125,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//        AcbExpressManager.getInstance().preloadAdView(context, "SHEEP01", "indexSheep01Chance");
 
-        Log.d("yytTest", "onCreate: ++++++++++++++++++MainActivity");
         fragQueue.push(0);
         TabLayout bottomTabLayout = findViewById(R.id.bottom_tab);
         viewPager2 = findViewById(R.id.view_pager2);
@@ -197,17 +193,16 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
 
             }
         });
-
-
-
     }
 
     @Override
     public void initData(Bundle savedInstanceState) {
         Log.d("lambTest", "initData: -------------->MainActivity");
-
         EventBus.getDefault().register(this);
-
+        if (2==SPUtils.getInt(Constant.WALLPAPER_TYPE,4,context) && !"".equals(SPUtils.getString(Constant.BiYingURL,"",context))){
+            SPUtils.putString(Constant.WALLPAPER_URL,SPUtils.getString(Constant.BiYingURL,"",context),context);
+        }
+        Glide.with(this).load(SPUtils.getString(Constant.WALLPAPER_URL,"R.mipmap.white_background",context)).into(mainBackground);
     }
 
     /**

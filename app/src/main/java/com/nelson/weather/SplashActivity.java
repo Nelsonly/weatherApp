@@ -16,6 +16,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
+import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
@@ -376,6 +377,19 @@ public class SplashActivity extends MvpActivity<SplashContract.SplashPresenter> 
             mPresent.HistoryAirRes(locationId, DateUtils.updateTime_month(response.body().getUpdateTime()));
             goToMain();
         }
+    }
+
+    @Override
+    public void getBiYingResult(Response<BiYingImgResponse> response) {
+        if (response.body().getImages() != null) {
+            //得到的图片地址是没有前缀的，所以加上前缀否则显示不出来
+            String  biyingUrl = "http://cn.bing.com" + response.body().getImages().get(0).getUrl();
+            SPUtils.putString(Constant.BiYingURL,biyingUrl,context);
+            Log.d("type-->", biyingUrl);
+        } else {
+            ToastUtils.showShortToast(context, "未获取到必应的图片");
+        }
+
     }
 
     @Override

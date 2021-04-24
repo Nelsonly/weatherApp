@@ -54,24 +54,6 @@ public class LifeViewPagerAdapter extends PagerAdapter {
             R.drawable.spf
     };
 
-    private String[] eventIds = {
-            Constant.HOME_LIVINGSPORT_CLICK,
-            Constant.HOME_LIVINGCLEANCAR_CLICK,
-            Constant.HOME_LIVINGCLOTHES_CLICK,
-            Constant.HOME_LIVINGFISHING_CLICK,
-            Constant.HOME_LIVINGRAYS_CLICK,
-            Constant.HOME_LIVINGTRAVEL_CLICK,
-            Constant.HOME_LIVINGALLERGY_CLICK,
-            Constant.HOME_LIVINGCOMFORT_CLICK,
-            Constant.HOME_LIVINGCOLD_CLICK,
-            Constant.HOME_LIVINGAIRPOLLUTION_CLICK,
-            Constant.HOME_LIVINGAIRCON_CLICK,
-            Constant.HOME_LIVINGSUNGLASS_CLICK,
-            Constant.HOME_LIVINGMAKEUP_CLICK,
-            Constant.HOME_LIVINGAIRING_CLICK,
-            Constant.HOME_LIVINGTRAFFIC_CLICK,
-            Constant.HOME_LIVINGSUNPROOF_CLICK
-    };
 
     public LifeViewPagerAdapter(Context context, List<LifestyleResponse.DailyBean> beanList) {
         this.context = context;

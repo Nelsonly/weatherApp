@@ -55,36 +55,16 @@
             </LinearLayout>
         </FrameLayout>
 
-        <!--<com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_dailyweather"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">-->
-
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <pl.droidsonroids.gif.GifImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/refresh_sungif"
-                    app:layout_srlSpinnerStyle="Scale"
-                    app:layout_srlBackgroundColor="@color/transparent"/>
-            </LinearLayout>-->
         <androidx.core.widget.NestedScrollView
             android:id="@+id/daily_nestedScorll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
         </androidx.core.widget.NestedScrollView>
-        <!--</com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
 
     </LinearLayout>
 </FrameLayout>

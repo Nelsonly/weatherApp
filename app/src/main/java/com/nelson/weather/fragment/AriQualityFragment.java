@@ -160,13 +160,6 @@ import retrofit2.Response;
       private long oldTime = 0;
       private long nowTime = 0;
 
-      private final String[] sEventIds = {
-              Constant.AIRQ_SUGGESPORT_CLICK,
-              Constant.AIRQ_SUGGESTALLERGY_CLICK,
-              Constant.AIRQ_SUGGESTCOLD_CLICK,
-              Constant.AIRQ_SUGGESTAIRPOLLUTION_CLICK
-      };
-
       private final Handler handlerRabbit = new Handler();
       private final Handler handlerSheep = new Handler();
       private Runnable task;

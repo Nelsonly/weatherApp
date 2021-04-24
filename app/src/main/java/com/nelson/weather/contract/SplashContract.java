@@ -2,6 +2,7 @@ package com.nelson.weather.contract;
 
 import com.nelson.weather.api.ApiService;
 import com.nelson.weather.bean.AirNowResponse;
+import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
@@ -24,7 +25,7 @@ import retrofit2.Response;
 /**
  * 欢迎页订阅器
  *
- * @author llw
+ * @author nelson
  */
 public class SplashContract {
 
@@ -229,7 +230,27 @@ public class SplashContract {
                 }
             });
         }
+        /**
+         * 获取必应  每日一图
+         */
+        public void biying() {
+            ApiService service = ServiceGenerator.createService(ApiService.class, 1);
+            service.biying().enqueue(new NetCallBack<BiYingImgResponse>() {
+                @Override
+                public void onSuccess(Call<BiYingImgResponse> call, Response<BiYingImgResponse> response) {
+                    if (getView() != null) {
+                        getView().getBiYingResult(response);
+                    }
+                }
 
+                @Override
+                public void onFailed() {
+                    if (getView() != null) {
+                        getView().getDataFailed();
+                    }
+                }
+            });
+        }
 
         /**
          * 获取最新的APP版本信息
@@ -278,6 +299,8 @@ public class SplashContract {
         void getHourlyResult(Response<HourlyResponse> response);
 
         void  getNowWarnResult(Response<WarningResponse> response);
+
+        void getBiYingResult(Response<BiYingImgResponse> responseResponse);
 
         void   getNowResult(Response<NowResponse> response);
     }
