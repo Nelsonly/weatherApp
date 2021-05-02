@@ -11,6 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:src="@drawable/bg_air_content_1"
+        android:alpha="0.5"
         android:scaleType="fitXY"/>
     <RelativeLayout
         android:layout_width="match_parent"

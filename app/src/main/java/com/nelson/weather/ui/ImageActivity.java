@@ -1,5 +1,6 @@
 package com.nelson.weather.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
@@ -18,6 +20,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.utils.bitmap.SaveBitmapCallBack;
 import com.nelson.weather.R;
 import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.SPUtils;
@@ -123,6 +127,7 @@ public class ImageActivity extends BaseActivity {
                 break;
             //下载壁纸
             case R.id.btn_download:
+                showLoadingDialog();
                 saveImageToGallery(context, bitmap);
                 break;
             default:
@@ -154,36 +159,32 @@ public class ImageActivity extends BaseActivity {
      * @return
      */
     public boolean saveImageToGallery(Context context, Bitmap bitmap) {
+
         // 首先保存图片
-        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "good_weather";
-        File appDir = new File(filePath);
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = "wallpaper" + 1024 + ".jpg";
-        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            //通过io流的方式来压缩保存图片
-            boolean isSuccess = bitmap.compress(Bitmap.CompressFormat.JPEG, 60, fos);
-            fos.flush();
-            fos.close();
-            //把文件插入到系统图库
-            MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
-            //保存图片后发送广播通知更新数据库
-            Uri uri = Uri.fromFile(file);
-            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-            if (isSuccess) {
-                ToastUtils.showShortToast(context, "图片保存成功");
-                return true;
-            } else {
-                ToastUtils.showShortToast(context, "图片保存失败");
-                return false;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ToastUtils.showShortToast(context, "图片保存失败");
+        String filePath = Environment.getExternalStorageDirectory().getAbsoluteFile()
+                + "/" + Environment.DIRECTORY_PICTURES
+                + "/" + getString(R.string.app_name);
+        EasyPhotos.saveBitmapToDir((Activity) this,
+               filePath, "IMG", bitmap, true, new
+                        SaveBitmapCallBack() {
+                            @Override
+                            public void onSuccess(File file) {
+                                ToastUtils.showShortToast(context, "图片保存成功");
+                                dismissLoadingDialog();
+                            }
+
+                            @Override
+                            public void onIOFailed(IOException exception) {
+                                ToastUtils.showShortToast(context, "图片保存失败");
+                                dismissLoadingDialog();
+                            }
+
+                            @Override
+                            public void onCreateDirFailed() {
+                                ToastUtils.showShortToast(context, "图片保存失败");
+                                dismissLoadingDialog();
+                            }
+                        });
         return false;
     }
 

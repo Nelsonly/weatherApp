@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/zero_white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
 
@@ -40,7 +41,7 @@
                     android:fontFamily="@font/inter"
                     android:includeFontPadding="false"
                     android:text="风力风向"
-                    android:textColor="#a7a7a7"
+                    android:textColor="#3E3E3E"
                     android:textSize="14sp"
                     android:textStyle="normal" />
 
@@ -83,7 +84,7 @@
                     android:fontFamily="@font/inter"
                     android:includeFontPadding="false"
                     android:text="湿度"
-                    android:textColor="#a7a7a7"
+                    android:textColor="#3E3E3E"
                     android:textSize="14sp"
                     android:textStyle="normal" />
 
@@ -134,7 +135,7 @@
                     android:fontFamily="@font/inter"
                     android:includeFontPadding="false"
                     android:text="紫外线"
-                    android:textColor="#a7a7a7"
+                    android:textColor="#3E3E3E"
                     android:textSize="14sp"
                     android:textStyle="normal" />
 
@@ -177,7 +178,7 @@
                     android:fontFamily="@font/inter"
                     android:includeFontPadding="false"
                     android:text="气压"
-                    android:textColor="#a7a7a7"
+                    android:textColor="#3E3E3E"
                     android:textSize="14sp"
                     android:textStyle="normal" />
 

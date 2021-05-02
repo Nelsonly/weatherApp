@@ -60,32 +60,6 @@ public class CusFragment extends Fragment {
     private TextView sunset_time;
     private boolean isvisiable;
     private String currentTime;
-    /**
-     * 大卡片广告
-     */
-    private FrameLayout ad_express_container;
-    private ImageView ad_express_btn_close;
-    private CardView ad_express_card;
-    /**
-     * moreinf内广告
-     */
-    private CardView daily_ad_line;
-    private FrameLayout bunnyContainer;
-
-    private boolean adLineVisiable;
-
-    private Boolean isDailyClick = false;
-    protected boolean isVisible;
-
-    private Handler handler = new Handler();
-    private Runnable sheepTask;
-    private Runnable bunnyTask;
-    private Runnable refreshBunnyTask;
-    private Runnable refreshSheepTask;
-    private Runnable stopSheepTask;
-    private Runnable stopBunnyTask;
-    private int delay = 4000;
-    private int delay_2 = 2000;
 
     @Nullable
     @Override

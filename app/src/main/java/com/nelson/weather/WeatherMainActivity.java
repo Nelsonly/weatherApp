@@ -24,6 +24,7 @@ import com.nelson.weather.adapter.IndexAdapter;
 import com.nelson.weather.adapter.TabAdapter;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
+import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
@@ -58,7 +59,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
+import com.nelson.weather.R;
 import butterknife.BindView;
 import retrofit2.Response;
 
@@ -137,17 +138,17 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         icons.add(R.drawable.choose_comprehensive);
         icons.add(R.drawable.choose_15_days);
         icons.add(R.drawable.choose_air_quality);
-        icons.add(R.drawable.choose_air_quality);
+        icons.add(R.drawable.choose_wallpaper);
 
         iconsNotChoose.add(R.drawable.not_choose_comprehensive);
         iconsNotChoose.add(R.drawable.not_choose_15_days);
         iconsNotChoose.add(R.drawable.not_choose_air_quality);
-        iconsNotChoose.add(R.drawable.not_choose_air_quality);
+        iconsNotChoose.add(R.drawable.not_choose_wallpaper);
 
         iconsStart.add(R.drawable.choose_comprehensive);
         iconsStart.add(R.drawable.not_choose_15_days);
         iconsStart.add(R.drawable.not_choose_air_quality);
-        iconsStart.add(R.drawable.not_choose_air_quality);
+        iconsStart.add(R.drawable.not_choose_wallpaper);
 
         DailyFragment dailyFragment = new DailyFragment();
         indexFragment = new IndexFragment(this, this, this);
@@ -199,12 +200,25 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     public void initData(Bundle savedInstanceState) {
         Log.d("lambTest", "initData: -------------->MainActivity");
         EventBus.getDefault().register(this);
-        if (2==SPUtils.getInt(Constant.WALLPAPER_TYPE,4,context) && !"".equals(SPUtils.getString(Constant.BiYingURL,"",context))){
-            SPUtils.putString(Constant.WALLPAPER_URL,SPUtils.getString(Constant.BiYingURL,"",context),context);
-        }
-        Glide.with(this).load(SPUtils.getString(Constant.WALLPAPER_URL,"R.mipmap.white_background",context)).into(mainBackground);
-    }
+        mPresent.biying();
+        initBackground();
 
+    }
+    /**
+     * 壁纸类型  1  壁纸列表  2  每日一图  3  手动上传  4  默认壁纸
+     */
+    private void initBackground(){
+        switch (SPUtils.getInt(Constant.WALLPAPER_TYPE,4,context)){
+            case 1:
+            case 3:
+                Glide.with(this).load(SPUtils.getString(Constant.WALLPAPER_URL, "", context)).into(mainBackground);
+            case 2:
+                break;
+            case 4:
+                Glide.with(this).load(R.mipmap.defult_background).into(mainBackground);
+                break;
+        }
+    }
     /**
      * 获取AllData里的数据。
      * 通过getinstance得到。
@@ -267,6 +281,18 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     }
 
     @Override
+    public void getBiYingResult(Response<BiYingImgResponse> response) {
+        if(response!=null) {
+            String biyingUrl = "http://cn.bing.com" + response.body().getImages().get(0).getUrl();
+            SPUtils.putString(Constant.BiYingURL, biyingUrl, context);
+            if(SPUtils.getInt(Constant.WALLPAPER_TYPE,4,context) == 2){
+                Glide.with(this).load(biyingUrl).into(mainBackground);
+            }
+        }
+
+    }
+
+    @Override
     public void getNowResult(Response<NowResponse> response) {
         if (response.body() != null) {
             AllDatas.getInstance().setNowResponse(response.body());
@@ -286,7 +312,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     protected void onResume() {
         super.onResume();
         Log.d("lambTest", "onResume: ------->MainActivity");
-
+        initBackground();
     }
 
     /**

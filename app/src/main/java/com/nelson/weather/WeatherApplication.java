@@ -6,7 +6,11 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.baidu.lbsapi.BMapManager;
+import com.baidu.lbsapi.MKGeneralListener;
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.nelson.mvplibrary.BaseApplication;
@@ -39,6 +43,7 @@ public class WeatherApplication extends BaseApplication {
 
     private static Activity sActivity;
 
+    public BMapManager bMapManager;
     public static Context getMyContext() {
         return weatherApplication == null ? null : weatherApplication.getApplicationContext();
     }
@@ -60,7 +65,7 @@ public class WeatherApplication extends BaseApplication {
         activityManager = new ActivityManager();
         context = getApplicationContext();
         weatherApplication = this;
-
+        initEngineManager(this);
 
         this.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
@@ -142,5 +147,36 @@ public class WeatherApplication extends BaseApplication {
                 return new ClassicsFooter(context).setDrawableSize(20);
             }
         });
+    }
+    public void initEngineManager(Context context) {
+        if (bMapManager == null) {
+            bMapManager = new BMapManager(context);
+        }
+
+        if (!bMapManager.init(new MyGeneralListener())) {
+            Toast.makeText(
+                    this,
+                    "BMapManager  初始化错误!", Toast.LENGTH_LONG).show();
+        }
+        Log.d("ljx", "initEngineManager");
+    }
+    // 常用事件监听，用来处理通常的网络错误，授权验证错误等
+    static class MyGeneralListener implements MKGeneralListener {
+
+        @Override
+        public void onGetPermissionState(int iError) {
+            // 非零值表示key验证未通过
+            if (iError != 0) {
+                // 授权Key错误：
+                Toast.makeText(
+                        WeatherApplication.getMyContext(),
+                        "请在AndoridManifest.xml中输入正确的授权Key,并检查您的网络连接是否正常！error: "
+                                + iError, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(
+                        WeatherApplication.getMyContext(), "key认证成功",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

@@ -80,38 +80,16 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
                 flowLayout.setItemClickByOutSet(10);
             }
         });
-
-        /*refreshLayout = getActivity().findViewById(R.id.refresh_dailyweather);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mPresent.worldCity(Objects.requireNonNull(getActivity()).getIntent().getStringExtra("locationId"));
-                mPresent.airFive(Objects.requireNonNull(getActivity()).getIntent().getStringExtra("locationId"));
-                Date nowdate = DateUtils.getNowTimeDate();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                for (int i = 0; i < 15; i++) {
-                    mPresent.sunMoon(AllDatas.getInstance().getLocationId(), sdf.format(nowdate), i);
-                    nowdate = DateUtils.getTDate(nowdate);
-                }
-            }
-        });*/
-        Log.d("yytTest", "initData: ------------------->DailyFragment");
-//        if(AcbExpressManager.getInstance().getAllExpressView("SHEEP01") != null){
-//            if(AcbExpressManager.getInstance().getAllExpressView("SHEEP01").isPreparedAdReady()){
-//                mFragments.get(1).initAds();
-//            }
-//        }
     }
 
     private void initList() {
         mViewPager = getActivity().findViewById(R.id.viewpager);
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 15; i++) {
             mFragments.add(CusFragment.newInStance((WeatherMainActivity) getActivity()));
         }
         mViewPager.setOffscreenPageLimit(6);
         mViewPager.setAdapter(new DateAdapter(getChildFragmentManager(), getLifecycle(),mFragments));
         Refreshall();
-
     }
 
     /**
@@ -122,11 +100,7 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
             Daily_refresh(AllDatas.getInstance().getDailyResponse());
         if (AllDatas.getInstance().getMoreAirFiveResponse() != null)
             MoreAirFive_Refresh(AllDatas.getInstance().getMoreAirFiveResponse());
-//        if(AllDatas.getInstance().getHistoryResponse()!=null)
-//            HistoryResponsetoDaily(AllDatas.getInstance().getHistoryResponse());
-//        if(AllDatas.getInstance().getHistoryAirResponse()!=null)
-//            HistoryAirtoAir(AllDatas.getInstance().getHistoryAirResponse());
-        if(AllDatas.getInstance().getNowResponse()!=null){
+        if(AllDatas.getInstance().getNowResponse().getNow()!=null){
             AirNow_Refresh(AllDatas.getInstance().getAirNowResponse().getNow());
         }
     }
@@ -145,16 +119,17 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
 
     private void Daily_refresh(DailyResponse response) {
         List<DailyResponse.DailyBean> data = response.getDaily();
-        int i = 1;
-        if(data.size()==16)  i = 0;
-        else {
+        int i = 0;
+        if(data.size()==16){
+            mFragments.add(CusFragment.newInStance((WeatherMainActivity) getActivity()));
             String yesterday =DateUtils.updateTime_month_2(data.get(0).getFxDate());
             String week = DateUtils.Week(yesterday);
             String dates = week + "x" + yesterday.substring(5).replace("-", "/");
-            if (showWeek.size()!=0)showWeek.clear();
+            if (showWeek.size()!=0) {
+                showWeek.clear();
+            }
             showWeek.add(dates);
         }
-
         for (DailyResponse.DailyBean s : data) {
             String week = DateUtils.Week(s.getFxDate());
             String dates = week + "x" + s.getFxDate().replace("-", "/").substring(5, s.getFxDate().length());
@@ -181,8 +156,10 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
     private void MoreAirFive_Refresh(MoreAirFiveResponse response) {
         List<MoreAirFiveResponse.DailyBean> data = response.getDaily();
         if (data.size() > 0) {
-            int i = 2;
-            Log.d("TAG", data.toString());
+            int i = 0;
+            if (mFragments.size() == 16) {
+                i = 1;
+            }
             for (MoreAirFiveResponse.DailyBean s : data) {
                 mFragments.get(i).setMoreAirFiveResponse(s);
                 mFragments.get(i).setvisiableair(true);

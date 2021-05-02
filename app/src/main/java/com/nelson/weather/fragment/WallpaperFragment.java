@@ -72,7 +72,6 @@ public class WallpaperFragment extends MvpFragment<WallPaperContract.WallPaperPr
     @BindView(R.id.fab_setting)
     FloatingActionButton fabSetting;
 
-
     /**
      * 壁纸数据列表
      */
@@ -281,7 +280,6 @@ public class WallpaperFragment extends MvpFragment<WallPaperContract.WallPaperPr
 //                    ToastUtils.showShortToast(context, "使用每日一图");
 //                    SPUtils.putString(Constant.WALLPAPER_URL, biyingUrl, context);
                     Glide.with(getContext()).load(biyingUrl).into((ImageView) getActivity().findViewById(R.id.main_background));
-                    //壁纸列表
                     SPUtils.putInt(Constant.WALLPAPER_TYPE, 2, context);
                     bottomSettingDialog.dismiss();
                     //手动上传
@@ -294,7 +292,7 @@ public class WallpaperFragment extends MvpFragment<WallPaperContract.WallPaperPr
                     ToastUtils.showShortToast(context, "使用默认壁纸");
 //                    SPUtils.putInt(Constant.WALLPAPER_TYPE, 4, context);//使用默认壁纸
                     SPUtils.putString(Constant.WALLPAPER_URL, null, context);
-                    Glide.with(getContext()).load(Color.WHITE).into((ImageView) getActivity().findViewById(R.id.main_background));
+                    Glide.with(getContext()).load(R.mipmap.defult_background).into((ImageView) getActivity().findViewById(R.id.main_background));
                     bottomSettingDialog.dismiss();
                 });
 
@@ -380,6 +378,7 @@ public class WallpaperFragment extends MvpFragment<WallPaperContract.WallPaperPr
             //将本地上传选中的图片地址放入缓存,当手动定义开关打开时，取出缓存中的图片地址，显示为背景
             SPUtils.putInt(Constant.WALLPAPER_TYPE, 3, context);
             SPUtils.putString(Constant.WALLPAPER_URL, imagePath, context);
+            Glide.with(getContext()).load(imagePath).into((ImageView) getActivity().findViewById(R.id.main_background));
             ToastUtils.showShortToast(context, "已更换为你选择的图片");
         } else {
             SPUtils.putInt(Constant.WALLPAPER_TYPE, 0, context);
@@ -395,4 +394,5 @@ public class WallpaperFragment extends MvpFragment<WallPaperContract.WallPaperPr
     public int getLayoutId() {
         return R.layout.app_fragment_background;
     }
+
 }

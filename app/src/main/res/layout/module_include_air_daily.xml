@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
-    app:cardElevation="3dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/ten_white"
     android:layout_marginTop="@dimen/card_margin_tb"
     android:layout_marginBottom="@dimen/card_margin_tb"
     android:layout_marginLeft="@dimen/card_margin_lr"
@@ -32,34 +33,6 @@
             android:lineSpacingExtra="19sp"
             android:text="5天空气质量"/>
 
-        <!--<include
-            layout="@layout/ad_native_title"
-            android:layout_width="163dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="11dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"/>-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="11dp"
-            android:id="@+id/ad_air_container"
-            android:background="@drawable/circular_rectangle_white">
-            <FrameLayout
-                android:id="@+id/ad_title_container"
-                android:layout_width="163dp"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/ad_title_btn_close"
-                android:layout_width="9dp"
-                android:layout_height="9dp"
-                android:src="@drawable/btn_close_3"
-                android:layout_marginLeft="7dp"
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/airquality_fivedays_toptime"

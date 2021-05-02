@@ -43,7 +43,7 @@
     <string name="smart_lock_cpu">CPU温度</string>
     <string name="smart_lock_battery">电量信息</string>
 
-    <string name = "recent_app_name">轻读书</string>
+    <string name="recent_app_name">轻读书</string>
 
     <!-- AirFragment -->
     <string name="air_update_time">发布时间：%s</string>
