@@ -4,22 +4,30 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.huantansheng.easyphotos.constant.Code;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.huantansheng.easyphotos.setting.Setting;
+import com.nelson.mvplibrary.bean.AppVersion;
+import com.nelson.mvplibrary.view.dialog.AlertDialog;
 import com.nelson.weather.adapter.IndexAdapter;
 import com.nelson.weather.adapter.TabAdapter;
 import com.nelson.weather.bean.AirNowResponse;
@@ -41,11 +49,15 @@ import com.nelson.weather.fragment.DailyFragment;
 import com.nelson.weather.fragment.IndexFragment;
 import com.nelson.weather.fragment.AriQualityFragment;
 import com.nelson.weather.fragment.WallpaperFragment;
+import com.nelson.weather.sharelibrary.util.ToastUtil;
 import com.nelson.weather.ui.PuzzleImgActivity;
+import com.nelson.weather.utils.APKVersionInfoUtils;
+import com.nelson.weather.utils.AppStartUpUtils;
 import com.nelson.weather.utils.CodeToStringUtils;
 import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.DateUtils;
 import com.nelson.weather.utils.SPUtils;
+import com.nelson.weather.utils.SizeUtils;
 import com.nelson.weather.utils.ToastUtils;
 import com.nelson.weather.view.ShareView;
 import com.nelson.mvplibrary.mvp.MvpActivity;
@@ -55,7 +67,9 @@ import com.huantansheng.easyphotos.ui.PuzzleSelectorActivitySecond;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.litepal.LitePal;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -88,13 +102,14 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     private ShareView shareView;
 
     private boolean isAnimatorEnd;
+    private int loading = 9;
 
     private final Handler handler = new Handler();
     private Runnable task;
     private final int delay = 2000;
     @BindView(R.id.main_background)
     ImageView mainBackground;
-
+    private Boolean isFirst = true;
 
 
     @Override
@@ -102,20 +117,25 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         Log.d("ad_debug", "onKeyDown: this id BACK AD");
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (fragQueue.empty()) {
-                fragQueue.add(0);
-            }
-            fragQueue.pop();
-            if (fragQueue.empty()) {
-               return true;
+                if(isFirst) {
+                    ToastUtil.showToast(this, "再按一次退出", true);
+                    isFirst = false;
+                }else {
+                    finish();
+                }
+                return true;
             } else if (fragQueue.size() == 1) {
                 viewPager2.setCurrentItem(0);
                 return true;
             } else {
+                fragQueue.pop();
                 viewPager2.setCurrentItem(fragQueue.pop());
-                int temp = fragQueue.pop();
-                fragQueue.clear();
-                fragQueue.push(0);
-                fragQueue.push(temp);
+                if (fragQueue.size()>=2 ) {
+                    int temp = fragQueue.pop();
+                    fragQueue.clear();
+                    fragQueue.push(0);
+                    fragQueue.push(temp);
+                }
                 return true;
             }
         }
@@ -127,7 +147,6 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fragQueue.push(0);
         TabLayout bottomTabLayout = findViewById(R.id.bottom_tab);
         viewPager2 = findViewById(R.id.view_pager2);
         viewPager2.setUserInputEnabled(false);
@@ -175,11 +194,13 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
             public void onTabSelected(TabLayout.Tab tab) {
                tab.setIcon(icons.get(tab.getPosition()));
                 int position = tab.getPosition();
-
                 if (position == 0) {
                     fragQueue.clear();
                     fragQueue.push(0);
-                } else if (fragQueue.peek() != position) {
+                }else if (fragQueue.empty()){
+                    fragQueue.push(position);
+                }
+                else if (fragQueue.peek() != position) {
                     fragQueue.push(position);
                 }
             }
@@ -202,7 +223,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         EventBus.getDefault().register(this);
         mPresent.biying();
         initBackground();
-
+        checkAppVersion();
     }
     /**
      * 壁纸类型  1  壁纸列表  2  每日一图  3  手动上传  4  默认壁纸
@@ -233,49 +254,84 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     @Override
     public void getAirNowResult(Response<AirNowResponse> response) {
         AllDatas.getInstance().setAirNowResponse(response.body());
-//        indexFragment.Refresh();
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+            loading = 9;
+        }
 
     }
 
     @Override
     public void getMoreDailyResult(Response<DailyResponse> response) {
         AllDatas.getInstance().setDailyResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+            loading = 9;
+        }
 //        indexFragment.Refresh();
     }
 
     @Override
     public void getMoreAirFiveResult(Response<MoreAirFiveResponse> response) {
         AllDatas.getInstance().setMoreAirFiveResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+            loading = 9;
+        }
 //        indexFragment.Refresh();
     }
 
     @Override
     public void getMoreLifestyleResult(Response<LifestyleResponse> response) {
         AllDatas.getInstance().setLifestyleResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+        }
 //        indexFragment.Refresh();
     }
 
     @Override
     public void getHistoryResult(Response<HistoryResponse> response) {
         AllDatas.getInstance().setHistoryResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+        }
 //        indexFragment.Refresh();
     }
 
     @Override
     public void getHistoryAirResult(Response<HistoryAirResponse> response) {
         AllDatas.getInstance().setHistoryAirResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+        }
 //        indexFragment.Refresh();
     }
 
     @Override
     public void getHourlyResult(Response<HourlyResponse> response) {
         AllDatas.getInstance().setHourlyResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+        }
 //        indexFragment.Refresh();
     }
 
     @Override
     public void getNowWarnResult(Response<WarningResponse> response) {
         AllDatas.getInstance().setWarningResponse(response.body());
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+            loading = 9;
+        }
 //        indexFragment.Refresh();
         dismissLoadingDialog();
     }
@@ -298,6 +354,11 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
             AllDatas.getInstance().setNowResponse(response.body());
             mPresent.HistoryRes(locationId, DateUtils.updateTime_month(response.body().getUpdateTime()));
             mPresent.HistoryAirRes(locationId, DateUtils.updateTime_month(response.body().getUpdateTime()));
+        }
+        loading--;
+        if (loading == 0) {
+            indexFragment.Refresh();
+            loading = 9;
         }
 //        indexFragment.Refresh();
     }
@@ -468,6 +529,86 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
     public void onSelectPhotosForPuzzleDoneListener(ArrayList<Photo> selectedPhotos) {
         PuzzleImgActivity.startWithPhotos(WeatherMainActivity.this, selectedPhotos, Environment.getExternalStorageDirectory().getAbsoluteFile()+"/"+Environment.DIRECTORY_PICTURES+"/"+getString(R.string.app_name),"IMG", Code.REQUEST_PUZZLE_SELECTOR,false, Setting.imageEngine);
     }
+    /**
+     * 检查APP版本
+     */
+    private void checkAppVersion() {
+        AppVersion appVersion = LitePal.find(AppVersion.class, 1);//读取第一条数据
+        Log.d("appVersion", new Gson().toJson(appVersion.getVersionShort()));
 
+        if (AppStartUpUtils.isTodayFirstStartApp(context)) {//今天第一次打开APP
+            if (!appVersion.getVersionShort().equals(APKVersionInfoUtils.getVerName(context))) {//提示更新
+                //更新提示弹窗
+                showUpdateAppDialog(appVersion.getInstall_url(), appVersion.getChangelog());
+            }
+        }
+
+    }
+    /**
+     * 应用更新提示弹窗
+     *
+     * @param downloadUrl 下载地址
+     * @param updateLog   更新日志
+     */
+    private AlertDialog updateAppDialog = null;//应用更新提示弹窗
+
+    private void showUpdateAppDialog(String downloadUrl, String updateLog) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                .addDefaultAnimation()//默认弹窗动画
+                .setCancelable(true)
+                .setText(R.id.tv_update_info, updateLog)
+                .setContentView(R.layout.dialog_update_app_tip)//载入布局文件
+                .setWidthAndHeight(SizeUtils.dp2px(context, 270), ViewGroup.LayoutParams.WRAP_CONTENT)//设置弹窗宽高
+                .setOnClickListener(R.id.tv_cancel, v -> {//取消
+                    updateAppDialog.dismiss();
+                }).setOnClickListener(R.id.tv_fast_update, v -> {//立即更新
+                    //下载Apk
+                    ToastUtils.showShortToast(context, "正在后台下载，下载后会自动安装");
+                    downloadApk(downloadUrl);
+                    updateAppDialog.dismiss();
+                });
+        updateAppDialog = builder.create();
+        updateAppDialog.show();
+    }
+    /**
+     * 下载APK
+     *
+     * @param downloadUrl 下载地址
+     */
+    private void downloadApk(String downloadUrl) {
+        clearApk("nelson_weather.apk");
+        //下载管理器 获取系统下载服务
+        DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadUrl));
+        //设置运行使用的网络类型，移动网络或者Wifi都可以
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        //设置是否允许漫游
+        request.setAllowedOverRoaming(true);
+        //设置文件类型
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        String mimeString = mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(downloadUrl));
+        request.setMimeType(mimeString);
+        //设置下载时或者下载完成时，通知栏是否显示
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setTitle("下载新版本");
+        request.setVisibleInDownloadsUi(true);//下载UI
+        //sdcard目录下的download文件夹
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "GoodWeather.apk");
+        //将下载请求放入队列
+        downloadManager.enqueue(request);
+    }
+    /**
+     * 清除APK
+     *
+     * @param apkName
+     * @return
+     */
+    public static File clearApk(String apkName) {
+        File apkFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), apkName);
+        if (apkFile.exists()) {
+            apkFile.delete();
+        }
+        return apkFile;
+    }
 
 }

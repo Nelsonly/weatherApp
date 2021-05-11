@@ -23,14 +23,14 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.tencent.bugly.crashreport.CrashReport;
+//import com.tencent.bugly.crashreport.CrashReport;
 
 import org.litepal.LitePal;
 
 /**
  * 项目管理
  *
- * @author llw
+ * @author nelson
  */
 public class WeatherApplication extends BaseApplication {
 
@@ -43,7 +43,7 @@ public class WeatherApplication extends BaseApplication {
 
     private static Activity sActivity;
 
-    public BMapManager bMapManager;
+    public BMapManager bMapManager = null;
     public static Context getMyContext() {
         return weatherApplication == null ? null : weatherApplication.getApplicationContext();
     }
@@ -114,7 +114,7 @@ public class WeatherApplication extends BaseApplication {
         //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
 
-        CrashReport.initCrashReport(getApplicationContext(), "d3637c0f25", true);
+//        CrashReport.initCrashReport(getApplicationContext(), "d3637c0f25", true);
     }
 
 
@@ -161,7 +161,7 @@ public class WeatherApplication extends BaseApplication {
         Log.d("ljx", "initEngineManager");
     }
     // 常用事件监听，用来处理通常的网络错误，授权验证错误等
-    static class MyGeneralListener implements MKGeneralListener {
+    public static class MyGeneralListener implements MKGeneralListener {
 
         @Override
         public void onGetPermissionState(int iError) {

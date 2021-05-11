@@ -3,8 +3,16 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        nelson {
+        storeFile file('/Users/nelson/nelsonstore')
+            storePassword 'wzyh0119'
+            keyAlias 'key0'
+            keyPassword 'wzyh0119'
+        }
+    }
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion '30.0.3'
 
     defaultConfig {
         applicationId "com.nelson.weather"
@@ -19,6 +27,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.nelson
         }
     }
     compileOptions {
@@ -27,7 +36,7 @@ android {
     }
     sourceSets {
         main {
-            jniLibs.srcDir 'libs'
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -53,7 +62,7 @@ dependencies {
     implementation  'com.scwang.smart:refresh-header-classics:2.0.1'    //经典刷新头
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'     //GIF动图
 
-    implementation 'com.tencent.bugly:crashreport:latest.release'
+//    implementation 'com.tencent.bugly:crashreport:latest.release'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
     //butterknife  这个部分比较特殊，所以不管是模块还是项目里都要引入依赖，否则你的控件会报空对象
     implementation 'com.jakewharton:butterknife:10.1.0'
@@ -85,5 +94,7 @@ dependencies {
     implementation(name: '../app/libs/lvlmonetization-debug',ext: 'aar')
     implementation(name: '../app/libs/ActivityLauncher-release', ext: 'aar')
     implementation(name: '../app/libs/libcharging-debug', ext: 'aar')
+    //腾讯开发工具包
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
 }

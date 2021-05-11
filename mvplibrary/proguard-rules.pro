@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-ignorewarnings
+-dontwarn *.**
+-keep class com.baidu.** { *; }
+-keep class com.nelson.mvplibrary.** { *; }
+-keep class com.nelson.weather.bean.** { *; }
+-keep class com.nelson.weather.api.** { *; }
+-keep class com.nelson.weather.eventbus.** { *; }
+-keep class org.greenrobot.** { *; }
+-keep class com.nelson.weather.MainActivity {*;}
+-keep class mapsdkvi.com.** {*;}
+-keep class org.litepal.** {*;}

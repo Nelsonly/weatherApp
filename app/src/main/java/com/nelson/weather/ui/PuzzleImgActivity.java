@@ -22,9 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.huantansheng.easyphotos.EasyPhotos;
-import com.huantansheng.easyphotos.constant.Code;
 import com.huantansheng.easyphotos.constant.Key;
 import com.huantansheng.easyphotos.engine.ImageEngine;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
@@ -36,18 +34,14 @@ import com.huantansheng.easyphotos.models.sticker.StickerModel;
 import com.huantansheng.easyphotos.setting.Setting;
 import com.huantansheng.easyphotos.ui.adapter.PuzzleAdapter;
 import com.huantansheng.easyphotos.ui.adapter.PuzzleEditBtnAdapter;
-import com.huantansheng.easyphotos.utils.permission.PermissionUtil;
-import com.huantansheng.easyphotos.utils.settings.SettingsUtils;
 import com.nelson.mvplibrary.base.BaseActivity;
-import com.nelson.mvplibrary.base.BasePresenter;
-import com.nelson.mvplibrary.base.BaseView;
-import com.nelson.mvplibrary.mvp.MvpActivity;
 import com.nelson.weather.R;
-import com.nelson.weather.utils.TranslateBitmap;
+import com.nelson.weather.utils.TransportBitmap;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import com.nelson.weather.ui.ShareActivity;
+
 /**
  * @author zyh
  * 通过自定义startActivity启动，传入照片集合。
@@ -428,7 +422,7 @@ public class PuzzleImgActivity extends BaseActivity implements View.OnClickListe
         findViewById(R.id.tv_done).setVisibility(View.INVISIBLE);
         puzzleView.clearHandling();
         puzzleView.invalidate();
-        TranslateBitmap.getInstance().setBitmap(stickerModel.save(mRootView, puzzleView, puzzleView.getWidth(), puzzleView.getHeight()));
+        TransportBitmap.getInstance().setBitmap(stickerModel.save(mRootView, puzzleView, puzzleView.getWidth(), puzzleView.getHeight()));
         /**
          * 跳转到分享界面
          * */

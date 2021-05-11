@@ -17,11 +17,11 @@ public class Constant {
     /**
      * 更新APP的用户Id
      */
-    public static final String UPDATE_USER_ID = "5e8c37e90d81cc0db2645c1c";
+    public static final String UPDATE_USER_ID = "609547fd0d81cc16bb913b37";
     /**
      * 更新APP的用户Token
      */
-    public static final String UPDATE_API_TOKEN = "468e4653ca9e1d34e7a73b8f2d7191da";
+    public static final String UPDATE_API_TOKEN = "5343a5930210b005982da5213f61ea19";
     /**
      * 返回成功码
      */
@@ -103,12 +103,24 @@ public class Constant {
     public static final String SUNSET = "sunset";
 
     public static final String refreshTime = "RefreshTime";
+    /**
+     * 每日提示弹窗是否弹出
+     */
+    public static final String EVERYDAY_POP_BOOLEAN = "everydayPopBoolean";
 
     public static Point point;//获取屏幕的大小
 
     public static String isindexfragment = "isindexfragment";
 
     public static String allLocation = "AllLocation";
+
+    public static String countryName = "countryname";
+
+    public static String countryScore = "countryscore";
+
+    public static String keyName  = "keyname";
+
+    public static String keyScore = "keyscore";
 
 
 }

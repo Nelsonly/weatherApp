@@ -19,7 +19,59 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class com.baidu.** {*;}
--keep class vi.com.** {*;}
--keep class com.baidu.vi.** {*;}
--dontwarn com.baidu.**
+-ignorewarnings
+-dontwarn *.**
+-keep class com.baidu.** { *; }
+-keep class com.nelson.mvplibrary.** { *; }
+-keep class com.nelson.weather.bean.** { *; }
+-keep class com.nelson.weather.api.** { *; }
+-keep class com.nelson.weather.eventbus.** { *; }
+-keep class org.greenrobot.** { *; }
+-keep class com.nelson.weather.MainActivity {*;}
+-keep class mapsdkvi.com.** {*;}
+-keep class org.litepal.** {*;}
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.** { *; }
+-keep class com.google.gson.stream.** { *; }
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+-dontwarn okio.**
+# 微信开发平台
+-keep class com.tencent.mm.sdk.** {
+   *;
+}
+-keep class com.tencent.mm.opensdk.** {
+    *;
+}
+
+-keep class com.tencent.wxop.** {
+    *;
+}
+# event bus
+-keepattributes *Annotation*
+-keepclassmembers class *.** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+#butterknife
+#butterknife 混淆
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+# Retain generated class which implement Unbinder.
+-keep public class * implements butterknife.Unbinder { public <init>(**, android.view.View); }
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinding.
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
+# EasyPhotos
+-keep class com.huantansheng.easyphotos.models.** { *; }
+
+

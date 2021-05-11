@@ -25,15 +25,15 @@
             android:textColor="@color/black"
             android:textSize="@dimen/sp_16"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_wallpaper"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_width="@dimen/dp_140"-->
-<!--            android:layout_height="@dimen/dp_48"-->
-<!--            android:text="壁纸管理"-->
-<!--            android:foreground="@drawable/bg_white"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="@dimen/sp_16"/>-->
+        <TextView
+            android:id="@+id/tv_wallpaper"
+            android:gravity="center"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_48"
+            android:text="全景地图"
+            android:foreground="@drawable/bg_white"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16"/>
 
         <TextView
             android:id="@+id/tv_search_city"
@@ -45,15 +45,15 @@
             android:textColor="@color/black"
             android:textSize="@dimen/sp_16"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_world_city"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_width="@dimen/dp_140"-->
-<!--            android:layout_height="@dimen/dp_48"-->
-<!--            android:text="世界城市"-->
-<!--            android:foreground="@drawable/bg_white"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="@dimen/sp_16"/>-->
+        <TextView
+            android:id="@+id/tv_world_city"
+            android:gravity="center"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_48"
+            android:text="世界城市"
+            android:foreground="@drawable/bg_white"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16"/>
 
         <TextView
             android:id="@+id/tv_resident_city"

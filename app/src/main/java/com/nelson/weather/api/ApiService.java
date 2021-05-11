@@ -1,6 +1,7 @@
 package com.nelson.weather.api;
 
 
+import com.nelson.mvplibrary.bean.AppVersion;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
@@ -14,6 +15,7 @@ import com.nelson.weather.bean.NowResponse;
 import com.nelson.weather.bean.SunMoonResponse;
 import com.nelson.weather.bean.WallPaperResponse;
 import com.nelson.weather.bean.WarningResponse;
+import com.nelson.weather.bean.WorldCityResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,6 +23,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import static com.nelson.weather.utils.Constant.API_KEY;
+import static com.nelson.weather.utils.Constant.UPDATE_API_TOKEN;
+import static com.nelson.weather.utils.Constant.UPDATE_USER_ID;
 
 /**
  * API服务接口
@@ -129,8 +133,8 @@ public interface ApiService {
      * @param range cn表示国内  world 表示全世界
      * @return WorldCityResponse 世界城市数据返回
      */
-//    @GET("/v2/city/top?key=" + API_KEY + "&number=20")
-//    Call<WorldCityResponse> worldCity(@Query("range") String range);
+    @GET("/v2/city/top?key=" + API_KEY + "&number=20")
+    Call<WorldCityResponse> worldCity(@Query("range") String range);
 
     /**
      * 当前城市灾害预警
@@ -146,8 +150,8 @@ public interface ApiService {
      *
      * @return AppVersion 版本信息返回
      */
-//    @GET("/apps/latest/" + UPDATE_USER_ID + "?api_token=" + UPDATE_API_TOKEN)
-//    Call<AppVersion> getAppInfo();
+    @GET("/apps/latest/" + UPDATE_USER_ID + "?api_token=" + UPDATE_API_TOKEN)
+    Call<AppVersion> getAppInfo();
 
     /**
      * 太阳和月亮  日出日落、月升月落

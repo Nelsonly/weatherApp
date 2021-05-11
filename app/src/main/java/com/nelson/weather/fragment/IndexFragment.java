@@ -30,15 +30,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.baidu.lbsapi.panoramaview.PanoramaView;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
+import com.baidu.mapapi.search.sug.SuggestionResult;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.nelson.mvplibrary.bean.Country;
+import com.nelson.mvplibrary.bean.CountryScore;
+import com.nelson.mvplibrary.bean.KeyScore;
 import com.nelson.weather.R;
 import com.nelson.weather.WeatherMainActivity;
 import com.nelson.weather.adapter.AreaAdapter;
 import com.nelson.weather.adapter.CityAdapter;
+import com.nelson.weather.adapter.PanoramaAdapter;
 import com.nelson.weather.adapter.ProvinceAdapter;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
@@ -58,8 +67,10 @@ import com.nelson.weather.contract.WeatherContract;
 import com.nelson.weather.eventbus.SearchCityEvent;
 import com.nelson.weather.ui.CommonlyUsedCityActivity;
 import com.nelson.weather.ui.MapWeatherActivity;
+import com.nelson.weather.ui.PanoramaActivity;
 import com.nelson.weather.ui.SearchCityActivity;
 import com.nelson.weather.ui.WarnActivity;
+import com.nelson.weather.ui.WorldCityActivity;
 import com.nelson.weather.utils.CodeToStringUtils;
 import com.nelson.weather.utils.Constant;
 import com.nelson.weather.utils.DateUtils;
@@ -83,12 +94,14 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.LitePal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Response;
@@ -97,7 +110,7 @@ import static com.nelson.mvplibrary.utils.RecyclerViewAnimation.runLayoutAnimati
 
 //import com.nelson.weather.ad.adadaptermanager.AcbExpressAdapterManager;
 
-public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter> implements WeatherContract.IWeatherView {
+public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter> implements OnGetSuggestionResultListener, WeatherContract.IWeatherView , PanoramaAdapter.OnItemClickListener{
 
     public static final String location = "101010100";
     public static final int ITEM_HOURLY = 0;
@@ -160,6 +173,9 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     private Runnable task_2;
     private int delay = 10000;
     public static final int LIFE_PAGE_NUM = 2;
+    private PanoramaAdapter panoramaAdapter;
+    private SuggestionSearch mSuggestionSearch = null;
+    private RecyclerView mSugListView;
 
     @Override
     protected WeatherContract.WeatherPresenter createPresent() {
@@ -211,7 +227,7 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         tvSunset = (TextView) getActivity().findViewById(R.id.tv_sunset);
         dailyView = (DailyView) getActivity().findViewById(R.id.daily_view);
         frameLayout = (FrameLayout) getActivity().findViewById(R.id.item_15day);
-
+        mSugListView = (RecyclerView)getActivity().findViewById(R.id.rv_panorma);
         vp = (ViewPager) getActivity().findViewById(R.id.vp_life);
         llLife = (LinearLayout) getActivity().findViewById(R.id.ll_dots);
         tv_addlocation.post(new Runnable() {
@@ -298,6 +314,10 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
                 startActivity(intent);
             }
         });
+
+        // 初始化建议搜索模块，注册建议搜索事件监听
+        mSuggestionSearch = SuggestionSearch.newInstance();
+        mSuggestionSearch.setOnGetSuggestionResultListener(this);
 
         Refresh();
     }
@@ -682,6 +702,41 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         return R.drawable.air_1_1;
     }
 
+    @Override
+    public void onGetSuggestionResult(SuggestionResult suggestionResult) {
+        if (suggestionResult == null || suggestionResult.getAllSuggestions() == null) {
+            return;
+        }
+        List<HashMap<String, String>> suggest = new ArrayList<>();
+        for (SuggestionResult.SuggestionInfo info : suggestionResult.getAllSuggestions()) {
+            if (info.getKey() != null && info.getDistrict() != null && info.getCity() != null) {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("key",info.getKey());
+                map.put("tag",info.getTag());
+                map.put("city",info.getCity());
+                map.put("dis",info.getDistrict());
+                map.put("uid",info.getUid());
+                suggest.add(map);
+            }
+        }
+        panoramaAdapter = new PanoramaAdapter(getActivity());
+        panoramaAdapter.addData(suggest);
+        panoramaAdapter.setOnItemClickListener(this::onCitysClick);
+        mSugListView.setAdapter(panoramaAdapter);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        llm.setOrientation(RecyclerView.VERTICAL);
+        mSugListView.setLayoutManager(llm);
+    }
+
+    @Override
+    public void onCitysClick(String key,String path, String city) {
+        Intent intent = new Intent(context,PanoramaActivity.class);
+        intent.putExtra("tag",key);
+        intent.putExtra("city",city);
+        intent.putExtra("path",path);
+        startActivity(intent);
+    }
+
     public interface GoToAirPage{
         void isonclick();
     }
@@ -708,6 +763,7 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
 
     @Override
     public void onDestroyView() {
+        mSuggestionSearch.destroy();
         super.onDestroyView();
     }
 
@@ -715,7 +771,8 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         if(System.currentTimeMillis()-SPUtils.getLong(Constant.refreshTime,0,context) <60000){
             showLoadingDialog();
             Refresh();
-            for(int i =0;i<1000000;i++);
+            for(int i =0;i<1000000;i++) {
+            }
             dismissLoadingDialog();
         }else {
             if(district == null) {
@@ -789,7 +846,16 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         if(AllDatas.getInstance().getHistoryResponse()!=null) {
             historyRefresh(AllDatas.getInstance().getHistoryResponse());
         }
-    }
+
+        // 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
+        CountryScore countryScore = LitePal.order(Constant.countryScore+" desc").findFirst(CountryScore.class);
+        KeyScore keyScore = LitePal.order(Constant.keyScore+" desc").findFirst(KeyScore.class);
+        if(countryScore!=null||keyScore!=null) {
+                mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+                     .keyword(keyScore.getKeyName()) // 关键字
+                     .city(countryScore.getCountryName())); // 城市
+            }
+        }
     //右上角的弹窗
     private PopupWindow mPopupWindow;
     private AnimationUtil animUtil;
@@ -816,9 +882,9 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         });
         //绑定布局中的控件
         TextView changeCity = mPopupWindow.getContentView().findViewById(R.id.tv_change_city);//切换城市
-//        TextView wallpaper = mPopupWindow.getContentView().findViewById(R.id.tv_wallpaper);//壁纸管理  我才是这条Gai最靓的仔
+        TextView wallpaper = mPopupWindow.getContentView().findViewById(R.id.tv_wallpaper);//全景地图  我才是这条Gai最靓的仔
         TextView searchCity = mPopupWindow.getContentView().findViewById(R.id.tv_search_city);//城市搜索
-//        TextView worldCity = mPopupWindow.getContentView().findViewById(R.id.tv_world_city);//世界城市  V7
+        TextView worldCity = mPopupWindow.getContentView().findViewById(R.id.tv_world_city);//世界城市  V7
         TextView residentCity = mPopupWindow.getContentView().findViewById(R.id.tv_resident_city);//常用城市
 //        TextView aboutUs = mPopupWindow.getContentView().findViewById(R.id.tv_about_us);//关于我们
         TextView setting = mPopupWindow.getContentView().findViewById(R.id.tv_setting);//隐私政策
@@ -826,19 +892,19 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
             showCityWindow();
             mPopupWindow.dismiss();
         });
-//        wallpaper.setOnClickListener(view -> {//壁纸管理
-////            startActivity(new Intent(context, WallPaperActivity.class));
-//            mPopupWindow.dismiss();
-//        });
+        wallpaper.setOnClickListener(view -> {//壁纸管理
+            startActivity(new Intent(context, PanoramaActivity.class));
+            mPopupWindow.dismiss();
+        });
         searchCity.setOnClickListener(view -> {//城市搜索
             SPUtils.putBoolean(Constant.FLAG_OTHER_RETURN, false, context);//缓存标识
             startActivity(new Intent(context, SearchCityActivity.class));
             mPopupWindow.dismiss();
         });
-//        worldCity.setOnClickListener(view -> {//世界城市
-////            startActivity(new Intent(context, WorldCityActivity.class));
-//            mPopupWindow.dismiss();
-//        });
+        worldCity.setOnClickListener(view -> {//世界城市
+            startActivity(new Intent(context, WorldCityActivity.class));
+            mPopupWindow.dismiss();
+        });
         residentCity.setOnClickListener(view -> {//常用城市
             SPUtils.putBoolean(Constant.FLAG_OTHER_RETURN, false, context);//缓存标识
             startActivity(new Intent(context, CommonlyUsedCityActivity.class));

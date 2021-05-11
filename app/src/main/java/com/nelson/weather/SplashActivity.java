@@ -14,6 +14,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.nelson.mvplibrary.bean.AppVersion;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
 import com.nelson.weather.bean.BiYingImgResponse;
@@ -170,9 +171,9 @@ public class SplashActivity extends MvpActivity<SplashContract.SplashPresenter> 
                     if (granted) {//申请成功
                         //得到权限可以进入APP
                         //加载世界国家数据到本地数据库,已有则不加载
-                        //initCountryData();
+                        initCountryData();
                         //请求版本更新
-                        //mPresent.getAppInfo();
+                        mPresent.getAppInfo();
                         if (isOpenLocationServiceEnable()) {
                             startLocation();//开始定位
                         } else {
@@ -265,36 +266,35 @@ public class SplashActivity extends MvpActivity<SplashContract.SplashPresenter> 
 //     *
 //     * @param response
 //     */
-//    @Override
-//    public void getAppInfoResult(Response<AppVersion> response) {
-//        if (response.body() != null) {
-//            AppVersion appVersion = new AppVersion();
-//            //应用名称
-//            appVersion.setName(response.body().getName());
-//            //应用版本 对应code
-//            appVersion.setVersion(response.body().getVersion());
-//            //应用版本名
-//            appVersion.setVersionShort(response.body().getVersionShort());
-//            //更新日志
-//            appVersion.setChangelog(response.body().getChangelog());
-//            //更新地址
-//            appVersion.setUpdate_url(response.body().getUpdate_url());
-//            //安装地址
-//            appVersion.setInstall_url(response.body().getInstall_url());
-//            //APK大小
-//            appVersion.setAppSize(String.valueOf(response.body().getBinary().getFsize()));
-//
-//            //添加数据前先判断是否已经有数据了
-//            if (LitePal.find(AppVersion.class, 1) != null) {
-//                appVersion.update(1);
-//            } else {
-//                //保存添加数据
-//                appVersion.save();
-//            }
-//
-//        }
-//    }
+    @Override
+    public void getAppInfoResult(Response<AppVersion> response) {
+        if (response.body() != null) {
+            AppVersion appVersion = new AppVersion();
+            //应用名称
+            appVersion.setName(response.body().getName());
+            //应用版本 对应code
+            appVersion.setVersion(response.body().getVersion());
+            //应用版本名
+            appVersion.setVersionShort(response.body().getVersionShort());
+            //更新日志
+            appVersion.setChangelog(response.body().getChangelog());
+            //更新地址
+            appVersion.setUpdate_url(response.body().getUpdate_url());
+            //安装地址
+            appVersion.setInstall_url(response.body().getInstall_url());
+            //APK大小
+            appVersion.setAppSize(String.valueOf(response.body().getBinary().getFsize()));
 
+            //添加数据前先判断是否已经有数据了
+            if (LitePal.find(AppVersion.class, 1) != null) {
+                appVersion.update(1);
+            } else {
+                //保存添加数据
+                appVersion.save();
+            }
+
+        }
+    }
     /**
      * 获取AllataD里的数据。
      * 通过getinstance得到。

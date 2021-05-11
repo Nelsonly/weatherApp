@@ -92,4 +92,9 @@
     <color name="ten_white">#25FFFFFF</color>
     <color name="fifth_white">#88FFFFFF</color>
     <color name="zero_white">#00FFFFFF</color>
+
+    <color name="puzzle_font_color">#FF2F2F2F</color> //拼图字体颜色
+    <color name="puzzle_go_share_fong">#FFFFFF</color> //去分享文字颜色
+    <color name="puzzle_bg_color">#FFFFFF</color> // 拼图的背景颜色
+
 </resources>

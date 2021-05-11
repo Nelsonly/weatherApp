@@ -1,5 +1,6 @@
 package com.nelson.weather.contract;
 
+import com.nelson.mvplibrary.bean.AppVersion;
 import com.nelson.weather.api.ApiService;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.BiYingImgResponse;
@@ -32,6 +33,27 @@ public class SplashContract {
     public static class SplashPresenter extends BasePresenter<ISplashView> {
         //AirNowResponse
 
+        /**
+         * 获取最新的APP版本信息
+         */
+        public void getAppInfo() {//注意这里的4表示新的搜索城市地址接口
+            ApiService service = ServiceGenerator.createService(ApiService.class, 5);
+            service.getAppInfo().enqueue(new NetCallBack<AppVersion>() {
+                @Override
+                public void onSuccess(Call<AppVersion> call, Response<AppVersion> response) {
+                    if (getView() != null) {
+                        getView().getAppInfoResult(response);
+                    }
+                }
+
+                @Override
+                public void onFailed() {
+                    if (getView() != null) {
+                        getView().getDataFailed();
+                    }
+                }
+            });
+        }
 
         public void AirNowRes(String location) {
             ApiService service = ServiceGenerator.createService(ApiService.class, 3);
@@ -256,7 +278,7 @@ public class SplashContract {
 
     public interface ISplashView extends BaseView {
         //APP信息返回
-//        void getAppInfoResult(Response<AppVersion> response);
+        void getAppInfoResult(Response<AppVersion> response);
 
         //当前天气
         void getAirNowResult(Response<AirNowResponse> response);
