@@ -854,6 +854,10 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
                 mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
                      .keyword(keyScore.getKeyName()) // 关键字
                      .city(countryScore.getCountryName())); // 城市
+            } else {
+                mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+                        .keyword("风景") // 关键字
+                        .city("北京")); // 城市
             }
         }
     //右上角的弹窗

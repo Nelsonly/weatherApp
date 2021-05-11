@@ -254,7 +254,7 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
             int oldscore = keyScore.getKeyScore();
             ContentValues values = new ContentValues();
             values.put(Constant.keyScore,score+oldscore);
-            LitePal.updateAll(CountryScore.class,values,Constant.keyName+"=?",key);
+            LitePal.updateAll(KeyScore.class,values,Constant.keyName+"=?",key);
         }else {
             KeyScore keyScore1 = new KeyScore();
             keyScore1.setKeyName(key);
