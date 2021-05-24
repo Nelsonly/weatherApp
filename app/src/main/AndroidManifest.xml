@@ -78,6 +78,25 @@
         <activity android:name=".ui.WorldCityActivity" />
         <activity android:name=".ui.WorldCityWeatherActivity" />
         <activity android:name=".ui.WorldCityListActivity" />
+        <activity
+            android:name=".sharelibrary.ShareDialogActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:theme="@style/ShareDialogTheme" />
+
+        <activity
+            android:name=".sharelibrary.ShareHandlerActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="FdnmeYZQRGZKXsGpUjDFSXQQ9MxU9epT" />

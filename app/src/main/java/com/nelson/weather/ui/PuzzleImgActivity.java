@@ -323,6 +323,7 @@ public class PuzzleImgActivity extends BaseActivity implements View.OnClickListe
         if (R.id.tv_back == id) {
             finish();
         } else if (R.id.tv_done == id) {
+            savePhoto();
             numberSeekBar.setVisibility(View.GONE);
         } else if (R.id.iv_replace == id) {
             controlFlag = -1;

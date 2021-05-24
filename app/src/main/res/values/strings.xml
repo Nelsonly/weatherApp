@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">天天好天气</string>
-    <string name="privacy_dialog_content">感谢您选择、使用天天好天气！为了给您提供更优质的天气服务，天天好天气将使用您的个人信息。请在使用前查看并同意《隐私政策》及《用户协议》，若不同意将无法使用我们的产品及服务.
-            \n\n此外，在首次安装天天好天气APP时，我们会询问您是否授权以下权限：\n
+    <string name="app_name">百变天气</string>
+    <string name="privacy_dialog_content">感谢您选择、使用百变天气！为了给您提供更优质的天气服务，百变天气将使用您的个人信息。请在使用前查看并同意《隐私政策》及《用户协议》，若不同意将无法使用我们的产品及服务.
+            \n\n此外，在首次安装百变天气APP时，我们会询问您是否授权以下权限：\n
              1、通知\n
             方便及时准确提供早晚天气和预警信息\n
             2、定位\n
             用于提供精准的位置天气服务和短时预报\n\n
             您还可以选择在系统设置功能中选择打开或关闭
             对应权限。</string>
-    <string name="privacy_dialog_title">天天好天气使用隐私政策说明</string>
+    <string name="privacy_dialog_title">百变天气使用隐私政策说明</string>
     <string name="agree_privacy">同意并进入</string>
 
     <string name="charging_screen_fully_charged_notification">已完成充电</string>

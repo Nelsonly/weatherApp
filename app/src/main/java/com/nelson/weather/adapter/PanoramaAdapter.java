@@ -66,7 +66,7 @@ public class PanoramaAdapter extends RecyclerView.Adapter<PanoramaAdapter.MyView
 
         holder.linearLayout.setOnClickListener(v -> {
             if(itemClicklistener != null){
-                itemClicklistener.onCitysClick(suggest.get(position).get("tag"),suggest.get(position).get("uid"),suggest.get(position).get("city"));
+                itemClicklistener.onCitysClick(suggest.get(position).get("tag"),suggest.get(position).get("uid"),suggest.get(position).get("city"),suggest.get(position).get("dis"));
             }
         });
     }
@@ -104,7 +104,7 @@ public class PanoramaAdapter extends RecyclerView.Adapter<PanoramaAdapter.MyView
          * 点击表情回调地址
          * @param path
          */
-        void onCitysClick(String key,String path,String city);
+        void onCitysClick(String key,String path,String city,String dis);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
