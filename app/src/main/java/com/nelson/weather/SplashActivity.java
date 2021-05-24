@@ -19,6 +19,7 @@ import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.EpidemicDataResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
@@ -371,6 +372,11 @@ public class SplashActivity extends MvpActivity<SplashContract.SplashPresenter> 
     }
 
     @Override
+    public void getEpidemicResult(Response<EpidemicDataResponse> responseResponse) {
+        AllDatas.getInstance().setEpidemicDataResponse(responseResponse.body());
+    }
+
+    @Override
     public void getNowResult(Response<NowResponse> response) {
         if(response.body()!=null) {
             AllDatas.getInstance().setNowResponse(response.body());
@@ -400,6 +406,7 @@ public class SplashActivity extends MvpActivity<SplashContract.SplashPresenter> 
             String city = location.getCity();//获取市
             if(city !=null&& district !=null) {
                 SPUtils.putString("location", district + " " + location.getStreet(), context);
+                mPresent.epidemic(city);
                 SPUtils.putString(Constant.allLocation, city + district, context);
                 SPUtils.putString(Constant.DISTRICT, district, context);
                 //在数据请求之前放在加载等待弹窗，返回结果后关闭弹窗

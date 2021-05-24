@@ -34,6 +34,7 @@ import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.AllDatas;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.EpidemicDataResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
@@ -124,18 +125,13 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
                     finish();
                 }
                 return true;
-            } else if (fragQueue.size() == 1) {
-                viewPager2.setCurrentItem(0);
+            }
+            else if (fragQueue.size() == 1) {
+                isFirst = false;
                 return true;
             } else {
                 fragQueue.pop();
                 viewPager2.setCurrentItem(fragQueue.pop());
-                if (fragQueue.size()>=2 ) {
-                    int temp = fragQueue.pop();
-                    fragQueue.clear();
-                    fragQueue.push(0);
-                    fragQueue.push(temp);
-                }
                 return true;
             }
         }
@@ -172,7 +168,7 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         DailyFragment dailyFragment = new DailyFragment();
         indexFragment = new IndexFragment(this, this, this);
         AriQualityFragment ariQualityFragment = new AriQualityFragment();
-
+        fragQueue.push(0);
         fragments.add(indexFragment);
         fragments.add(dailyFragment);
         fragments.add(ariQualityFragment);
@@ -201,7 +197,13 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
                     fragQueue.push(position);
                 }
                 else if (fragQueue.peek() != position) {
-                    fragQueue.push(position);
+//                    fragQueue.push(position);
+                    if (fragQueue.search(position) != -1){
+                        fragQueue.remove(fragQueue.search(position));
+                        fragQueue.push(position);
+                    }else{
+                        fragQueue.push(position);
+                    }
                 }
             }
 
@@ -509,6 +511,8 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         showLoadingDialog();
         //相应事件时
         mPresent.newSearchCity(event.mLocation);
+        mPresent.epidemic(event.mCity);
+        Log.d("zhangyuhong", "onEvent: "+event.mLocation+"   "+event.mCity);
         Log.d("event22", "onEvent");
     }
 
@@ -611,4 +615,10 @@ public class WeatherMainActivity extends MvpActivity<AllDataContract.AllDataPres
         return apkFile;
     }
 
+    @Override
+    public void getEpidemicResult(Response<EpidemicDataResponse> responseResponse) {
+        EpidemicDataResponse response = responseResponse.body();
+        AllDatas.getInstance().setEpidemicDataResponse(response);
+        Log.d("zhangyuhong", "getEpidemicResult: "+response.getConfirm()+" "+response.getNowConfirm()+"  "+response.getUpdated());
+    }
 }

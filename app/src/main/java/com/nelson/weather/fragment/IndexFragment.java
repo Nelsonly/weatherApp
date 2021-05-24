@@ -54,6 +54,7 @@ import com.nelson.weather.bean.AllDatas;
 import com.nelson.weather.bean.CityResponse;
 import com.nelson.weather.bean.DailyIndexBean;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.EpidemicDataResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyIndexBean;
@@ -121,6 +122,7 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     ImageView ivIllu;
     ImageView ivBig;
     AlwaysMarqueeTextView tv_scroll;
+    AlwaysMarqueeTextView tv_epidemic;
     TextView tv_temp;
     TextView tv_weather_info;
     TextView tv_air;
@@ -217,8 +219,16 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         tv_addlocation = getActivity().findViewById(R.id.tv_addLocation);
         tvWarn = getActivity().findViewById(R.id.tv_warn);
         iv_add = getActivity().findViewById(R.id.iv_add);
-        tv_scroll.setHorizontallyScrolling(true);
-        tvWarn.setHorizontallyScrolling(true);
+        tv_epidemic = getActivity().findViewById(R.id.tv_epidemic);
+        if(tv_epidemic!=null){
+            tv_epidemic.setHorizontallyScrolling(true);
+        }
+        if(tv_scroll!=null) {
+            tv_scroll.setHorizontallyScrolling(true);
+        }
+        if(tvWarn!=null) {
+            tvWarn.setHorizontallyScrolling(true);
+        }
         toolbar = getActivity().findViewById(R.id.toolbar);
         location_btn = getActivity().findViewById(R.id.location_btn);
         index_nolocation = getActivity().findViewById(R.id.index_nolocation);
@@ -340,6 +350,31 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         } else {
             ToastUtils.showShortToast(context, CodeToStringUtils.WeatherCode(response.body().getCode()));
         }
+    }
+    private void EpidemicRefresh(EpidemicDataResponse dataResponse){
+        String s  = "";
+        if (dataResponse.getNowConfirm() == 0){
+            s = "当前地区没有确诊病例，但也要注意疫情防控工作哦。";
+            tv_epidemic.setTextColor(Color.BLACK);
+        } else{
+            if (dataResponse.getUpdated()) {
+                s = "昨日没有新增病例";
+            } else {
+                s = "昨日新增病例" + dataResponse.getConfirm() + "人，";
+            }
+            s += "目前现存确诊" + dataResponse.getNowConfirm() + "例，";
+            if (dataResponse.getNowConfirm()<=10) {
+                s += "尽量少出门，注意做好疫情防控哦。";
+                tv_epidemic.setTextColor(Color.YELLOW);
+            }else {
+                tv_epidemic.setTextColor(Color.RED);
+                s += "注意少出门、勤洗手、出门带好口罩，多多注意疫情防控。";
+            }
+        }
+
+        tv_epidemic.setText(s);
+        tv_epidemic.setVisibility(View.VISIBLE);
+
     }
     private void NowRefresh (NowResponse data){
         tv_temp.setText(data.getNow().getTemp());
@@ -729,11 +764,12 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
     }
 
     @Override
-    public void onCitysClick(String key,String path, String city) {
+    public void onCitysClick(String key,String path, String city,String district) {
         Intent intent = new Intent(context,PanoramaActivity.class);
         intent.putExtra("tag",key);
         intent.putExtra("city",city);
         intent.putExtra("path",path);
+        intent.putExtra("dis",district);
         startActivity(intent);
     }
 
@@ -846,11 +882,14 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         if(AllDatas.getInstance().getHistoryResponse()!=null) {
             historyRefresh(AllDatas.getInstance().getHistoryResponse());
         }
+        if (AllDatas.getInstance().getEpidemicDataResponse()!=null){
+            EpidemicRefresh(AllDatas.getInstance().getEpidemicDataResponse());
+        }
 
         // 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
         CountryScore countryScore = LitePal.order(Constant.countryScore+" desc").findFirst(CountryScore.class);
         KeyScore keyScore = LitePal.order(Constant.keyScore+" desc").findFirst(KeyScore.class);
-        if(countryScore!=null||keyScore!=null) {
+        if(!"".equals(countryScore.getCountryName()) || (!"".equals(keyScore.getKeyName()))) {
                 mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
                      .keyword(keyScore.getKeyName()) // 关键字
                      .city(countryScore.getCountryName())); // 城市
@@ -895,6 +934,7 @@ public class IndexFragment extends MvpFragment<WeatherContract.WeatherPresenter>
         changeCity.setOnClickListener(view -> {//切换城市
             showCityWindow();
             mPopupWindow.dismiss();
+            tv_epidemic.setVisibility(View.GONE);
         });
         wallpaper.setOnClickListener(view -> {//壁纸管理
             startActivity(new Intent(context, PanoramaActivity.class));

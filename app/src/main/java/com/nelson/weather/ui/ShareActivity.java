@@ -88,7 +88,7 @@ public class ShareActivity extends BaseActivity {
         }
         testBean = new ShareEntity("我是标题", "我是内容，描述内容。");
         bgWithoutWater = TransportBitmap.getInstance().getBitmap();
-        EasyPhotos.saveBitmapToDir((Activity) this.getApplicationContext(),
+        EasyPhotos.saveBitmapToDir((Activity) this,
                 Environment.getExternalStorageDirectory().getAbsoluteFile() + "/" + Environment.DIRECTORY_PICTURES + "/" + getString(R.string.app_name),
                     SAVE_PRE_IMG, bgWithoutWater, true, new
 //                getSavingPath(this.getApplicationContext(),getString(R.string.app_name)), SAVE_PRE_IMG, bgWithoutWater, true, new

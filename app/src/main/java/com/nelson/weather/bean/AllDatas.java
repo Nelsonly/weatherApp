@@ -15,6 +15,15 @@ public class AllDatas {
     private HistoryResponse historyResponse;
     private HourlyResponse hourlyResponse;
     private WarningResponse warningResponse;
+    private EpidemicDataResponse epidemicDataResponse;
+
+    public EpidemicDataResponse getEpidemicDataResponse() {
+        return epidemicDataResponse;
+    }
+
+    public void setEpidemicDataResponse(EpidemicDataResponse epidemicDataResponse) {
+        this.epidemicDataResponse = epidemicDataResponse;
+    }
 
     public HourlyResponse getHourlyResponse() {
         return hourlyResponse;

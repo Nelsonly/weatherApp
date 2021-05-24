@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.baidu.lbsapi.panoramaview.PanoramaView;
 import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
@@ -24,9 +25,13 @@ import com.nelson.mvplibrary.bean.KeyScore;
 
 import com.baidu.lbsapi.panoramaview.*;
 import com.baidu.lbsapi.BMapManager;
+import com.nelson.mvplibrary.mvp.MvpActivity;
 import com.nelson.weather.R;
 import com.nelson.weather.WeatherApplication;
 import com.nelson.weather.adapter.PanoramaAdapter;
+import com.nelson.weather.bean.NewSearchCityResponse;
+import com.nelson.weather.bean.NowResponse;
+import com.nelson.weather.contract.NowContract;
 import com.nelson.weather.utils.Constant;
 
 
@@ -37,13 +42,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.Response;
 
 /**
  * @author nelson
  */
-public class PanoramaActivity extends BaseActivity implements OnGetSuggestionResultListener , PanoramaAdapter.OnItemClickListener {
+public class PanoramaActivity extends MvpActivity<NowContract.NowPresenter> implements NowContract.IWeatherView, OnGetSuggestionResultListener , PanoramaAdapter.OnItemClickListener {
 
-        @Override
+    @Override
     public void initBeforeView(Bundle savedInstanceState) {
         super.initBeforeView(savedInstanceState);
         WeatherApplication app = (WeatherApplication) this.getApplication();
@@ -53,8 +59,19 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
         }
     }
 
+    @Override
+    protected NowContract.NowPresenter createPresent() {
+        return new NowContract.NowPresenter();
+    }
+
     @BindView(R.id.panorama)
     PanoramaView mPanoView;
+    @BindView(R.id.tv_pan_temp)
+    TextView tvPanTemp;
+    @BindView(R.id.tv_pan_wind)
+    TextView tvPanWind;
+    @BindView(R.id.tv_pan_weather)
+    TextView tvPanWeather;
     private SuggestionSearch mSuggestionSearch = null;
 
     // 搜索关键字输入窗口
@@ -68,6 +85,7 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
     private int score;
     private String uid;
     private String key;
+    private String dis;
     //    PanoramaView mPanoView;
     @Override
     public void initData(Bundle savedInstanceState) {
@@ -75,6 +93,8 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
         key = intent.getStringExtra("tag");
         city = intent.getStringExtra("city");
         uid  = intent.getStringExtra("path");
+        dis = intent.getStringExtra("dis");
+        mPresent.newSearchCity(dis);
         mPanoView.setPanoramaViewListener(new PanoramaViewListener() {
             @Override
             public void onLoadPanoramaBegin() {
@@ -203,9 +223,10 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
                 HashMap<String, String> map = new HashMap<>();
                 map.put("key",info.getKey());
                 map.put("tag",info.getTag());
-                map.put("dis",info.getTag());
+                map.put("dis",info.getDistrict());
                 map.put("city",info.getCity());
                 map.put("uid",info.getUid());
+                map.put("address",info.getAddress());
                 suggest.add(map);
             }
         }
@@ -219,7 +240,9 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
     }
 
     @Override
-    public void onCitysClick(String key,String uid,String city) {
+    public void onCitysClick(String key,String uid,String city,String dis) {
+        mPresent.newSearchCity(dis);
+
         endTime = System.currentTimeMillis();
         int score = (int) (endTime-startTime)/3600/10+5;
         saveToSql(this.key,this.city,this.score);
@@ -230,7 +253,7 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
         this.score = score;
     }
     private void saveToSql(String key,String city,int score){
-        if(city == null || key == null) {
+        if("".equals(city) || "".equals(key)) {
             return;
         }
         if (score == 0){
@@ -263,4 +286,25 @@ public class PanoramaActivity extends BaseActivity implements OnGetSuggestionRes
         }
     }
 
+    @Override
+    public void getWeatherDataFailed() {
+
+    }
+
+    @Override
+    public void getNewSearchCityResult(Response<NewSearchCityResponse> response) {
+        if (response.body().getCode().equals(Constant.SUCCESS_CODE)) {
+            mPresent.nowWeather(response.body().getLocation().get(0).getId());
+        }
+    }
+
+    @Override
+    public void getNowResult(Response<NowResponse> response) {
+        if(response.body().getCode().equals(Constant.SUCCESS_CODE)){
+            NowResponse nowResponse = response.body();
+            tvPanTemp.setText(nowResponse.getNow().getTemp()+"°C");
+            tvPanWeather.setText(nowResponse.getNow().getText());
+            tvPanWind.setText(nowResponse.getNow().getWindDir()+" "+nowResponse.getNow().getWindSpeed()+"级");
+        }
+    }
 }

@@ -138,7 +138,7 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
             i++;
         }
 //        mFragments.get(1).set_ad_visibility();
-        mFragments.get(1).setIstoday(true);
+        mFragments.get(0).setIstoday(true);
         rectFlow(showWeek);
     }
 
@@ -175,8 +175,8 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
         dailyBean.setAqi(nowBean.getAqi());
         dailyBean.setPrimary(nowBean.getPrimary());
         dailyBean.setCategory(nowBean.getCategory());
-        mFragments.get(1).setMoreAirFiveResponse(dailyBean);
-        mFragments.get(1).setvisiableair(true);
+        mFragments.get(0).setMoreAirFiveResponse(dailyBean);
+        mFragments.get(0).setvisiableair(true);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class DailyFragment extends MvpFragment<MoreDailyContract.MoreDailyPresen
         flowLayout.setViewPager(mViewPager)
                 .setTextId(R.id.item_text)
                 .setSelectedColor(Color.WHITE)
-                .setDefaultPosition(1)
+                .setDefaultPosition(0)
                 .setUnSelectedColor(getResources().getColor(R.color.unselect));
         flowLayout.setAdapter(new TabFlowAdapter<String>(R.layout.item_daily_week, mTitle2) {
 //            @RequiresApi(api = Build.VERSION_CODES.P)

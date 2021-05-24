@@ -6,6 +6,7 @@ import com.nelson.weather.api.ApiService;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.EpidemicDataResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
@@ -248,7 +249,27 @@ public class AllDataContract {
                 }
             });
         }
+        /**
+         * 获取
+         */
+        public void epidemic(String location) {
+            ApiService service = ServiceGenerator.createService(ApiService.class, 7);
+            service.epidemicData(location).enqueue(new NetCallBack<EpidemicDataResponse>() {
+                @Override
+                public void onSuccess(Call<EpidemicDataResponse> call, Response<EpidemicDataResponse> response) {
+                    if (getView() != null) {
+                        getView().getEpidemicResult(response);
+                    }
+                }
 
+                @Override
+                public void onFailed() {
+                    if (getView() != null) {
+                        getView().getDataFailed();
+                    }
+                }
+            });
+        }
     }
 
     public interface IAllDataView extends BaseView {
@@ -274,5 +295,6 @@ public class AllDataContract {
         void  getNowWarnResult(Response<WarningResponse> response);
         void getBiYingResult(Response<BiYingImgResponse> response);
         void   getNowResult(Response<NowResponse> response);
+        void getEpidemicResult(Response<EpidemicDataResponse> responseResponse);
     }
 }

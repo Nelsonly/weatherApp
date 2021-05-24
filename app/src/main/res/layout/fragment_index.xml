@@ -179,22 +179,6 @@
                 android:includeFontPadding="false"
                 tools:text="北京市气象台2020年12月10时30分发布大风预警报告：海淀区居民北京市气象台2020年12月10时30分发布大风预警报告：海淀区居民"/>
 
-                <!-- 广告-->
-                <!--<include
-                    layout="@layout/ad_native_tab"
-                    android:layout_width="164dp"
-                    android:layout_height="79dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="33dp"
-                    android:layout_marginLeft="14dp"/>-->
-                <FrameLayout
-                    android:id="@+id/ad_tab_container"
-                    android:layout_width="164dp"
-                    android:layout_height="79dp"
-                    android:layout_gravity="bottom"
-                    android:visibility="gone"
-                    android:layout_marginBottom="33dp"
-                    android:layout_marginLeft="14dp"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -344,8 +328,32 @@
                         android:lineSpacingExtra="23sp"
                         android:text="0"
                         />
-                </RelativeLayout>
 
+                    <com.nelson.mvplibrary.view.AlwaysMarqueeTextView
+                        android:id="@+id/tv_epidemic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="14dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_toEndOf="@+id/tv_weather_info"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/inter"
+                        android:lineSpacingExtra="21sp"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp"
+                        android:textStyle="normal"
+                        android:visibility = "gone"
+                        tools:text="昨日新增10人，现有病例20人，出门请注意防护哦." />
+
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -611,9 +619,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-            <include layout="@layout/item_forecast_15day"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+
             <androidx.cardview.widget.CardView
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
@@ -692,7 +698,9 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
+            <include layout="@layout/item_forecast_15day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
             <androidx.cardview.widget.CardView
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"

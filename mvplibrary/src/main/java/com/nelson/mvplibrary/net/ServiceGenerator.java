@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * 接口地址管理
  *
- * @author llw
+ *
  */
 public class ServiceGenerator {
 
@@ -21,7 +21,7 @@ public class ServiceGenerator {
      */
     //地址
     public static String BASE_URL = null;
-
+    public static boolean NeedIgnoreSSL = false;
     private static String urlType(int type) {
         switch (type) {
             //和风天气
@@ -57,6 +57,9 @@ public class ServiceGenerator {
                 //网络手机壁纸返回地址
                 BASE_URL = "http://service.picasso.adesk.com";
                 break;
+            case 7:
+                BASE_URL = "http://192.168.238.126:5000/";
+                break;
             default:
                 break;
         }
@@ -73,9 +76,16 @@ public class ServiceGenerator {
      */
     public static <T> T createService(Class<T> serviceClass, int type) {
 
-        //创建OkHttpClient构建器对象
-        OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
-
+        OkHttpClient.Builder okHttpClientBuilder;
+        if (NeedIgnoreSSL) {
+            okHttpClientBuilder = new OkHttpClient()
+                    .newBuilder()
+                    .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())//调用
+                    .hostnameVerifier(SSLSocketClient.getHostnameVerifier());//调用;
+        }else {
+            //创建OkHttpClient构建器对象
+            okHttpClientBuilder = new OkHttpClient.Builder();
+        }
         //设置请求超时的时间，这里是10秒
         okHttpClientBuilder.connectTimeout(20000, TimeUnit.MILLISECONDS);
 
@@ -88,6 +98,7 @@ public class ServiceGenerator {
         //BODY:请求/响应航 + 头 + 体
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //为OkHttp添加消息拦截器
+
         okHttpClientBuilder.addInterceptor(httpLoggingInterceptor);
 
         //在Retrofit中设置httpclient

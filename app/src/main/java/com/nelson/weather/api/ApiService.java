@@ -5,6 +5,7 @@ import com.nelson.mvplibrary.bean.AppVersion;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.EpidemicDataResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
@@ -29,7 +30,7 @@ import static com.nelson.weather.utils.Constant.UPDATE_USER_ID;
 /**
  * API服务接口
  *
- * @author llw
+ * @author nelson
  */
 public interface ApiService {
     /**
@@ -183,4 +184,9 @@ public interface ApiService {
     @GET("/v7/historical/weather?key="+API_KEY)
     Call<HistoryResponse> historyWeather(@Query("location")String location, @Query("date")String date);
 
+    /**
+     *
+     */
+    @GET("/tasks/{location}")
+    Call<EpidemicDataResponse> epidemicData(@Path("location") String location);
 }

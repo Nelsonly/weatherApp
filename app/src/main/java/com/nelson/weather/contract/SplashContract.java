@@ -5,6 +5,7 @@ import com.nelson.weather.api.ApiService;
 import com.nelson.weather.bean.AirNowResponse;
 import com.nelson.weather.bean.BiYingImgResponse;
 import com.nelson.weather.bean.DailyResponse;
+import com.nelson.weather.bean.EpidemicDataResponse;
 import com.nelson.weather.bean.HistoryAirResponse;
 import com.nelson.weather.bean.HistoryResponse;
 import com.nelson.weather.bean.HourlyResponse;
@@ -252,6 +253,29 @@ public class SplashContract {
                 }
             });
         }
+        /**
+         * 疫情数据
+         *
+         * @param location 城市名
+         */
+        public void epidemic(String location) {//这个3 表示使用新的V7API访问地址
+            ApiService service = ServiceGenerator.createService(ApiService.class, 7);
+            service.epidemicData(location).enqueue(new NetCallBack<EpidemicDataResponse>() {
+                @Override
+                public void onSuccess(Call<EpidemicDataResponse> call, Response<EpidemicDataResponse> response) {
+                    if (getView() != null) {
+                        getView().getEpidemicResult(response);
+                    }
+                }
+
+                @Override
+                public void onFailed() {
+                    if (getView() != null) {
+                        getView().getDataFailed();
+                    }
+                }
+            });
+        }
 
         /**
          * 获取最新的APP版本信息
@@ -302,5 +326,7 @@ public class SplashContract {
         void  getNowWarnResult(Response<WarningResponse> response);
 
         void   getNowResult(Response<NowResponse> response);
+
+        void  getEpidemicResult(Response<EpidemicDataResponse> responseResponse);
     }
 }
